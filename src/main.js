@@ -4,6 +4,9 @@ import router from "./router";
 import "./registerServiceWorker";
 import { createProvider } from "./vue-apollo";
 import "./assets/tailwind.css";
+import FontAwesomeIcon from "./plugins/FontAwesomeIcon";
+
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 

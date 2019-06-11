@@ -47,21 +47,22 @@
       `
     "
     :variables="{ id: edition.id }"
-    :update="
-      data =>
-        data.edition.nominations.nodes.filter(
-          nomination => nomination.category.important
-        )
-    "
+    :update="data => groupByMovie(data)"
   >
     <template v-slot="{ result: { data, error }, isLoading }">
       <div v-if="isLoading">Loading...</div>
       <div v-else-if="data" class="mb-8 mt-4">
-        <award-edition-nomination
-          v-for="nomination in data"
-          :key="nomination.id"
-          :nomination="nomination"
-        />
+        <div v-for="movie in data" :key="movie[0].movie.id" class="mb-4">
+          <h3 class="flex items-center">
+            {{ movie[0].movie.title }}
+            <nomination-stars :nominations="movie"/>
+          </h3>
+          <award-edition-nomination
+            v-for="nomination in movie"
+            :key="nomination.id"
+            :nomination="nomination"
+          />
+        </div>
       </div>
       <div v-else>Error...</div>
     </template>
@@ -70,12 +71,23 @@
 
 <script>
 import AwardEditionNomination from "./AwardEditionNomination";
+import NominationStars from "./NominationStars";
+const groupBy = require("lodash.groupby");
 export default {
-  components: { AwardEditionNomination },
+  components: { AwardEditionNomination, NominationStars },
   props: {
     edition: {
       type: Object,
       default: undefined
+    }
+  },
+  methods: {
+    groupByMovie(data) {
+      const winners = data.edition.nominations.nodes.filter(
+        nomination => nomination.category.important
+      );
+      console.log(winners);
+      return groupBy(winners, "movie.id");
     }
   }
 };

@@ -1,28 +1,27 @@
 <template>
-  <p>
-    <span v-if="nomination.category.display === 'person'">
-      <span v-for="nominatedPerson in nomination.nominatedPeople.nodes" :key="nominatedPerson.id">
-        {{ nominatedPerson.person.name }}
-        <span v-if="nominatedPerson.character">({{ nominatedPerson.character }})</span>&nbsp;
-      </span>
-      /
-    </span>
-    {{ nomination.movie.title }}
-    <br />
-    {{ nomination.category.name }}
-  </p>
+  <div class="flex items-center">
+    <award-edition-nomination-person
+      v-if="nomination.category.display === 'person'"
+      :nomination="nomination"
+    />
+    <award-edition-nomination-movie v-else :nomination="nomination" />
+  </div>
 </template>
 
 <script>
+import AwardEditionNominationPerson from "./AwardEditionNominationPerson";
+import AwardEditionNominationMovie from "./AwardEditionNominationMovie";
+
 export default {
-  name: 'AwardEditionNomination',
+  name: "AwardEditionNomination",
+  components: { AwardEditionNominationMovie, AwardEditionNominationPerson },
   props: {
     nomination: {
       type: Object,
       required: true
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

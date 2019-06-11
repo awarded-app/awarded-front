@@ -1,18 +1,22 @@
 <template>
-  <li>
-    <font-awesome-icon icon="plus" />
-    <span @click="showNominations = !showNominations"
-      >{{ getYear(edition.date) }} - {{ edition.name }}</span
-    >
-    <award-edition-nominations v-if="showNominations" :edition="edition" />
-  </li>
+  <div class="mb-4">
+    <div class="flex items-center">
+      <plus-sign/>
+      <h2 @click="showNominations = !showNominations">{{ getYear(edition.date) }}</h2>
+    </div>
+
+    <p class="text-gray-500 ml-8">{{ edition.name }}</p>
+    <award-edition-nominations-alt v-if="showNominations" :edition="edition"/>
+  </div>
 </template>
 
 <script>
-import AwardEditionNominations from "./AwardEditionNominations";
+import AwardEditionNominationsAlt from "./AwardEditionNominationsAlt";
+import PlusSign from "./PlusSign";
 export default {
   components: {
-    AwardEditionNominations
+    AwardEditionNominationsAlt,
+    PlusSign
   },
   props: {
     edition: {

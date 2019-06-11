@@ -17,7 +17,11 @@
     <template v-slot="{ result: { data, error }, isLoading }">
       <div v-if="isLoading">Loading...</div>
       <div v-else-if="data">
-        <award v-for="award in data.awards.nodes" :key="award.id" :award="award"/>
+        <award
+          v-for="award in data.awards.nodes"
+          :key="award.id"
+          :award="award"
+        />
       </div>
       <div v-else>Error...</div>
     </template>

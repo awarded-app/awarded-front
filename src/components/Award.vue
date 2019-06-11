@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="flex items-center mb-4">
-      <font-awesome-icon icon="plus" />
-      <img :src="logoPath" :alt="logoAlt" />
-      <span @click="showEditions = !showEditions">{{ award.nameShort }}</span>
+      <plus-sign />
+      <!-- <img :src="logoPath" :alt="logoAlt" /> -->
+      <h1 @click="showEditions = !showEditions">{{ award.nameShort }}</h1>
     </div>
     <award-editions v-if="showEditions" :award-id="award.id" />
   </div>
@@ -11,9 +11,11 @@
 
 <script>
 import AwardEditions from "./AwardEditions";
+import PlusSign from "./PlusSign";
+
 export default {
   name: "Award",
-  components: { AwardEditions },
+  components: { AwardEditions, PlusSign },
   props: {
     award: {
       type: Object,

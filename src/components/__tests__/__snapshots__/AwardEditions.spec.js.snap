@@ -7,13 +7,13 @@ exports[`EditionList.vue displayed awards correctly with query data 1`] = `
   >
     <!---->
 
-    <award-edition-stub
+    <edition-list-item-stub
       edition="[object Object]"
     />
-    <award-edition-stub
+    <edition-list-item-stub
       edition="[object Object]"
     />
-    <award-edition-stub
+    <edition-list-item-stub
       edition="[object Object]"
     />
   </div>

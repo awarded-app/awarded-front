@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import mergeWith from "lodash.mergewith";
 import { customizer } from "./helper";
-import AwardEdition from "../AwardEdition";
+import EditionListItem from "../EditionListItem";
 import AwardEditionNominations from "../AwardEditionNominations";
 import PlusSign from "../PlusSign";
 
@@ -33,12 +33,12 @@ function createWrapper(overrides) {
     localVue
   };
   return shallowMount(
-    AwardEdition,
+    EditionListItem,
     mergeWith(defaultMountingOptions, overrides, customizer)
   );
 }
 
-describe("AwardEdition.vue", () => {
+describe("EditionListItem.vue", () => {
   test("contains PlusSign child component", () => {
     const wrapper = createWrapper();
     expect(wrapper.find(PlusSign).exists()).toBe(true);

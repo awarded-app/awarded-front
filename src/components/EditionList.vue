@@ -3,7 +3,7 @@
     <spinner v-if="$apollo.loading" />
     <div v-else-if="editions">
       <p v-if="editions.totalCount === 0">No editions!</p>
-      <award-edition
+      <edition-list-item
         v-for="edition in editions.nodes"
         :key="edition.id"
         :edition="edition"
@@ -16,11 +16,11 @@
 <script>
 import gql from "graphql-tag";
 import Spinner from "./Spinner";
-import AwardEdition from "@/components/AwardEdition";
+import EditionListItem from "@/components/EditionListItem";
 
 export default {
   name: "EditionsList",
-  components: { AwardEdition, Spinner },
+  components: { EditionListItem, Spinner },
   props: {
     awardId: {
       type: Number,
@@ -43,7 +43,7 @@ export default {
             }
           }
         }
-        ${AwardEdition.fragments.edition}
+        ${EditionListItem.fragments.edition}
       `,
       variables() {
         return {

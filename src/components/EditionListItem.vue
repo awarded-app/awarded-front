@@ -23,6 +23,7 @@ import gql from "graphql-tag";
 import AwardEditionNominations from "./AwardEditionNominations";
 import PlusSign from "./PlusSign";
 export default {
+  name: "EditionListItem",
   components: {
     AwardEditionNominations,
     PlusSign

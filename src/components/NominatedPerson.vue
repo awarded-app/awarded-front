@@ -15,7 +15,7 @@ export default {
     nominatedPerson: {
       type: Object,
       required: true
-    },
+    }
   },
   fragments: {
     nominatedPerson: gql`
@@ -33,6 +33,7 @@ export default {
         prize {
           id
           name
+          order
         }
       }
     `

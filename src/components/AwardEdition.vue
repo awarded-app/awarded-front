@@ -1,18 +1,19 @@
 <template>
-  <div class="mb-4">
-    <div class="flex items-center">
-      <plus-sign @click="toggleNominations" />
-      <button @click="toggleNominations" />
-      <h2>
-        <router-link
-          class="title-link"
-          tag="a"
-          :to="`/award/${edition.award.nameShort}/${getYear(edition.date)}`"
-          >{{ getYear(edition.date) }}</router-link
-        >
-      </h2>
+  <div class="mb-2">
+    <div class="sm:flex sm:items-center sm:flex-wrap">
+      <div class="flex items-center flex-wrap">
+        <plus-sign @click="toggleNominations" />
+        <h2>
+          <router-link
+            class="title-link"
+            tag="a"
+            :to="`/award/${edition.award.nameShort}/${getYear(edition.date)}`"
+            >{{ getYear(edition.date) }}</router-link
+          >
+        </h2>
+      </div>
+      <h2 class="block text-gray-500 ml-6 sm:ml-2">{{ edition.name }}</h2>
     </div>
-    <p class="text-gray-500 ml-6 lg:ml-8">{{ edition.name }}</p>
     <award-edition-nominations v-if="showNominations" :edition="edition" />
   </div>
 </template>

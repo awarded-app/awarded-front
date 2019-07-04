@@ -21,6 +21,7 @@
 <script>
 import gql from "graphql-tag";
 import NominationList from "./NominationList";
+import AwardListItem from "@/components/AwardListItem";
 import PlusSign from "./PlusSign";
 export default {
   name: "EditionListItem",
@@ -47,9 +48,10 @@ export default {
         id
         poster
         award {
-          nameShort
+          ...award
         }
       }
+      ${AwardListItem.fragments.award}
     `
   },
   methods: {

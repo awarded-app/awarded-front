@@ -2,7 +2,7 @@
   <div class="mb-2">
     <div class="sm:flex sm:items-center sm:flex-wrap">
       <div class="flex items-center flex-wrap">
-        <plus-sign @click="toggleNominations" />
+        <plus-sign @click="showNominations = !showNominations" />
         <h2>
           <router-link
             class="title-link"
@@ -59,9 +59,6 @@ export default {
       const d = new Date(date);
       return d.getFullYear();
     },
-    toggleNominations() {
-      this.showNominations = !this.showNominations;
-    }
   }
 };
 </script>

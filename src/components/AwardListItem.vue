@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex items-center mb-4">
-      <plus-sign @click="toggleEditions" />
+      <plus-sign @click="showEditions = !showEditions" />
       <h1>
         <router-link
           class="title-link"
@@ -23,11 +23,9 @@
 import gql from "graphql-tag";
 import EditionList from "./EditionList";
 
-import PlusSign from "./PlusSign";
-
 export default {
   name: "AwardListItem",
-  components: { EditionList, PlusSign },
+  components: { EditionList },
   props: {
     award: {
       type: Object,
@@ -56,14 +54,11 @@ export default {
   data() {
     return {
       showEditions: false,
-      logoPath: `https://awarded.imgix.net/awards/logos/${this.award.logo}?w=50&h=50`,
+      logoPath: `https://awarded.imgix.net/awards/logos/${
+        this.award.logo
+      }?w=50&h=50`,
       logoAlt: `Logo for ${this.award.nameShort}`
     };
-  },
-  methods: {
-    toggleEditions() {
-      this.showEditions = !this.showEditions;
-    }
   }
 };
 </script>

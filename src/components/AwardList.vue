@@ -1,8 +1,8 @@
 <template>
   <div>
-    <spinner v-if="$apollo.loading"/>
+    <spinner v-if="$apollo.loading" />
     <div v-else-if="awards">
-      <award v-for="award in awards.nodes" :key="award.id" :award="award"/>
+      <award v-for="award in awards.nodes" :key="award.id" :award="award" />
     </div>
     <div v-else>Error...</div>
   </div>
@@ -13,7 +13,7 @@ import gql from "graphql-tag";
 import Spinner from "./Spinner";
 import Award from "./Award";
 export default {
-  name: "Awards",
+  name: "AwardList",
   components: { Award, Spinner },
   data() {
     return {

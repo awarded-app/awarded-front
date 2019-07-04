@@ -1,17 +1,16 @@
 <template>
   <div class="home">
-    <awards />
+    <award-list />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import Awards from "../components/Awards.vue";
+import AwardList from "@/components/AwardList.vue";
 
 export default {
   name: "home",
   components: {
-    Awards
+    AwardList
   }
 };
 </script>

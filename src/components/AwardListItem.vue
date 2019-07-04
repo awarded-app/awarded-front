@@ -37,18 +37,19 @@ export default {
   fragments: {
     award: gql`
       fragment award on Award {
+        nodeId
         id
         link
         logo
         nameLong
         nameShort
-        nodeId
         description
         country {
           id
           code
           name
         }
+        isFestival
       }
     `
   },

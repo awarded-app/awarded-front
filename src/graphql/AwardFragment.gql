@@ -1,6 +1,0 @@
-fragment award on Award {
-  id
-  nameShort
-  nameLong
-  logo
-}

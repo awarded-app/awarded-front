@@ -1,5 +1,0 @@
-fragment movie on Movie {
-  id
-  title
-  posterPath
-}

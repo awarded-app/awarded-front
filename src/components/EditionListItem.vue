@@ -25,7 +25,7 @@
 <script>
 import gql from "graphql-tag";
 import NominationList from "./NominationList";
-import AwardListItem from "@/components/AwardListItem";
+//import AwardListItem from "./AwardListItem";
 
 export default {
   name: "EditionListItem",
@@ -54,7 +54,21 @@ export default {
           ...award
         }
       }
-      ${AwardListItem.fragments.award}
+      fragment award on Award {
+        nodeId
+        id
+        link
+        logo
+        nameLong
+        nameShort
+        description
+        country {
+          id
+          code
+          name
+        }
+        isFestival
+      }
     `
   }
 };

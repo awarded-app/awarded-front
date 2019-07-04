@@ -42,6 +42,7 @@ import MovieLink from "./MovieLink";
 import AwardEditionNomination from "./AwardEditionNomination";
 const groupBy = require("lodash.groupby");
 export default {
+  name: "NominationList",
   components: {
     AwardEditionNomination,
     Spinner,

@@ -14,18 +14,18 @@
       </div>
       <h2 class="block text-gray-500 ml-6 sm:ml-2">{{ edition.name }}</h2>
     </div>
-    <award-edition-nominations v-if="showNominations" :edition="edition" />
+    <nomination-list v-if="showNominations" :edition="edition" />
   </div>
 </template>
 
 <script>
 import gql from "graphql-tag";
-import AwardEditionNominations from "./AwardEditionNominations";
+import NominationList from "./NominationList";
 import PlusSign from "./PlusSign";
 export default {
   name: "EditionListItem",
   components: {
-    AwardEditionNominations,
+    NominationList,
     PlusSign
   },
   props: {

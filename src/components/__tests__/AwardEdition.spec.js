@@ -2,7 +2,7 @@ import { shallowMount, createLocalVue } from "@vue/test-utils";
 import mergeWith from "lodash.mergewith";
 import { customizer } from "./helper";
 import EditionListItem from "../EditionListItem";
-import AwardEditionNominations from "../AwardEditionNominations";
+import NominationList from "../NominationList";
 import PlusSign from "../PlusSign";
 
 const localVue = createLocalVue();
@@ -45,7 +45,7 @@ describe("EditionListItem.vue", () => {
   });
   test("on load, does not show nominations", () => {
     const wrapper = createWrapper();
-    expect(wrapper.find(AwardEditionNominations).exists()).toBe(false);
+    expect(wrapper.find(NominationList).exists()).toBe(false);
   });
   test("on click on PlusSign, toggle showNominations", () => {
     const wrapper = createWrapper();
@@ -60,8 +60,8 @@ describe("EditionListItem.vue", () => {
   });
   test("if showNominations is true, shows nominations components", () => {
     const wrapper = createWrapper();
-    expect(wrapper.find(AwardEditionNominations).exists()).toBe(false);
+    expect(wrapper.find(NominationList).exists()).toBe(false);
     wrapper.setData({ showNominations: true });
-    expect(wrapper.find(AwardEditionNominations).exists()).toBe(true);
+    expect(wrapper.find(NominationList).exists()).toBe(true);
   });
 });

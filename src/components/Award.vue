@@ -11,7 +11,7 @@
         >
       </h1>
     </div>
-    <award-editions
+    <edition-list
       v-if="showEditions"
       :award-id="award.id"
       class="pl-6 lg:pl-8"
@@ -21,13 +21,13 @@
 
 <script>
 import gql from "graphql-tag";
-import AwardEditions from "./AwardEditions";
+import EditionList from "./EditionList";
 
 import PlusSign from "./PlusSign";
 
 export default {
   name: "Award",
-  components: { AwardEditions, PlusSign },
+  components: { EditionList, PlusSign },
   props: {
     award: {
       type: Object,
@@ -55,9 +55,7 @@ export default {
   data() {
     return {
       showEditions: false,
-      logoPath: `https://awarded.imgix.net/awards/logos/${
-        this.award.logo
-      }?w=50&h=50`,
+      logoPath: `https://awarded.imgix.net/awards/logos/${this.award.logo}?w=50&h=50`,
       logoAlt: `Logo for ${this.award.nameShort}`
     };
   },

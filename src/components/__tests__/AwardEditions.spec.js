@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import { customizer } from "./helper";
-import AwardEditions from "../AwardEditions.vue";
+import EditionList from "../EditionList.vue";
 import Spinner from "../Spinner.vue";
 import { HollowDotsSpinner } from "epic-spinners";
 import mergeWith from "lodash.mergewith";
@@ -22,7 +22,7 @@ function createWrapper(overrides) {
     localVue
   };
   return shallowMount(
-    AwardEditions,
+    EditionList,
     mergeWith(defaultMountingOptions, overrides, customizer)
   );
 }
@@ -55,7 +55,7 @@ const editions = {
   __typename: "EditionsConnection"
 };
 
-describe("AwardEditions.vue", () => {
+describe("EditionList.vue", () => {
   test("displays Spinner while query is loading", () => {
     const wrapper = createWrapper({
       mocks: {

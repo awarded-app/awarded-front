@@ -38,7 +38,7 @@
           {{ editionYears.minDate | year }}
         </p>
         <section class="pt-4">
-          <award-editions :award-id="award.id" />
+          <edition-list :award-id="award.id" />
         </section>
       </template>
     </section>
@@ -48,12 +48,12 @@
 <script>
 import gql from "graphql-tag";
 import Award from "../components/Award";
-import AwardEditions from "../components/AwardEditions";
+import EditionList from "../components/EditionList";
 import AwardEdition from "../components/AwardEdition";
 import BackArrow from "../components/BackArrow";
 export default {
   name: "AwardView",
-  components: { BackArrow, AwardEditions },
+  components: { BackArrow, EditionList },
   props: {
     nameShort: {
       type: String,

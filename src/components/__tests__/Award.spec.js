@@ -1,6 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import Award from "../Award.vue";
-import AwardEditions from "../AwardEditions";
+import EditionList from "../EditionList";
 import PlusSign from "../PlusSign";
 
 const award = {
@@ -32,18 +32,18 @@ describe("Award.vue", () => {
     wrapper.vm.toggleEditions();
     expect(wrapper.vm.showEditions).toBe(true);
   });
-  test("display AwardEditions when toggleEditions is called", () => {
+  test("display EditionList when toggleEditions is called", () => {
     wrapper.vm.showEditions = false;
-    expect(wrapper.find(AwardEditions).exists()).toBe(false);
+    expect(wrapper.find(EditionList).exists()).toBe(false);
     wrapper.vm.toggleEditions();
-    expect(wrapper.find(AwardEditions).exists()).toBe(true);
+    expect(wrapper.find(EditionList).exists()).toBe(true);
   });
-  test("if showEditions is false, do not display AwardEditions", () => {
+  test("if showEditions is false, do not display EditionList", () => {
     wrapper.vm.showEditions = false;
-    expect(wrapper.find(AwardEditions).exists()).toBe(false);
+    expect(wrapper.find(EditionList).exists()).toBe(false);
   });
-  test("if showEditions is true, display AwardEditions", () => {
+  test("if showEditions is true, display EditionList", () => {
     wrapper.vm.showEditions = true;
-    expect(wrapper.find(AwardEditions).exists()).toBe(true);
+    expect(wrapper.find(EditionList).exists()).toBe(true);
   });
 });

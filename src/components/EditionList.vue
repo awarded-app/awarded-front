@@ -1,9 +1,13 @@
 <template>
   <div>
-    <spinner v-if="$apollo.loading"/>
+    <spinner v-if="$apollo.loading" />
     <div v-else-if="editions">
       <p v-if="editions.totalCount === 0">No editions!</p>
-      <award-edition v-for="edition in editions.nodes" :key="edition.id" :edition="edition"/>
+      <award-edition
+        v-for="edition in editions.nodes"
+        :key="edition.id"
+        :edition="edition"
+      />
     </div>
     <div v-else>Error...</div>
   </div>
@@ -15,7 +19,7 @@ import Spinner from "./Spinner";
 import AwardEdition from "@/components/AwardEdition";
 
 export default {
-  name: "AwardEditions",
+  name: "EditionsList",
   components: { AwardEdition, Spinner },
   props: {
     awardId: {

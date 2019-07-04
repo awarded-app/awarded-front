@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AwardEditions.vue displayed awards correctly with query data 1`] = `
+<div>
+  <div
+    class="pl-8"
+  >
+    <!---->
+     
+    <award-edition-stub
+      edition="[object Object]"
+    />
+    <award-edition-stub
+      edition="[object Object]"
+    />
+    <award-edition-stub
+      edition="[object Object]"
+    />
+  </div>
+</div>
+`;

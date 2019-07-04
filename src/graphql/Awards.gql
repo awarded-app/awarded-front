@@ -1,0 +1,10 @@
+#import "./AwardFragment.gql"
+
+query awards {
+  awards {
+    totalCount
+    nodes {
+      ...award
+    }
+  }
+}

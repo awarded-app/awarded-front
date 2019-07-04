@@ -1,57 +1,53 @@
 <template>
-  <apollo-query
-    :query="
-      gql => gql`
+  <div>
+    <spinner v-if="$apollo.loading"/>
+    <div v-else-if="editions">
+      <p v-if="editions.totalCount === 0">No editions!</p>
+      <award-edition v-for="edition in editions.nodes" :key="edition.id" :edition="edition"/>
+    </div>
+    <div v-else>Error...</div>
+  </div>
+</template>
+
+<script>
+import gql from "graphql-tag";
+import Spinner from "./Spinner";
+import AwardEdition from "@/components/AwardEdition";
+
+export default {
+  name: "AwardEditions",
+  components: { AwardEdition, Spinner },
+  props: {
+    awardId: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      editions: null
+    };
+  },
+  apollo: {
+    editions: {
+      query: gql`
         query editions($condition: EditionCondition) {
           editions(condition: $condition) {
             totalCount
             nodes {
-              date
-              name
-              id
-              poster
-              award {
-                nameLong
-                nameShort
-                logo
-                id
-              }
+              ...edition
             }
           }
         }
-      `
-    "
-    :variables="{
-      condition: {
-        awardId
+        ${AwardEdition.fragments.edition}
+      `,
+      variables() {
+        return {
+          condition: {
+            awardId: this.awardId
+          }
+        };
       }
-    }"
-    :skip="awardId === null"
-  >
-    <template v-slot="{ result: { data, error }, isLoading }">
-      <div v-if="isLoading">Loading...</div>
-      <div v-else-if="data" class="pl-8">
-        <p v-if="data.editions.totalCount === 0">No editions!</p>
-        <award-edition
-          v-for="edition in data.editions.nodes"
-          :key="edition.id"
-          :edition="edition"
-        />
-      </div>
-      <div v-else>Error...</div>
-    </template>
-  </apollo-query>
-</template>
-
-<script>
-import AwardEdition from "@/components/AwardEdition";
-export default {
-  name: "AwardEditions",
-  components: { AwardEdition },
-  props: {
-    awardId: {
-      type: Number,
-      default: null
     }
   }
 };

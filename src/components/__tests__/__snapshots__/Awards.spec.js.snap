@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Awards.vue displayed awards correctly with query data 1`] = `
+<div>
+  <div>
+    <award-stub
+      award="[object Object]"
+    />
+    <award-stub
+      award="[object Object]"
+    />
+    <award-stub
+      award="[object Object]"
+    />
+  </div>
+</div>
+`;

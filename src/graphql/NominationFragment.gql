@@ -1,0 +1,17 @@
+#import "./MovieFragment.gql"
+#import "./CategoryFragment.gql"
+#import "./NominatedPeopleFragment.gql"
+fragment nomination on Nomination {
+  id
+  movie {
+    ...movie
+  }
+  category {
+    ...category
+  }
+  nominatedPeople {
+    nodes {
+      ...nominatedPeople
+    }
+  }
+}

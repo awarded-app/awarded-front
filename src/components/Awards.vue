@@ -1,7 +1,28 @@
 <template>
-  <apollo-query
-    :query="
-      gql => gql`
+  <div>
+    <spinner v-if="$apollo.loading"/>
+    <div v-else-if="awards">
+      <award v-for="award in awards.nodes" :key="award.id" :award="award"/>
+    </div>
+    <div v-else>Error...</div>
+  </div>
+</template>
+
+<script>
+import gql from "graphql-tag";
+import Spinner from "./Spinner";
+import Award from "./Award";
+export default {
+  name: "Awards",
+  components: { Award, Spinner },
+  data() {
+    return {
+      awards: null
+    };
+  },
+  apollo: {
+    awards: {
+      query: gql`
         {
           awards {
             totalCount
@@ -10,39 +31,9 @@
             }
           }
         }
-        ${$options.fragments.award}
+        ${Award.fragments.award}
       `
-    "
-  >
-    <template v-slot="{ result: { data, error }, isLoading }">
-      <div v-if="isLoading">Loading...</div>
-      <div v-else-if="data">
-        <award
-          v-for="award in data.awards.nodes"
-          :key="award.id"
-          :award="award"
-        />
-      </div>
-      <div v-else>Error...</div>
-    </template>
-  </apollo-query>
-</template>
-
-<script>
-import gql from "graphql-tag";
-import Award from "./Award";
-export default {
-  name: "Awards",
-  components: { Award },
-  fragments: {
-    award: gql`
-      fragment award on Award {
-        id
-        nameShort
-        nameLong
-        logo
-      }
-    `
+    }
   }
 };
 </script>

@@ -1,0 +1,10 @@
+#import "./EditionFragment.gql"
+
+query editions($condition: EditionCondition) {
+  editions(condition: $condition) {
+    totalCount
+    nodes {
+      ...edition
+    }
+  }
+}

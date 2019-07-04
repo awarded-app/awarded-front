@@ -1,0 +1,11 @@
+#import "./NominationFragment.gql"
+
+query edition($id: Int!, $nominationsCondition: NominationsCondition) {
+  edition(id: $id) {
+    nominations(condition: $nominationsCondition, orderBy: CATEGORY_ORDER_ASC) {
+      nodes {
+        ...nomination
+      }
+    }
+  }
+}

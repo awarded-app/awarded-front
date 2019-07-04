@@ -1,0 +1,16 @@
+fragment nominatedPeople on NominatedPeople {
+  character
+  id
+  job {
+    id
+    name
+  }
+  person {
+    id
+    name
+  }
+  prize {
+    id
+    name
+  }
+}

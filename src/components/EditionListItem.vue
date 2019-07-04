@@ -7,8 +7,12 @@
           <router-link
             class="title-link"
             tag="a"
-            :to="`/award/${edition.award.nameShort}/${getYear(edition.date)}`"
-            >{{ getYear(edition.date) }}</router-link
+            :to="
+              `/award/${edition.award.nameShort}/${$options.filters.year(
+                edition.date
+              )}`
+            "
+            >{{ edition.date | year }}</router-link
           >
         </h2>
       </div>
@@ -53,12 +57,6 @@ export default {
       }
       ${AwardListItem.fragments.award}
     `
-  },
-  methods: {
-    getYear(date) {
-      const d = new Date(date);
-      return d.getFullYear();
-    },
   }
 };
 </script>

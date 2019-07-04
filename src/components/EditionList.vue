@@ -15,12 +15,12 @@
 
 <script>
 import gql from "graphql-tag";
-import Spinner from "./Spinner";
-import EditionListItem from "@/components/EditionListItem";
+import EditionListItem from "./EditionListItem";
+import AwardListItem from "./AwardListItem";
 
 export default {
   name: "EditionsList",
-  components: { EditionListItem, Spinner },
+  components: { EditionListItem },
   props: {
     awardId: {
       type: Number,

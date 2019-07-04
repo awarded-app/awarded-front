@@ -13,12 +13,12 @@ import Vue2Filters from "vue2-filters";
 Vue.use(Vue2Filters);
 Vue.filter("formatDate", function(value, format = "DD.MMM.YY") {
   if (value) {
-    return moment(String(value)).format(format);
+    return moment(new Date(String(value))).format(format);
   }
 });
 Vue.filter("year", function(value) {
   if (value) {
-    return moment(String(value)).format("YYYY");
+    return moment(new Date(String(value))).format("YYYY");
   }
 });
 Vue.filter("formatUrl", function(value) {

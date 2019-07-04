@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { storiesOf } from "@storybook/vue";
-import Award from "./Award.vue";
-Vue.component("award", Award);
+import AwardListItem from "./AwardListItem.vue";
+Vue.component("award", AwardListItem);
 
 const award = {
   id: 2,
@@ -10,7 +10,7 @@ const award = {
   logo: "berlinale.png"
 };
 
-storiesOf("Award", module).add("Simple component", () => ({
+storiesOf("AwardListItem", module).add("Simple component", () => ({
   data: () => ({
     award
   }),

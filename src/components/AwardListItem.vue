@@ -26,7 +26,7 @@ import EditionList from "./EditionList";
 import PlusSign from "./PlusSign";
 
 export default {
-  name: "Award",
+  name: "AwardListItem",
   components: { EditionList, PlusSign },
   props: {
     award: {

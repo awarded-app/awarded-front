@@ -2,7 +2,11 @@
   <div>
     <spinner v-if="$apollo.loading" />
     <div v-else-if="awards">
-      <award v-for="award in awards.nodes" :key="award.id" :award="award" />
+      <award-list-item
+        v-for="award in awards.nodes"
+        :key="award.id"
+        :award="award"
+      />
     </div>
     <div v-else>Error...</div>
   </div>
@@ -10,11 +14,11 @@
 
 <script>
 import gql from "graphql-tag";
-import Spinner from "./Spinner";
-import Award from "./Award";
+import AwardListItem from "./AwardListItem";
+
 export default {
   name: "AwardList",
-  components: { Award, Spinner },
+  components: { AwardListItem },
   data() {
     return {
       awards: null
@@ -31,7 +35,7 @@ export default {
             }
           }
         }
-        ${Award.fragments.award}
+        ${AwardListItem.fragments.award}
       `
     }
   }

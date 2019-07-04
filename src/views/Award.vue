@@ -47,7 +47,7 @@
 
 <script>
 import gql from "graphql-tag";
-import Award from "../components/Award";
+import AwardListItem from "../components/AwardListItem";
 import EditionList from "../components/EditionList";
 import EditionListItem from "../components/EditionListItem";
 import BackArrow from "../components/BackArrow";
@@ -87,7 +87,7 @@ export default {
           }
         }
 
-        ${Award.fragments.award}
+        ${AwardListItem.fragments.award}
         ${EditionListItem.fragments.edition}
       `,
       variables() {

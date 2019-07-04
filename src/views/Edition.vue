@@ -53,7 +53,7 @@
 import gql from "graphql-tag";
 const groupBy = require("lodash.groupby");
 
-import Award from "../components/Award";
+import AwardListItem from "../components/AwardListItem";
 import EditionListItem from "../components/EditionListItem";
 import AwardEditionNomination from "../components/AwardEditionNomination";
 import Category from "../components/Category";
@@ -177,7 +177,7 @@ export default {
             ...award
           }
         }
-        ${Award.fragments.award}
+        ${AwardListItem.fragments.award}
       `,
       variables() {
         return {

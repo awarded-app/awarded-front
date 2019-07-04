@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import AwardList from "@/components/AwardList.vue";
+import AwardList from "@/components/AwardList";
 
 export default {
-  name: "home",
+  name: "Home",
   components: {
     AwardList
   }

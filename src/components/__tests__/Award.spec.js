@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Award from "../Award.vue";
+import AwardListItem from "../AwardListItem.vue";
 import EditionList from "../EditionList";
 import PlusSign from "../PlusSign";
 
@@ -8,11 +8,11 @@ const award = {
   nameShort: "Berlinale",
   nameLong: "Berlin International Film Festival",
   logo: "berlinale.png",
-  __typename: "Award"
+  __typename: "AwardListItem"
 };
 
-describe("Award.vue", () => {
-  const wrapper = shallowMount(Award, {
+describe("AwardListItem.vue", () => {
+  const wrapper = shallowMount(AwardListItem, {
     propsData: {
       award
     }

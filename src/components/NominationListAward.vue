@@ -1,45 +1,56 @@
 <template>
   <div>
-    <div
+    <h4 class="text-xl text-gray-500 mb-2">Winners</h4>
+    <li
       v-for="movie in allWinnerNominationsByMovie"
       :key="movie.id"
-      class="mb-4"
+      class="mb-4 flex"
     >
-      <h3 class="md:flex md:flex-row md:items-center">
-        <movie-link
-          :movie-id="movie[0].movie.id"
-          :movie-title="movie[0].movie.title"
-        />
-        <span
-          v-if="movieStats(movie).nominations > 1"
-          class="block text-sm text-gray-700  md:ml-2 mb-1"
-        >
-          {{ movieStats(movie).nominations }}
-          {{ movieStats(movie).nominations | pluralize("nomination") }}
-          <span v-if="movieStats(movie).wins">
-            <span class="text-xs mx-1 text-gray-800">★</span>
-            {{ movieStats(movie).wins }}
-            {{ movieStats(movie).wins | pluralize("win") }}
-          </span>
-        </span>
-      </h3>
-      <div v-for="nomination in movie" :key="nomination.id">
-        <award-edition-nomination
-          v-if="isWinner(nomination)"
-          :nomination="nomination"
-        />
+      <div class="mt-1">
+        <movie-poster :tmdb-id="movie[0].movie.tmdbId" w="100" />
       </div>
-    </div>
+
+      <div class="pl-4">
+        <h4 class="md:flex md:flex-row md:items-center">
+          <movie-link
+            :movie-id="movie[0].movie.id"
+            :movie-title="movie[0].movie.title"
+          />
+          <span
+            v-if="movieStats(movie).nominations > 1"
+            class="block text-sm text-gray-700  md:ml-2 mb-1"
+          >
+            {{ movieStats(movie).nominations }}
+            {{ movieStats(movie).nominations | pluralize("nomination") }}
+            <span v-if="movieStats(movie).wins">
+              <span class="text-xs mx-1 text-gray-800">★</span>
+              {{ movieStats(movie).wins }}
+              {{ movieStats(movie).wins | pluralize("win") }}
+            </span>
+          </span>
+        </h4>
+        <ul>
+          <li v-for="nomination in movie" :key="nomination.id">
+            <award-edition-nomination
+              v-if="isWinner(nomination)"
+              :nomination="nomination"
+            />
+          </li>
+        </ul>
+      </div>
+    </li>
   </div>
 </template>
 
 <script>
 const groupBy = require("lodash.groupby");
 import MovieLink from "./MovieLink";
+import MoviePoster from "./MoviePoster";
+
 import AwardEditionNomination from "./AwardEditionNomination";
 export default {
-  name: "NominationListAward",
-  components: { AwardEditionNomination, MovieLink },
+  name: "NominationListAwardItem",
+  components: { AwardEditionNomination, MoviePoster, MovieLink },
   props: {
     nominations: {
       type: Array,

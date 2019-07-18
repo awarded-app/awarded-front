@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <section>
     <award-list />
-  </div>
+  </section>
 </template>
 
 <script>

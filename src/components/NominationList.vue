@@ -1,13 +1,15 @@
 <template>
   <spinner v-if="$apollo.loading" />
-  <div v-else-if="nominations" class="pl-6 lg:pl-8 mb-8 mt-4">
+  <div v-else-if="nominations" class="pl-6 lg:pl-8 mb-8 mt-2">
     <nomination-list-festival
       v-if="edition.award.isFestival"
       :nominations="nominations.nodes"
     />
     <nomination-list-award v-else :nominations="nominations.nodes" />
   </div>
-  <div v-else>Error...</div>
+  <p v-else>
+    Hmm, something went wrong! Try reloading?
+  </p>
 </template>
 
 <script>

@@ -6,9 +6,9 @@
         <span class="text-gray-500 ml-2">MOVIES</span>
       </h1>
     </header>
-    <div>
+    <main>
       <router-view />
-    </div>
+    </main>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex items-center text-gray-500 text-sm my-8">
+  <nav class="flex items-center text-gray-500 text-sm mt-8 mb-2">
     <slot />
   </nav>
 </template>

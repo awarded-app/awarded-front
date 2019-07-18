@@ -1,22 +1,22 @@
 <template>
-  <div>
+  <li>
     <div class="flex items-center mb-4">
       <plus-sign @click="showEditions = !showEditions" />
-      <h1>
+      <h2>
         <router-link
           class="title-link"
           tag="a"
           :to="`/award/${award.nameShort}`"
           >{{ award.nameShort }}</router-link
         >
-      </h1>
+      </h2>
     </div>
     <edition-list
       v-if="showEditions"
       :award-id="award.id"
-      class="pl-6 lg:pl-8"
+      class="-mt-2 mb-4 pl-6 lg:pl-8"
     />
-  </div>
+  </li>
 </template>
 
 <script>
@@ -54,9 +54,7 @@ export default {
   data() {
     return {
       showEditions: false,
-      logoPath: `https://awarded.imgix.net/awards/logos/${
-        this.award.logo
-      }?w=50&h=50`,
+      logoPath: `https://awarded.imgix.net/awards/logos/${this.award.logo}?w=50&h=50`,
       logoAlt: `Logo for ${this.award.nameShort}`
     };
   }

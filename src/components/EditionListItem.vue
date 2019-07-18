@@ -1,9 +1,9 @@
 <template>
-  <div class="mb-2">
+  <li class="mb-2">
     <div class="sm:flex sm:items-center sm:flex-wrap">
       <div class="flex items-center flex-wrap">
         <plus-sign @click="showNominations = !showNominations" />
-        <h2>
+        <h3>
           <router-link
             class="title-link"
             tag="a"
@@ -14,12 +14,12 @@
             "
             >{{ edition.date | year }}</router-link
           >
-        </h2>
+        </h3>
       </div>
-      <h2 class="block text-gray-500 ml-6 sm:ml-2">{{ edition.name }}</h2>
+      <h3 class="block text-gray-500 ml-6 sm:ml-2">{{ edition.name }}</h3>
     </div>
     <nomination-list v-if="showNominations" :edition="edition" />
-  </div>
+  </li>
 </template>
 
 <script>

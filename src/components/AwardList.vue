@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <spinner v-if="$apollo.loading" />
-    <div v-else-if="awards">
-      <award-list-item
-        v-for="award in awards.nodes"
-        :key="award.id"
-        :award="award"
-      />
-    </div>
-    <div v-else>Error...</div>
-  </div>
+  <spinner v-if="$apollo.loading" />
+  <ul v-else-if="awards">
+    <award-list-item
+      v-for="award in awards.nodes"
+      :key="award.id"
+      :award="award"
+    />
+  </ul>
+
+  <p v-else>
+    Hmm, something went wrong! Try reloading?
+  </p>
 </template>
 
 <script>
@@ -27,8 +28,8 @@ export default {
   apollo: {
     awards: {
       query: gql`
-        {
-          awards {
+        query awards {
+          awards(condition: { publish: true }) {
             totalCount
             nodes {
               ...award

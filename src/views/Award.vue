@@ -12,13 +12,13 @@
       <div class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
         <back-arrow to="/" />
       </div>
-      <h1 class="flex items-center flex-wrap">
+      <h2 class="flex items-center flex-wrap">
         <span class="mr-2">{{ nameShort }}</span>
         <span class="text-gray-500 leading-none mt-0">
           {{ award.nameLong }}
           <sup class="text-sm">{{ award.country.code }}</sup>
         </span>
-      </h1>
+      </h2>
     </div>
     <section>
       <template v-if="$apollo.loading">

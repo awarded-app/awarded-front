@@ -1,9 +1,9 @@
 <template>
   <div v-if="peopleByPrize">
     <template v-for="prize in peopleByPrize">
-      <h3 class="text-gray-500" :key="prize[0].prize.id">
+      <span class="text-gray-500" :key="prize[0].prize.id">
         {{ prize[0].prize.name }}
-        <span class="ml-2">
+        <span class="ml-1">
           <span
             v-for="(nomination, index) in prize"
             :key="nomination.id"
@@ -16,13 +16,13 @@
             {{ nomination.person.name }}
           </span>
         </span>
-      </h3>
+      </span>
     </template>
   </div>
   <div v-else>
-    <h3 class="text-gray-500">
+    <span class="text-gray-500">
       {{ nomination.category.name }}
-      <span class="ml-2">
+      <span class="ml-1">
         <span
           v-for="(nominatedPerson, index) in nomination.nominatedPeople.nodes"
           :key="nominatedPerson.id"
@@ -37,13 +37,12 @@
           {{ nominatedPerson.person.name }}
         </span>
       </span>
-    </h3>
+    </span>
   </div>
 </template>
 
 <script>
 const groupBy = require("lodash.groupby");
-import gql from "graphql-tag";
 
 export default {
   props: {

@@ -5,7 +5,10 @@ import "./registerServiceWorker";
 import { createProvider } from "./vue-apollo";
 import "./assets/tailwind.css";
 import FontAwesomeIcon from "./plugins/FontAwesomeIcon";
+<<<<<<< HEAD
 import { HollowDotsSpinner } from "epic-spinners";
+=======
+>>>>>>> develop
 import Spinner from "./components/Spinner.vue";
 import moment from "moment";
 import Vue2Filters from "vue2-filters";
@@ -30,7 +33,6 @@ Vue.filter("formatUrl", function(value) {
 
 //GLOBAL COMPONENTS
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-Vue.component("hollow-dots-spinner", HollowDotsSpinner);
 Vue.component("breadcrumbs", () => import("./components/Breadcrumbs"));
 Vue.component("spinner", Spinner);
 Vue.component("star", () => import("./components/Star"));

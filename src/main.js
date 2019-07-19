@@ -5,10 +5,6 @@ import "./registerServiceWorker";
 import { createProvider } from "./vue-apollo";
 import "./assets/tailwind.css";
 import FontAwesomeIcon from "./plugins/FontAwesomeIcon";
-<<<<<<< HEAD
-import { HollowDotsSpinner } from "epic-spinners";
-=======
->>>>>>> develop
 import Spinner from "./components/Spinner.vue";
 import moment from "moment";
 import Vue2Filters from "vue2-filters";

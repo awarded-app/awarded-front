@@ -40,6 +40,12 @@
               :imdb-id="movie.imdbId"
               :tmdb-id="movie.tmdbId"
             />
+            <movie-links-shopping
+              v-if="movie.asin"
+              :imdb-id="movie.imdbId"
+              :movie-title="movie.title"
+              :asin="movie.asin"
+            />
           </div>
         </section>
         <section id="movie-nominations" class="pt-4">
@@ -73,6 +79,7 @@ const groupBy = require("lodash.groupby");
 import Spinner from "@/components/Spinner";
 import MoviePoster from "@/components/MoviePoster";
 import MovieLinksRatings from "@/components/MovieLinksRatings";
+import MovieLinksShopping from "@/components/MovieLinksShopping";
 import NominatedPerson from "../components/NominatedPerson";
 import MovieNominationsByAward from "../components/MovieNominationsByAward";
 
@@ -82,6 +89,7 @@ export default {
     MovieNominationsByAward,
     Spinner,
     MoviePoster,
+    MovieLinksShopping,
     MovieLinksRatings
   },
   props: {
@@ -105,7 +113,8 @@ export default {
         },
         movieCountries: {
           nodes: []
-        }
+        },
+        asin: null
       },
       prevScreen: "",
       prevScreenParams: null
@@ -128,6 +137,10 @@ export default {
             runtime
             tagline
             tmdbId
+            asin {
+              us
+              de
+            }
             movieCountries {
               totalCount
               nodes {

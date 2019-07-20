@@ -15,11 +15,12 @@
 
 <script>
 import gql from "graphql-tag";
+import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "./AwardListItem";
 
 export default {
   name: "AwardList",
-  components: { AwardListItem },
+  components: { AwardListItem, Spinner },
   data() {
     return {
       awards: null

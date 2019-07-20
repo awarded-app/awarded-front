@@ -14,11 +14,12 @@
 
 <script>
 import gql from "graphql-tag";
+import Spinner from "@/components/Spinner.vue";
 import EditionListItem from "./EditionListItem";
 
 export default {
   name: "EditionsList",
-  components: { EditionListItem },
+  components: { EditionListItem, Spinner },
   props: {
     awardId: {
       type: Number,

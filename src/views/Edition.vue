@@ -52,7 +52,7 @@
 <script>
 import gql from "graphql-tag";
 const groupBy = require("lodash.groupby");
-
+import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "../components/AwardListItem";
 import EditionListItem from "../components/EditionListItem";
 import AwardEditionNomination from "../components/AwardEditionNomination";
@@ -60,7 +60,7 @@ import Category from "../components/Category";
 
 export default {
   name: "EditionView",
-  components: { Category },
+  components: { Category, Spinner },
   props: {
     nameShort: {
       type: String,

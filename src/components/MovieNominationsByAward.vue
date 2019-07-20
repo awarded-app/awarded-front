@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="flex items-center">
+    <h3 class="flex items-center">
       <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" class="-mt-2" />
       <router-link
         :to="
@@ -14,24 +14,23 @@
         {{ nominations[0].award.nameShort }}
         {{ nominations[0].edition.date | year }}
       </router-link>
-    </h2>
+    </h3>
     <section v-if="isOpen">
       <div
         v-for="nomination in nominations"
         :key="nomination.id"
         class="pl-6 lg:pl-8 md:flex md:items-center md:flex-wrap"
       >
-        <h3 class="flex items-center">
-          <span class="w-6 -mt-2">
-            <star :winner="nomination.winner" />
-          </span>
+        <h4 class="flex items-center">
+          <star :winner="nomination.winner" class="text-sm mr-1" />
+
           <span class="md:mr-2">{{ nomination.category.name }}</span>
-        </h3>
-        <h3 class="text-gray-500">
+        </h4>
+        <h4 class="text-gray-500">
           <nominated-people
             :nominated-people="nomination.nominatedPeople.nodes"
           />
-        </h3>
+        </h4>
       </div>
     </section>
   </div>

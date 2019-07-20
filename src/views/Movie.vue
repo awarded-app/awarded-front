@@ -1,93 +1,45 @@
 <template>
-  <div class="pl-6 lg:pl-8">
-    <breadcrumbs>
-      <ul>
-        <li>
-          <router-link to="/" tag="a" class="title-link">Awards</router-link>
-        </li>
-        <template v-if="prevScreenParams">
-          <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-            <router-link
-              :to="`/award/${prevScreenParams.nameShort}`"
-              tag="a"
-              class="title-link"
-            >
-              {{ prevScreenParams.nameShort }}</router-link
-            >
-          </li>
-          <li v-if="prevScreenParams.hasOwnProperty('editionYear')">
-            <router-link
-              :to="
-                `/award/${prevScreenParams.nameShort}/${
-                  prevScreenParams.editionYear
-                }`
-              "
-              tag="a"
-              class="title-link"
-            >
-              {{ prevScreenParams.editionYear }}</router-link
-            >
-          </li>
-        </template>
-        <li>{{ movie.title }}</li>
-      </ul>
-    </breadcrumbs>
-    <div class="flex sm:items-center">
-      <div class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
+  <article class="pl-6 lg:pl-8">
+    <breadcrumbs :prevScreenParams="prevScreenParams">{{
+      movie.title
+    }}</breadcrumbs>
+    <header class="mb-2 flex sm:items-center">
+      <nav class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
         <back-arrow :to="prevScreen" />
-      </div>
-      <h1 class="flex items-center flex-wrap">
+      </nav>
+      <h2 class="flex items-center flex-wrap">
         <span class="mr-2">{{ movie.title }}</span>
-        <span v-if="!$apollo.loading" class="text-gray-500 leading-none mt-0">{{
+        <span class="text-gray-500 leading-none mr-1">{{
           movie.releaseDate | year
         }}</span>
-      </h1>
-    </div>
-    <section>
-      <template v-if="$apollo.loading">
-        <spinner />
-      </template>
+        <sup
+          v-for="{ country } in movie.movieCountries.nodes"
+          :key="country.id"
+          class="text-base text-gray-500"
+          >{{ country.code }}</sup
+        >
+      </h2>
+    </header>
+    <main>
+      <spinner v-if="$apollo.loading" />
       <template v-else>
         <section id="movie-details" class="flex">
-          <div class="w-1/4 mr-2">
-            <span v-if="movie.moviePosters.nodes.length > 0">
-              <img
-                :data-src="
-                  `https://awarded.gumlet.com/movies/posters/${
-                    movie.moviePosters.nodes[0].filename
-                  }`
-                "
-              />
-            </span>
-            <span v-else>
-              <img
-                data-gumlet="false"
-                :src="`https://image.tmdb.org/t/p/w1280${movie.posterPath}`"
-              />
-            </span>
+          <div class="mr-4">
+            <movie-poster :tmdb-id="movie.tmdbId" w="200" />
           </div>
-          <div>
-            <p class="text-gray-500">
-              Original title: {{ movie.originalTitle }}
-            </p>
-            <p class="text-gray-500">Runtime: {{ movie.runtime }} minutes</p>
-            <p class="text-gray-500">
-              Release date: {{ movie.releaseDate | formatDate }}
-            </p>
-            <p class="text-gray-500">
-              {{ movie.tagline }}
-            </p>
-            <p class="text-gray-500">
+          <div class="w-1/2">
+            <p class="text-gray-500 mb-2">
               {{ movie.overview }}
             </p>
-            <p class="text-gray-500">IMDB link {{ movie.imdbId }}</p>
-            <p>
-              <span
-                v-for="{ country } in movie.movieCountries.nodes"
-                :key="country.id"
-                >{{ country.code }}</span
-              >
+            <p v-if="movie.originalTitle !== movie.title" class="mb-2">
+              <span class="mr-1">{{ movie.originalTitle }}</span
+              ><span class="text-gray-500">Original Title</span>
             </p>
+            <p class="text-gray-500 mb-2">{{ movie.runtime }} minutes</p>
+            <movie-links-ratings
+              :imdb-id="movie.imdbId"
+              :tmdb-id="movie.tmdbId"
+            />
           </div>
         </section>
         <section id="movie-nominations" class="pt-4">
@@ -111,20 +63,27 @@
           </div>
         </section>
       </template>
-    </section>
-  </div>
+    </main>
+  </article>
 </template>
 
 <script>
 import gql from "graphql-tag";
 const groupBy = require("lodash.groupby");
-
-import NominatedPerson from "../components/NominatedPerson.vue";
-import MovieNominationsByAward from "../components/MovieNominationsByAward.vue";
+import Spinner from "@/components/Spinner";
+import MoviePoster from "@/components/MoviePoster";
+import MovieLinksRatings from "@/components/MovieLinksRatings";
+import NominatedPerson from "../components/NominatedPerson";
+import MovieNominationsByAward from "../components/MovieNominationsByAward";
 
 export default {
   name: "MovieView",
-  components: { MovieNominationsByAward },
+  components: {
+    MovieNominationsByAward,
+    Spinner,
+    MoviePoster,
+    MovieLinksRatings
+  },
   props: {
     title: {
       type: String,
@@ -140,7 +99,11 @@ export default {
       movie: {
         id: this.movie_id,
         title: this.title,
+        releaseDate: null,
         nominations: {
+          nodes: []
+        },
+        movieCountries: {
           nodes: []
         }
       },

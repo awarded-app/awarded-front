@@ -1,13 +1,6 @@
 <template>
   <div class="pl-6 lg:pl-8">
-    <breadcrumbs>
-      <ul>
-        <li>
-          <router-link to="/" tag="a" class="title-link">Awards</router-link>
-        </li>
-        <li>{{ nameShort }}</li>
-      </ul>
-    </breadcrumbs>
+    <breadcrumbs>{{ nameShort }}</breadcrumbs>
     <div class="flex items-center">
       <div class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
         <back-arrow to="/" />

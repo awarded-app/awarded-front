@@ -6,7 +6,7 @@
       :key="nomination.id"
       class="mb-4 flex"
     >
-      <div class="mt-1">
+      <div class="mt-1 flex-none">
         <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
       </div>
       <div class="pl-4">

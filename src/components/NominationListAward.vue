@@ -6,7 +6,7 @@
       :key="movie.id"
       class="mb-4 flex"
     >
-      <div class="mt-1">
+      <div class="mt-1 flex-none">
         <movie-poster :tmdb-id="movie[0].movie.tmdbId" w="100" />
       </div>
 

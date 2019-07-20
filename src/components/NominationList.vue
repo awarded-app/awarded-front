@@ -14,7 +14,7 @@
 
 <script>
 import gql from "graphql-tag";
-
+import Spinner from "@/components/Spinner.vue";
 import NominationListFestival from "./NominationListFestival";
 import NominationListAward from "./NominationListAward";
 import AwardEditionNomination from "./AwardEditionNomination";
@@ -22,7 +22,8 @@ export default {
   name: "NominationList",
   components: {
     NominationListAward,
-    NominationListFestival
+    NominationListFestival,
+    Spinner
   },
   props: {
     edition: {

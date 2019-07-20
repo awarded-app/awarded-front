@@ -47,13 +47,14 @@
 
 <script>
 import gql from "graphql-tag";
+import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "../components/AwardListItem";
 import EditionList from "../components/EditionList";
 import EditionListItem from "../components/EditionListItem";
 import BackArrow from "../components/BackArrow";
 export default {
   name: "AwardView",
-  components: { BackArrow, EditionList },
+  components: { BackArrow, EditionList, Spinner },
   props: {
     nameShort: {
       type: String,

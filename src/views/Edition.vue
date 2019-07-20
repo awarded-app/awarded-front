@@ -1,18 +1,8 @@
 <template>
   <div class="pl-6 lg:pl-8">
-    <breadcrumbs>
-      <ul>
-        <li>
-          <router-link to="/" tag="a" class="title-link">Awards</router-link>
-        </li>
-        <li>
-          <router-link :to="`/award/${nameShort}`" tag="a" class="title-link">{{
-            nameShort
-          }}</router-link>
-        </li>
-        <li>{{ editionYear }}</li>
-      </ul>
-    </breadcrumbs>
+    <breadcrumbs :prevScreenParams="{ nameShort }">{{
+      editionYear
+    }}</breadcrumbs>
     <div class="flex sm:items-center">
       <div class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
         <back-arrow :to="`/award/${nameShort}`" />

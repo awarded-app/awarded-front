@@ -1,12 +1,47 @@
 <template>
-  <nav class="flex items-center text-gray-500 text-sm mt-8 mb-2">
-    <slot />
+  <nav class="flex items-center text-gray-500 text-sm mb-2">
+    <ul>
+      <li>
+        <router-link to="/" tag="a" class="title-link">Awards</router-link>
+      </li>
+      <template v-if="prevScreenParams">
+        <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
+          <router-link
+            :to="`/award/${prevScreenParams.nameShort}`"
+            tag="a"
+            class="title-link"
+          >
+            {{ prevScreenParams.nameShort }}</router-link
+          >
+        </li>
+        <li v-if="prevScreenParams.hasOwnProperty('editionYear')">
+          <router-link
+            :to="
+              `/award/${prevScreenParams.nameShort}/${prevScreenParams.editionYear}`
+            "
+            tag="a"
+            class="title-link"
+          >
+            {{ prevScreenParams.editionYear }}</router-link
+          >
+        </li>
+      </template>
+      <li>
+        <slot />
+        </li>
+    </ul>
   </nav>
 </template>
 
 <script>
 export default {
-  name: "Breadcrumbs"
+  name: "Breadcrumbs",
+  props: {
+    prevScreenParams: {
+      type: Object,
+      default: null
+    }
+  }
 };
 </script>
 

@@ -14,6 +14,7 @@ import gql from "graphql-tag";
 import AwardEditionNominationPerson from "./AwardEditionNominationPerson";
 import AwardEditionNominationMovie from "./AwardEditionNominationMovie";
 import NominatedPerson from "./NominatedPerson";
+import CategoryListItem from "./CategoryListItem";
 import Star from "./Star";
 
 export default {
@@ -42,16 +43,13 @@ export default {
           }
         }
         category {
-          id
-          name
-          important
-          order
-          display
+          ...category
         }
         winner
       }
       ${AwardEditionNominationMovie.fragments.movie}
       ${NominatedPerson.fragments.nominatedPerson}
+      ${CategoryListItem.fragments.category}
     `
   }
 };

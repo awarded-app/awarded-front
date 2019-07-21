@@ -2,7 +2,12 @@
   <div v-if="peopleByPrize">
     <template v-for="prize in peopleByPrize">
       <span class="text-gray-500" :key="prize[0].prize.id">
-        {{ prize[0].prize.name }}
+        <category-link
+          :category-name="nomination.category.name"
+          :award-name-short="nomination.category.award.nameShort"
+        >
+          {{ prize[0].prize.name }}
+        </category-link>
         <span class="ml-1">
           <span
             v-for="(nomination, index) in prize"
@@ -21,7 +26,12 @@
   </div>
   <div v-else>
     <span class="text-gray-500">
-      {{ nomination.category.name }}
+      <category-link
+        :category-name="nomination.category.name"
+        :award-name-short="nomination.category.award.nameShort"
+      >
+        {{ nomination.category.name }}
+      </category-link>
       <span class="ml-1">
         <span
           v-for="(nominatedPerson, index) in nomination.nominatedPeople.nodes"
@@ -43,8 +53,12 @@
 
 <script>
 const groupBy = require("lodash.groupby");
+import CategoryLink from "./CategoryLink";
 
 export default {
+  components: {
+    CategoryLink
+  },
   props: {
     nomination: {
       type: Object,

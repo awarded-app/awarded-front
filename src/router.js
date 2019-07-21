@@ -24,28 +24,28 @@ export default new Router({
       name: "award",
       props: true,
       component: () =>
-        import(/* webpackChunkName: "award" */ "./views/Award.vue")
+        import(/* webpackChunkName: "award" */ "./views/AwardView.vue")
     },
     {
       path: "/award/:nameShort/:editionYear(\\d+)",
       name: "edition",
       props: true,
       component: () =>
-        import(/* webpackChunkName: "edition" */ "./views/Edition.vue")
+        import(/* webpackChunkName: "edition" */ "./views/EditionView.vue")
     },
     {
       path: "/award/:nameShort/:categoryName",
       name: "category",
       props: true,
       component: () =>
-        import(/* webpackChunkName: "category" */ "./views/Category.vue")
+        import(/* webpackChunkName: "category" */ "./views/CategoryView.vue")
     },
     {
       path: "/movie/:movie_id/:title",
       name: "Movie",
       props: true,
       component: () =>
-        import(/* webpackChunkName: "Movie" */ "./views/Movie.vue")
+        import(/* webpackChunkName: "Movie" */ "./views/MovieView.vue")
     }
   ]
 });

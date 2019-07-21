@@ -5,15 +5,12 @@
   >
     <div class="flex items-center">
       <template v-if="display === 'person'">
-        <span class="w-6">
-          <star v-if="nomination.winner" :winner="true" />
-        </span>
+        <star class="w-6 mr-1" :winner="nomination.winner" />
         <nominatedPeople :nominated-people="nomination.nominatedPeople.nodes" />
       </template>
       <template v-else>
-        <span class="w-6 pb-2">
-          <star v-if="nomination.winner" :winner="true" />
-        </span>
+        <star class="w-6 mr-1 mb-2" :winner="nomination.winner" />
+
         <movie-link
           :movie-id="nomination.movie.id"
           :movie-title="nomination.movie.title"

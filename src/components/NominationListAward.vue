@@ -2,35 +2,24 @@
   <div>
     <h4 class="text-xl text-gray-500 mb-2">Winners</h4>
     <li
-      v-for="movie in allWinnerNominationsByMovie"
-      :key="movie.id"
+      v-for="movieNominations in allWinnerNominationsByMovie"
+      :key="movieNominations.id"
       class="mb-4 flex"
     >
       <div class="mt-1 flex-none">
-        <movie-poster :tmdb-id="movie[0].movie.tmdbId" w="100" />
+        <movie-poster :tmdb-id="movieNominations[0].movie.tmdbId" w="100" />
       </div>
 
       <div class="pl-4">
         <h4 class="md:flex md:flex-row md:items-center">
           <movie-link
-            :movie-id="movie[0].movie.id"
-            :movie-title="movie[0].movie.title"
+            :movie-id="movieNominations[0].movie.id"
+            :movie-title="movieNominations[0].movie.title"
           />
-          <span
-            v-if="movieStats(movie).nominations > 1"
-            class="block text-sm text-gray-700  md:ml-2 mb-1"
-          >
-            {{ movieStats(movie).nominations }}
-            {{ movieStats(movie).nominations | pluralize("nomination") }}
-            <span v-if="movieStats(movie).wins">
-              <span class="text-xs mx-1 text-gray-800">★</span>
-              {{ movieStats(movie).wins }}
-              {{ movieStats(movie).wins | pluralize("win") }}
-            </span>
-          </span>
+          <movie-stats :movie-nominations="movieNominations" />
         </h4>
         <ul>
-          <li v-for="nomination in movie" :key="nomination.id">
+          <li v-for="nomination in movieNominations" :key="nomination.id">
             <award-edition-nomination
               v-if="isWinner(nomination)"
               :nomination="nomination"
@@ -46,11 +35,11 @@
 const groupBy = require("lodash.groupby");
 import MovieLink from "./MovieLink";
 import MoviePoster from "./MoviePoster";
-
+import MovieStats from "./MovieStats";
 import AwardEditionNomination from "./AwardEditionNomination";
 export default {
   name: "NominationListAwardItem",
-  components: { AwardEditionNomination, MoviePoster, MovieLink },
+  components: { AwardEditionNomination, MoviePoster, MovieLink, MovieStats },
   props: {
     nominations: {
       type: Array,
@@ -74,19 +63,7 @@ export default {
     groupByMovie(nominations) {
       return Object.values(groupBy(nominations, "movie.id"));
     },
-    movieStats(movie) {
-      let wins = 0;
-      let losses = 0;
-      movie.map(nomination => {
-        if (!nomination.winner) {
-          return (losses += 1);
-        }
-        if (nomination.nominatedPeople.nodes.some(person => person.prize)) {
-          return (wins += 1);
-        }
-      });
-      return { nominations: wins + losses, wins, losses };
-    },
+
     isWinner(nomination) {
       return (
         nomination.nominatedPeople.nodes.filter(person => person.prize).length >

@@ -3,16 +3,12 @@
     <h3 class="flex items-center">
       <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" class="-mt-2" />
       <router-link
-        :to="
-          `/award/${nominations[0].award.nameShort}/${getYear(
-            nominations[0].edition.date
-          )}`
-        "
+        :to="`/award/${awardNameShort}/${$options.filters.year(editionDate)}`"
         tag="a"
         class="title-link"
       >
-        {{ nominations[0].award.nameShort }}
-        {{ nominations[0].edition.date | year }}
+        {{ awardNameShort }}
+        {{ editionDate | year }}
       </router-link>
     </h3>
     <section v-if="isOpen">
@@ -24,7 +20,13 @@
         <h4 class="flex items-center">
           <star :winner="nomination.winner" class="text-sm mr-1" />
 
-          <span class="md:mr-2">{{ nomination.category.name }}</span>
+          <span class="md:mr-2">
+            <category-link
+              :category-name="nomination.category.name"
+              :award-name-short="awardNameShort"
+              >{{ nomination.category.name }}</category-link
+            ></span
+          >
         </h4>
         <h4 class="text-gray-500">
           <nominated-people
@@ -37,10 +39,12 @@
 </template>
 
 <script>
-import NominatedPeople from "../components/NominatedPeople";
+import NominatedPeople from "@/components/NominatedPeople";
+import CategoryLink from "@/components/CategoryLink";
 export default {
   name: "MovieNominationsByAward",
   components: {
+    CategoryLink,
     NominatedPeople
   },
   props: {
@@ -51,7 +55,9 @@ export default {
   },
   data() {
     return {
-      isOpen: true
+      isOpen: true,
+      awardNameShort: this.nominations[0].award.nameShort,
+      editionDate: this.nominations[0].edition.date
     };
   },
   methods: {

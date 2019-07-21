@@ -28,6 +28,7 @@
           </p>
         </div>
         <section class="pt-4">
+          <h4 class="text-xl text-gray-500 mb-2">All Categories</h4>
           <category
             v-for="category in categories.nodes"
             :key="category.id"
@@ -113,6 +114,9 @@ export default {
                 nodes {
                   ...nomination
                 }
+              }
+              award {
+                nameShort
               }
             }
           }

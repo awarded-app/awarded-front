@@ -27,11 +27,18 @@ export default new Router({
         import(/* webpackChunkName: "award" */ "./views/Award.vue")
     },
     {
-      path: "/award/:nameShort/:editionYear",
+      path: "/award/:nameShort/:editionYear(\\d+)",
       name: "edition",
       props: true,
       component: () =>
         import(/* webpackChunkName: "edition" */ "./views/Edition.vue")
+    },
+    {
+      path: "/award/:nameShort/:categoryName",
+      name: "category",
+      props: true,
+      component: () =>
+        import(/* webpackChunkName: "category" */ "./views/Category.vue")
     },
     {
       path: "/movie/:movie_id/:title",

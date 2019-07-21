@@ -46,6 +46,7 @@ const groupBy = require("lodash.groupby");
 import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "../components/AwardListItem";
 import EditionListItem from "../components/EditionListItem";
+import CategoryListItem from "../components/CategoryListItem";
 import AwardEditionNomination from "../components/AwardEditionNomination";
 import Category from "../components/Category";
 
@@ -91,21 +92,7 @@ export default {
           ) {
             totalCount
             nodes {
-              nodeId
-              id
-              important
-              name
-              description
-              display
-              order
-              prizes {
-                nodes {
-                  id
-                  name
-                  order
-                  display
-                }
-              }
+              ...category
               nominations(
                 condition: $nominationCondition
                 orderBy: WINNER_DESC
@@ -115,13 +102,11 @@ export default {
                   ...nomination
                 }
               }
-              award {
-                nameShort
-              }
             }
           }
         }
         ${AwardEditionNomination.fragments.nomination}
+        ${CategoryListItem.fragments.category}
       `,
       variables() {
         return {

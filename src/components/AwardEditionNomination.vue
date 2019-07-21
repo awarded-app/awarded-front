@@ -15,14 +15,12 @@ import AwardEditionNominationPerson from "./AwardEditionNominationPerson";
 import AwardEditionNominationMovie from "./AwardEditionNominationMovie";
 import NominatedPerson from "./NominatedPerson";
 import CategoryListItem from "./CategoryListItem";
-import Star from "./Star";
 
 export default {
   name: "AwardEditionNomination",
   components: {
     AwardEditionNominationMovie,
     AwardEditionNominationPerson,
-    Star
   },
   props: {
     nomination: {

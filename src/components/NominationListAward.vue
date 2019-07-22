@@ -11,12 +11,12 @@
       </div>
 
       <div class="pl-4">
-        <h4 class="md:flex md:flex-row md:items-center">
+        <h4 class="-mb-1 md:flex md:flex-row md:items-center">
           <movie-link
             :movie-id="movieNominations[0].movie.id"
             :movie-title="movieNominations[0].movie.title"
           />
-          <movie-stats :movie-nominations="movieNominations" />
+          <movie-stats :movie-nominations="movieNominations" class="mb-2" />
         </h4>
         <ul>
           <li v-for="nomination in movieNominations" :key="nomination.id">
@@ -51,23 +51,29 @@ export default {
       return this.groupByMovie(this.nominations);
     },
     allWinnerNominationsByMovie() {
-      return this.allNominationsByMovie.filter(movie => {
-        const winnerNominations = movie.filter(nomination =>
-          nomination.nominatedPeople.nodes.some(person => person.prize)
-        );
-        return winnerNominations.length > 0;
-      });
+      let winners = this.allNominationsByMovie
+        .map(movie => movie.filter(nomination => nomination.winner))
+        .filter(movie => movie.length > 0);
+
+      return this.sortMoviesByCategory(winners);
     }
   },
   methods: {
     groupByMovie(nominations) {
       return Object.values(groupBy(nominations, "movie.id"));
     },
-
     isWinner(nomination) {
       return (
         nomination.nominatedPeople.nodes.filter(person => person.prize).length >
         0
+      );
+    },
+    sortMoviesByCategory(movies) {
+      let moviesCategoriesSorted = movies.map(movie =>
+        movie.sort((a, b) => a.category.order - b.category.order)
+      );
+      return moviesCategoriesSorted.sort(
+        (a, b) => a[0].category.order - b[0].category.order
       );
     }
   }

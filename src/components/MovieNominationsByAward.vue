@@ -1,39 +1,39 @@
 <template>
-  <div>
+  <div class="pb-4">
     <h3 class="flex items-center">
-      <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" class="-mt-2" />
+      <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" class="mb-2" />
       <router-link
         :to="`/award/${awardNameShort}/${$options.filters.year(editionDate)}`"
         tag="a"
         class="title-link"
       >
-        {{ awardNameShort }}
-        {{ editionDate | year }}
+        {{ awardNameShort
+        }}<span class="text-gray-500">
+          {{ editionDate | year }}
+        </span>
       </router-link>
     </h3>
-    <section v-if="isOpen">
-      <div
-        v-for="nomination in nominations"
-        :key="nomination.id"
-        class="pl-6 lg:pl-8 md:flex md:items-center md:flex-wrap"
-      >
-        <h4 class="flex items-center">
-          <star :winner="nomination.winner" class="text-sm mr-1" />
-
-          <span class="md:mr-2">
+    <section v-if="isOpen" class="pl-6 lg:pl-8">
+      <ul class="text-xl">
+        <li
+          class="flex"
+          v-for="nomination in nominationsSorted"
+          :key="nomination.id"
+        >
+          <star class="w-6 mr-1 mt-1 text-lg" :winner="nomination.winner" />
+          <div class="flex flex-wrap">
             <category-link
               :category-name="nomination.category.name"
               :award-name-short="awardNameShort"
-              >{{ nomination.category.name }}</category-link
-            ></span
-          >
-        </h4>
-        <h4 class="text-gray-500">
-          <nominated-people
-            :nominated-people="nomination.nominatedPeople.nodes"
-          />
-        </h4>
-      </div>
+              class="mr-2 lg:mb-0"
+            />
+            <nominatedPeople
+              :nominated-people="nomination.nominatedPeople.nodes"
+              class="mr-2 text-gray-500 lg:mb-0"
+            />
+          </div>
+        </li>
+      </ul>
     </section>
   </div>
 </template>
@@ -57,13 +57,19 @@ export default {
     return {
       isOpen: true,
       awardNameShort: this.nominations[0].award.nameShort,
-      editionDate: this.nominations[0].edition.date
+      editionDate: this.nominations[0].edition.date,
+      isFestival: this.nominations[0].award.isFestival
     };
   },
   methods: {
     getYear(date) {
       const d = new Date(date);
       return d.getFullYear();
+    }
+  },
+  computed: {
+    nominationsSorted() {
+      return [...this.nominations].sort((a, b) => b.winner - a.winner);
     }
   }
 };

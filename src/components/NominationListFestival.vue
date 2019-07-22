@@ -9,7 +9,7 @@
       <div class="mt-1 flex-none">
         <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
       </div>
-      <div class="pl-4">
+      <div class="pl-2">
         <h4 class="-mb-1 md:flex md:flex-row md:items-center">
           <star :winner="true" class="mr-2 pb-2" />
           <movie-link
@@ -41,7 +41,6 @@ const groupBy = require("lodash.groupby");
 import MovieLink from "./MovieLink";
 import MoviePoster from "./MoviePoster";
 
-
 export default {
   name: "NominationListFestival",
   components: { MovieLink, MoviePoster },
@@ -49,6 +48,22 @@ export default {
     nominations: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    orderByPrize(nominations) {
+      return nominations.sort((a, b) => {
+        const a_prize = a.nominatedPeople.nodes
+          .filter(person => person.prize)
+          .sort((a, b) => a.prize.order - b.prize.order)[0].prize;
+        const b_prize = b.nominatedPeople.nodes
+          .filter(person => person.prize)
+          .sort((a, b) => a.prize.order - b.prize.order)[0].prize;
+        console.log("a_prize", a_prize);
+        console.log("b_prize", b_prize);
+
+        return a_prize.order - b_prize.order;
+      });
     }
   },
   computed: {
@@ -61,8 +76,8 @@ export default {
       })[0];
     },
     winnersMainCategory() {
-      return this.nominationsMainCategory.filter(
-        nomination => nomination.winner
+      return this.orderByPrize(
+        this.nominationsMainCategory.filter(nomination => nomination.winner)
       );
     },
     winnerNominationsByCategory() {

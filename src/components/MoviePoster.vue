@@ -9,7 +9,7 @@
       :src="
         `https://awarded.imgix.net/movies/posters/${
           props.tmdbId
-        }_poster.jpg?w=${props.w}&fit=clip`
+        }_poster.jpg?w=${props.w}&ar=2:3&fit=crop`
       "
     />
   </div>

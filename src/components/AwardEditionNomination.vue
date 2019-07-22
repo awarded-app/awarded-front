@@ -36,6 +36,7 @@ export default {
           ...movie
         }
         nominatedPeople {
+          totalCount
           nodes {
             ...nominatedPerson
           }

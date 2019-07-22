@@ -1,37 +1,29 @@
 <template>
-  <div
-    class="mb-2 lg:flex lg:items-center lg:flex-wrap"
-    :class="display === 'person' ? 'lg:mb-1' : 'lg:-mb-1'"
-  >
-    <div class="flex items-center">
-      <template v-if="display === 'person'">
-        <star class="w-6 mr-1" :winner="nomination.winner" />
-        <nominatedPeople :nominated-people="nomination.nominatedPeople.nodes" />
-      </template>
-      <template v-else>
-        <star class="w-6 mr-1 mb-2" :winner="nomination.winner" />
-
-        <movie-link
-          :movie-id="nomination.movie.id"
-          :movie-title="nomination.movie.title"
-        />
-      </template>
-    </div>
-    <div class="text-gray-500 ml-6 lg:ml-2 ">
-      <template v-if="display === 'person'">
-        <movie-link
-          :movie-id="nomination.movie.id"
-          :movie-title="nomination.movie.title"
-        />
-      </template>
-      <template v-else>
+  <ul class="lg:flex lg:items-center lg:flex-wrap">
+    <li class="flex lg:items-center">
+      <star class="w-6 mr-1 mt-1 lg:mt-0 lg:mb-2" :winner="nomination.winner" />
+      <div
+        class="flex flex-wrap"
+        :class="
+          display === 'person'
+            ? 'flex-col items-start lg:flex-row'
+            : 'flex-col-reverse items-start lg:flex-row lg:flex-row-reverse'
+        "
+      >
         <nominatedPeople
           :nominated-people="nomination.nominatedPeople.nodes"
-          class="-mt-2"
+          class="mr-2 lg:mb-0"
+          :class="display === 'person' ? '-mb-2' : 'text-gray-500'"
         />
-      </template>
-    </div>
-  </div>
+        <movie-link
+          :movie-id="nomination.movie.id"
+          :movie-title="nomination.movie.title"
+          class="mr-2 lg:mb-0"
+          :class="display === 'person' ? 'text-gray-500' : '-mb-2'"
+        />
+      </div>
+    </li>
+  </ul>
 </template>
 
 <script>

@@ -12,30 +12,32 @@
         <span class="text-gray-500 leading-none mt-0">{{ edition.name }}</span>
       </h2>
     </div>
-    <section>
-      <template v-if="$apollo.loading">
-        <spinner />
-      </template>
-      <template v-else>
-        <div
-          class="flex flex-col sm:flex-row sm:items-center sm:justify-between"
-        >
-          <p class="text-gray-500">
-            {{ edition.date | formatDate("MMMM Do") }}
-          </p>
-          <p class="text-gray-500 uppercase text-sm mt-4 sm:mt-0">
-            DISPLAY by <span class="text-white">Category</span> / Movie
-          </p>
-        </div>
-        <section class="pt-4">
-          <h4 class="text-xl text-gray-500 mb-2">All Categories</h4>
-          <category
-            v-for="category in categories.nodes"
-            :key="category.id"
-            :category="category"
-          />
-        </section>
-      </template>
+    <spinner v-if="$apollo.loading" />
+    <section v-else>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-gray-500">
+          {{ edition.date | formatDate("MMMM Do") }}
+        </p>
+        <p class="text-gray-500 uppercase text-sm mt-4 sm:mt-0">
+          DISPLAY by <span class="text-white">Category</span> / Movie
+        </p>
+      </div>
+      <section class="pt-4">
+        <h4 class="text-xl text-gray-500 mb-2">
+          <template v-if="award.isFestival"
+            >Main Sections</template
+          >
+          <template v-else
+            >All Categories</template
+          >
+        </h4>
+        <category
+          v-for="category in categories.nodes"
+          :key="category.id"
+          :category="category"
+          :is-festival="award.isFestival"
+        />
+      </section>
     </section>
   </div>
 </template>
@@ -85,14 +87,19 @@ export default {
         query categories(
           $categoryCondition: CategoryCondition
           $nominationCondition: NominationCondition
+          $editionCategoryCondition: EditionCategoryCondition
         ) {
-          categories(
-            condition: $categoryCondition
-            orderBy: [IMPORTANT_ASC, ORDER_ASC]
-          ) {
+          categories(condition: $categoryCondition, orderBy: [ORDER_ASC]) {
             totalCount
             nodes {
               ...category
+              editionCategories(condition: $editionCategoryCondition) {
+                nodes {
+                  id
+                  categoryId
+                  complete
+                }
+              }
               nominations(
                 condition: $nominationCondition
                 orderBy: WINNER_DESC
@@ -114,6 +121,9 @@ export default {
             awardId: this.award.id
           },
           nominationCondition: {
+            editionId: this.edition.id
+          },
+          editionCategoryCondition: {
             editionId: this.edition.id
           }
         };

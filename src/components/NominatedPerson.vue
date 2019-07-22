@@ -1,16 +1,25 @@
 <template>
-  <span>
-    {{ nominatedPerson.person.name
-    }}<span class="text-gray-500" v-if="nominatedPerson.character">
+  <span class="flex"
+    ><person-link
+      :person-id="nominatedPerson.person.id"
+      :person-name="nominatedPerson.person.name"
+      class="mr-1"
+      >{{ nominatedPerson.person.name }}</person-link
+    ><span class="text-gray-500" v-if="nominatedPerson.character">
       (as {{ nominatedPerson.character }})</span
-    >
-  </span>
+    ></span
+  >
 </template>
 
 <script>
 import gql from "graphql-tag";
+import PersonLink from "./PersonLink";
+
 export default {
   name: "NominatedPerson",
+  components: {
+    PersonLink
+  },
   props: {
     nominatedPerson: {
       type: Object,
@@ -34,6 +43,7 @@ export default {
           id
           name
           order
+          display
         }
       }
     `

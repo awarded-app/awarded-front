@@ -3,7 +3,7 @@
     <li
       v-for="(nominatedPerson, index) in nominatedPeople"
       :key="nominatedPerson.id"
-      class="flex flex-no-wrap"
+      class="flex"
     >
       <nominated-person :nominated-person="nominatedPerson" /><span
         v-if="index != nominatedPeople.length - 1"
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import NominatedPerson from './NominatedPerson';
+import NominatedPerson from "./NominatedPerson";
 export default {
   name: "NominatedPeople",
   components: { NominatedPerson },
@@ -22,13 +22,6 @@ export default {
     nominatedPeople: {
       type: Array,
       required: true
-    }
-  },
-  computed: {
-    names() {
-      return this.nominatedPeople
-        .map(nominatedPerson => nominatedPerson.person.name)
-        .join(", ");
     }
   }
 };

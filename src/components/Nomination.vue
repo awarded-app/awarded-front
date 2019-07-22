@@ -1,7 +1,10 @@
 <template>
-  <ul class="lg:flex lg:items-center lg:flex-wrap">
+  <ul class="text-xl lg:flex lg:items-center lg:flex-wrap">
     <li class="flex lg:items-center">
-      <star class="w-6 mr-1 mt-1 lg:mt-0 lg:mb-2" :winner="nomination.winner" />
+      <star
+        class="w-6 mr-1 mt-1 lg:mt-0 lg:mb-2 text-lg"
+        :winner="nomination.winner"
+      />
       <div
         class="flex flex-wrap"
         :class="

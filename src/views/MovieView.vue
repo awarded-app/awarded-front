@@ -77,6 +77,8 @@
 import gql from "graphql-tag";
 const groupBy = require("lodash.groupby");
 import Spinner from "@/components/Spinner";
+import MovieListItem from "@/components/MovieListItem"
+import NominationListItem from "@/components/NominationListItem"
 import MoviePoster from "@/components/MoviePoster";
 import MovieLinksRatings from "@/components/MovieLinksRatings";
 import MovieLinksShopping from "@/components/MovieLinksShopping";
@@ -125,81 +127,30 @@ export default {
       query: gql`
         query movie($id: Int!) {
           movie(id: $id) {
-            nodeId
-            id
-            title
-            homepage
-            imdbId
-            originalLanguage
-            originalTitle
-            overview
-            releaseDate
-            runtime
-            tagline
-            tmdbId
-            asin {
-              us
-              de
-            }
-            movieCountries {
-              totalCount
-              nodes {
-                country {
-                  nodeId
-                  id
-                  name
-                  code
-                }
-              }
-            }
-            posterPath
-            moviePosters {
-              totalCount
-              nodes {
-                id
-                filename
-              }
-            }
-            movieBackdrops {
-              nodes {
-                id
-                filename
-              }
-              totalCount
-            }
+            ...movie
             nominations {
               totalCount
               nodes {
-                id
+                ...nomination
                 award {
                   id
                   nameLong
                   nameShort
-                }
-                category {
-                  display
-                  id
-                  name
-                  order
-                  important
+                  isFestival
                 }
                 edition {
                   id
                   date
                   name
                 }
-                winner
-                nominatedPeople {
-                  totalCount
-                  nodes {
-                    ...nominatedPerson
-                  }
-                }
+
               }
             }
           }
         }
         ${NominatedPerson.fragments.nominatedPerson}
+        ${NominationListItem.fragments.nomination}
+        ${MovieListItem.fragments.movie}
       `,
       variables() {
         return {

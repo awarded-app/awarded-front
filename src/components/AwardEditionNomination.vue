@@ -10,46 +10,20 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
 import AwardEditionNominationPerson from "./AwardEditionNominationPerson";
 import AwardEditionNominationMovie from "./AwardEditionNominationMovie";
-import NominatedPerson from "./NominatedPerson";
-import CategoryListItem from "./CategoryListItem";
 
 export default {
   name: "AwardEditionNomination",
   components: {
     AwardEditionNominationMovie,
-    AwardEditionNominationPerson,
+    AwardEditionNominationPerson
   },
   props: {
     nomination: {
       type: Object,
       required: true
     }
-  },
-  fragments: {
-    nomination: gql`
-      fragment nomination on Nomination {
-        id
-        movie {
-          ...movie
-        }
-        nominatedPeople {
-          totalCount
-          nodes {
-            ...nominatedPerson
-          }
-        }
-        category {
-          ...category
-        }
-        winner
-      }
-      ${AwardEditionNominationMovie.fragments.movie}
-      ${NominatedPerson.fragments.nominatedPerson}
-      ${CategoryListItem.fragments.category}
-    `
   }
 };
 </script>

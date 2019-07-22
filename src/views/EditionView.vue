@@ -18,9 +18,9 @@
         <p class="text-gray-500">
           {{ edition.date | formatDate("MMMM Do") }}
         </p>
-        <p class="text-gray-500 uppercase text-sm mt-4 sm:mt-0">
+        <!-- <p class="text-gray-500 uppercase text-sm mt-4 sm:mt-0">
           DISPLAY by <span class="text-white">Category</span> / Movie
-        </p>
+        </p> -->
       </div>
       <section class="pt-4">
         <h4 class="text-xl text-gray-500 mb-2">
@@ -49,7 +49,7 @@ import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "../components/AwardListItem";
 import EditionListItem from "../components/EditionListItem";
 import CategoryListItem from "../components/CategoryListItem";
-import AwardEditionNomination from "../components/AwardEditionNomination";
+import NominationListItem from "../components/NominationListItem";
 import Category from "../components/Category";
 
 export default {
@@ -78,7 +78,8 @@ export default {
         name: ""
       },
       allNominations: null,
-      allNominationsByMovie: null
+      allNominationsByMovie: null,
+      categories: { nodes: [] }
     };
   },
   apollo: {
@@ -94,6 +95,7 @@ export default {
             nodes {
               ...category
               editionCategories(condition: $editionCategoryCondition) {
+                totalCount
                 nodes {
                   id
                   categoryId
@@ -112,7 +114,7 @@ export default {
             }
           }
         }
-        ${AwardEditionNomination.fragments.nomination}
+        ${NominationListItem.fragments.nomination}
         ${CategoryListItem.fragments.category}
       `,
       variables() {
@@ -127,6 +129,17 @@ export default {
             editionId: this.edition.id
           }
         };
+      },
+      update(data) {
+        // filter only complete
+        this.categories = data.categories;
+        this.categories.nodes = data.categories.nodes.filter(category => {
+          if (category.editionCategories.totalCount > 0) {
+            return category.editionCategories.nodes[0].complete;
+          }
+          return false;
+        });
+        return this.categories;
       },
       skip: true
     },

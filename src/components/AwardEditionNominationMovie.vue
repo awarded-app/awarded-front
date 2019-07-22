@@ -9,7 +9,6 @@
   </span>
 </template>
 <script>
-import gql from "graphql-tag";
 import CategoryLink from "./CategoryLink";
 export default {
   components: {
@@ -20,16 +19,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  fragments: {
-    movie: gql`
-      fragment movie on Movie {
-        id
-        title
-        posterPath
-        tmdbId
-      }
-    `
   }
 };
 </script>

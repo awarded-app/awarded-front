@@ -1,5 +1,5 @@
 <template>
-  <spinner v-if="$apollo.loading" />
+  <spinner v-if="$apollo.loading" class="pl-6 lg:pl-8" />
   <div v-else-if="nominations" class="pl-6 lg:pl-8 mb-8 mt-2">
     <nomination-list-festival
       v-if="edition.award.isFestival"
@@ -17,7 +17,7 @@ import gql from "graphql-tag";
 import Spinner from "@/components/Spinner.vue";
 import NominationListFestival from "./NominationListFestival";
 import NominationListAward from "./NominationListAward";
-import AwardEditionNomination from "./AwardEditionNomination";
+import NominationListItem from "./NominationListItem";
 export default {
   name: "NominationList",
   components: {
@@ -47,7 +47,7 @@ export default {
             }
           }
         }
-        ${AwardEditionNomination.fragments.nomination}
+        ${NominationListItem.fragments.nomination}
       `,
       variables() {
         return {

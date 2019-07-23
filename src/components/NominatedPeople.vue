@@ -5,6 +5,11 @@
       :key="nominatedPerson.id"
       class="flex"
     >
+      <span
+        v-if="isFestival && nominatedPerson.prize"
+        class="text-white mr-2"
+        >{{ nominatedPerson.prize.name }}</span
+      >
       <nominated-person :nominated-person="nominatedPerson" /><span
         v-if="index != nominatedPeople.length - 1"
         >,&nbsp;</span
@@ -22,6 +27,10 @@ export default {
     nominatedPeople: {
       type: Array,
       required: true
+    },
+    isFestival: {
+      type: Boolean,
+      default: false
     }
   }
 };

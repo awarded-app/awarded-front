@@ -55,6 +55,9 @@ export default {
     return {
       isOpen: this.category.important
     };
+  },
+  computed: {
+
   }
 };
 </script>

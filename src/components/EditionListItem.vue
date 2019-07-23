@@ -19,7 +19,9 @@
           >
         </h3>
       </div>
-      <h3 class="block text-gray-500 ml-6 sm:ml-2">{{ edition.name }}</h3>
+      <h3 class="leading-tight text-gray-500 ml-6 sm:ml-2">
+        {{ edition.name }}
+      </h3>
     </div>
     <nomination-list v-if="showNominations" :edition="edition" />
   </li>

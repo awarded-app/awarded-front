@@ -1,9 +1,13 @@
 <template>
   <article class="flex">
-    <movie-poster :tmdb-id="winnerNomination.movie.tmdbId" class="mr-2" />
+    <movie-poster
+      :tmdb-id="winnerNomination.movie.tmdbId"
+      w="100"
+      class="mr-2 flex-none"
+    />
     <div>
       <h3
-        class="flex items-center mb-2"
+        class="mb-2"
         :class="
           display === 'movie'
             ? 'flex-row justify-start'
@@ -18,13 +22,14 @@
         </span>
         <nominated-people
           :nominated-people="winnerNomination.nominatedPeople.nodes"
+          :is-festival="isFestival"
           :class="display === 'movie' ? 'text-gray-500' : 'mr-2'"
         />
       </h3>
-      <h3 class="text-gray-500 mr-1 flex items-center">
+      <h3 class="text-gray-500 flex items-center">
         <plus-sign
           @click="showNominations = !showNominations"
-          class="text-lg mb-2"
+          class="text-lg mb-2 mr-4"
         />
         <edition-link
           :edition-date="edition.date"
@@ -39,7 +44,7 @@
           class="mb-1"
         >
           <h4
-            class="flex"
+            class="flex flex-wrap"
             :class="
               display === 'movie'
                 ? 'flex-row justify-start'
@@ -53,6 +58,7 @@
               />
             </span>
             <nominated-people
+              :is-festival="isFestival"
               :nominated-people="nomination.nominatedPeople.nodes"
               :class="display === 'movie' ? 'text-gray-500' : 'mr-2'"
             />
@@ -88,6 +94,10 @@ export default {
     display: {
       type: String,
       default: "movie"
+    },
+    isFestival: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -97,9 +107,17 @@ export default {
   },
   computed: {
     winnerNomination() {
-      return this.edition.nominations.nodes.find(
+      const winners = this.edition.nominations.nodes.filter(
         nomination => nomination.winner
       );
+      if (this.isFestival) {
+        return winners.find(winner =>
+          winner.nominatedPeople.nodes.find(person =>
+            person.prize ? person.prize.order === 0 : false
+          )
+        );
+      }
+      return winners[0];
     },
     otherNominations() {
       return this.edition.nominations.nodes.filter(

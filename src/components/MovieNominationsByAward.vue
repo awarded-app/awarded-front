@@ -16,24 +16,27 @@
     <section v-if="isOpen" class="pl-6 lg:pl-8">
       <ul class="text-xl">
         <li
-          class="flex"
+          class="flex mb-2"
           v-for="nomination in nominationsSorted"
           :key="nomination.id"
         >
-          <star class="w-6 mr-1 mt-1 text-lg" :winner="nomination.winner" />
-          <div class="flex flex-wrap">
+          <star class="mr-2 mt-1 text-lg" :winner="nomination.winner" />
+          <div class="lg:flex lg:flex-wrap">
             <template v-if="isFestival">
-              <nomination-by-award-festival :nomination="nomination"/>
+              <nomination-by-award-festival :nomination="nomination" />
             </template>
             <template v-else>
-              <category-link
-                :category-name="nomination.category.name"
-                :award-name-short="awardNameShort"
-                class="mr-2 lg:mb-0"
-              />
+              <p>
+                <category-link
+                  :category-name="nomination.category.name"
+                  :award-name-short="awardNameShort"
+                  class="mr-2"
+                  >{{ nomination.category.name }}</category-link
+                >
+              </p>
               <nominatedPeople
                 :nominated-people="nomination.nominatedPeople.nodes"
-                class="mr-2 text-gray-500 lg:mb-0"
+                class="text-gray-500"
               />
             </template>
           </div>

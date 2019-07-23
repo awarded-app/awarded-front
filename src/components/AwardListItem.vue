@@ -1,8 +1,8 @@
 <template>
   <li>
-    <div class="flex items-center mb-4">
-      <plus-sign @click="showEditions = !showEditions" />
-      <h2>
+    <div class="flex items-center mb-4 -ml-6 lg:-ml-8">
+      <plus-sign @click="showEditions = !showEditions" class="lg:mr-2" />
+      <h2 class="lg:ml-2">
         <router-link
           class="title-link"
           tag="a"
@@ -11,11 +11,7 @@
         >
       </h2>
     </div>
-    <edition-list
-      v-if="showEditions"
-      :award-id="award.id"
-      class="-mt-2 mb-4 pl-6 lg:pl-8"
-    />
+    <edition-list v-if="showEditions" :award-id="award.id" class="-mt-2 mb-4" />
   </li>
 </template>
 

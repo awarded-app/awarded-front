@@ -1,6 +1,6 @@
 <template>
-  <spinner v-if="$apollo.loading" class="pl-6 lg:pl-8" />
-  <div v-else-if="nominations" class="pl-6 lg:pl-8 mb-8 mt-2">
+  <spinner v-if="$apollo.loading" />
+  <div v-else-if="nominations" class=" mb-8 mt-2">
     <nomination-list-festival
       v-if="edition.award.isFestival"
       :nominations="nominations.nodes"

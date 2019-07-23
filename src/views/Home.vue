@@ -1,7 +1,5 @@
 <template>
-  <section>
-    <award-list />
-  </section>
+  <award-list />
 </template>
 
 <script>

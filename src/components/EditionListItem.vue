@@ -1,9 +1,12 @@
 <template>
   <li class="mb-2">
-    <div class="sm:flex sm:items-center sm:flex-wrap">
+    <div class="sm:flex sm:items-center sm:flex-wrap  -ml-6 lg:-ml-8">
       <div class="flex items-center flex-wrap">
-        <plus-sign @click="showNominations = !showNominations" />
-        <h3>
+        <plus-sign
+          @click="showNominations = !showNominations"
+          class="lg:mr-2"
+        />
+        <h3 class="lg:ml-2">
           <router-link
             class="title-link"
             tag="a"

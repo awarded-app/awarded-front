@@ -1,6 +1,6 @@
 <template>
   <spinner v-if="$apollo.loading" />
-  <ul v-else-if="editions && editions.totalCount > 0">
+  <ul v-else-if="editions && editions.totalCount > 0" class="pl-6 lg:pl-8">
     <edition-list-item
       v-for="edition in editions.nodes"
       :key="edition.id"

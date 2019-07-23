@@ -1,6 +1,6 @@
 <template>
   <spinner v-if="$apollo.loading" />
-  <ul v-else-if="awards">
+  <ul v-else-if="awards" class="pl-6 lg:pl-8">
     <award-list-item
       v-for="award in awards.nodes"
       :key="award.id"

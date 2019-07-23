@@ -15,6 +15,11 @@ Vue.filter("formatDate", function(value, format = "DD.MMM.YY") {
     return moment(new Date(String(value))).format(format);
   }
 });
+Vue.filter("age", function(value) {
+  if (value) {
+    return moment().diff(new Date(String(value)), "years", false);
+  }
+});
 Vue.filter("year", function(value) {
   if (value) {
     return moment(new Date(String(value))).format("YYYY");

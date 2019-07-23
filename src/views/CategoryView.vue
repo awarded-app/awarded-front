@@ -23,6 +23,7 @@
           <category-edition-nomination-list
             :edition="edition"
             :name-short="nameShort"
+            :is-festival="award.isFestival"
             :display="category.display"
           />
         </li>
@@ -33,13 +34,12 @@
 
 <script>
 const groupBy = require("lodash.groupby");
-
 import gql from "graphql-tag";
 import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "../components/AwardListItem";
 import CategoryListItem from "../components/CategoryListItem";
 import CategoryEditionNominationList from "../components/CategoryEditionNominationList";
-import AwardEditionNominationMovie from "../components/AwardEditionNominationMovie";
+import MovieListItem from "../components/MovieListItem";
 import NominatedPerson from "../components/NominatedPerson";
 
 export default {
@@ -81,7 +81,7 @@ export default {
         query category(
           $id: Int!
           $awardId: Int!
-          $nominationsCondition: NominationCondition
+          $nCondition: NominationCondition
         ) {
           category(id: $id, awardId: $awardId) {
             ...category
@@ -95,7 +95,7 @@ export default {
                   id
                   name
                   publish
-                  nominations(condition: $nominationsCondition) {
+                  nominations(condition: $nCondition) {
                     totalCount
                     nodes {
                       id
@@ -115,7 +115,7 @@ export default {
             }
           }
         }
-        ${AwardEditionNominationMovie.fragments.movie}
+        ${MovieListItem.fragments.movie}
         ${NominatedPerson.fragments.nominatedPerson}
         ${CategoryListItem.fragments.category}
       `,
@@ -123,7 +123,7 @@ export default {
         return {
           id: this.categoryId,
           awardId: this.award.id,
-          nominationsCondition: { categoryId: this.categoryId }
+          nCondition: { categoryId: this.categoryId }
         };
       },
       skip: true

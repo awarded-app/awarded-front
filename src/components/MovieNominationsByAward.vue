@@ -22,15 +22,20 @@
         >
           <star class="w-6 mr-1 mt-1 text-lg" :winner="nomination.winner" />
           <div class="flex flex-wrap">
-            <category-link
-              :category-name="nomination.category.name"
-              :award-name-short="awardNameShort"
-              class="mr-2 lg:mb-0"
-            />
-            <nominatedPeople
-              :nominated-people="nomination.nominatedPeople.nodes"
-              class="mr-2 text-gray-500 lg:mb-0"
-            />
+            <template v-if="isFestival">
+              <nomination-by-award-festival :nomination="nomination"/>
+            </template>
+            <template v-else>
+              <category-link
+                :category-name="nomination.category.name"
+                :award-name-short="awardNameShort"
+                class="mr-2 lg:mb-0"
+              />
+              <nominatedPeople
+                :nominated-people="nomination.nominatedPeople.nodes"
+                class="mr-2 text-gray-500 lg:mb-0"
+              />
+            </template>
           </div>
         </li>
       </ul>
@@ -41,11 +46,13 @@
 <script>
 import NominatedPeople from "@/components/NominatedPeople";
 import CategoryLink from "@/components/CategoryLink";
+import NominationByAwardFestival from "@/components/NominationByAwardFestival";
 export default {
   name: "MovieNominationsByAward",
   components: {
     CategoryLink,
-    NominatedPeople
+    NominatedPeople,
+    NominationByAwardFestival
   },
   props: {
     nominations: {
@@ -65,6 +72,26 @@ export default {
     getYear(date) {
       const d = new Date(date);
       return d.getFullYear();
+    },
+    nominatedPeople(nomination) {
+      if (nomination.winner) {
+        const people = nomination.nominatedPeople.nodes.filter(
+          nominatedPerson => nominatedPerson.prize
+        );
+        let prizes = people.map(person => person.prize);
+        prizes = prizes.filter(
+          (prize, index, self) =>
+            index === self.findIndex(p => prize.id === p.id)
+        );
+        return {
+          people,
+          prizes
+        };
+      }
+      return {
+        people: nomination.nominatedPeople.nodes,
+        prizes: []
+      };
     }
   },
   computed: {

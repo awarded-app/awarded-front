@@ -6,27 +6,32 @@
       :key="nomination.id"
       class="mb-4 flex"
     >
-      <div class="mt-1 flex-none">
+      <div class="mt-1 flex-none mr-2">
         <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
       </div>
-      <div class="pl-2">
-        <h4 class="-mb-1 md:flex md:flex-row md:items-center">
-          <star :winner="true" class="mr-2 pb-2" />
-          <movie-link
-            :movie-id="nomination.movie.id"
-            :movie-title="nomination.movie.title"
-          />
+      <div>
+        <h4 class="md:flex md:flex-row md:items-center">
+          <star :winner="true" class="text-lg mr-2" />
+          <span>
+            <movie-link
+              :movie-id="nomination.movie.id"
+              :movie-title="nomination.movie.title"
+            />
+          </span>
         </h4>
-        <ul class="ml-8">
+        <ul class="ml-6 text-lg">
           <li
             v-for="nominatedPerson in nomination.nominatedPeople.nodes"
             :key="nominatedPerson.id"
           >
             <span v-if="nominatedPerson.prize" class="text-gray-500">
-              {{ nominatedPerson.prize.name
-              }}<span class="text-white ml-2">{{
-                nominatedPerson.person.name
-              }}</span
+              <span class="mr-2">{{ nominatedPerson.prize.name }}</span
+              ><span class="text-white"
+                ><person-link
+                  :person-name="nominatedPerson.person.name"
+                  :person-id="nominatedPerson.person.id"
+                  >{{ nominatedPerson.person.name }}</person-link
+                ></span
               ><br />
             </span>
           </li>
@@ -39,11 +44,12 @@
 <script>
 const groupBy = require("lodash.groupby");
 import MovieLink from "./MovieLink";
+import PersonLink from "./PersonLink";
 import MoviePoster from "./MoviePoster";
 
 export default {
   name: "NominationListFestival",
-  components: { MovieLink, MoviePoster },
+  components: { MovieLink, MoviePoster, PersonLink },
   props: {
     nominations: {
       type: Array,
@@ -59,9 +65,6 @@ export default {
         const b_prize = b.nominatedPeople.nodes
           .filter(person => person.prize)
           .sort((a, b) => a.prize.order - b.prize.order)[0].prize;
-        console.log("a_prize", a_prize);
-        console.log("b_prize", b_prize);
-
         return a_prize.order - b_prize.order;
       });
     }

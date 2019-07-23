@@ -1,12 +1,12 @@
 <template>
-  <h5 class="flex items-start lg:items-center">
-    <star :winner="nomination.winner" class="mr-2 pt-2 lg:pt-0 text-sm" />
+  <p class="flex items-start lg:items-center">
+    <star :winner="nomination.winner" class="mr-2 mt-1 text-base" />
     <award-edition-nomination-person
       v-if="nomination.category.display === 'person'"
       :nomination="nomination"
     />
     <award-edition-nomination-movie v-else :nomination="nomination" />
-  </h5>
+  </p>
 </template>
 
 <script>

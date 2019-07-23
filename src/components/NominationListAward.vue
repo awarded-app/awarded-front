@@ -11,12 +11,12 @@
       </div>
 
       <div class="pl-4">
-        <h4 class="-mb-1 md:flex md:flex-row md:items-center">
+        <h4 class="md:flex md:flex-row md:items-center">
           <movie-link
             :movie-id="movieNominations[0].movie.id"
             :movie-title="movieNominations[0].movie.title"
           />
-          <movie-stats :movie-nominations="movieNominations" class="mb-2" />
+          <!-- <movie-stats :movie-nominations="movieNominations" class="mb-2" /> -->
         </h4>
         <ul>
           <li v-for="nomination in movieNominations" :key="nomination.id">

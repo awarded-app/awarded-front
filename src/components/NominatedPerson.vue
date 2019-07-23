@@ -1,11 +1,10 @@
 <template>
-  <span class="flex"
+  <span
     ><person-link
       :person-id="nominatedPerson.person.id"
       :person-name="nominatedPerson.person.name"
-      class="mr-1"
       >{{ nominatedPerson.person.name }}</person-link
-    ><span class="text-gray-500" v-if="nominatedPerson.character">
+    ><span class="ml-1 text-gray-500" v-if="nominatedPerson.character">
       (as {{ nominatedPerson.character }})</span
     ></span
   >
@@ -14,7 +13,7 @@
 <script>
 import gql from "graphql-tag";
 import PersonLink from "./PersonLink";
-
+import PersonListItem from "./PersonListItem";
 export default {
   name: "NominatedPerson",
   components: {
@@ -36,8 +35,7 @@ export default {
           name
         }
         person {
-          id
-          name
+          ...person
         }
         prize {
           id
@@ -46,6 +44,7 @@ export default {
           display
         }
       }
+      ${PersonListItem.fragments.person}
     `
   }
 };

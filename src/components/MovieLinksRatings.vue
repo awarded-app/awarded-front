@@ -75,17 +75,26 @@ export default {
       const url = `http://www.omdbapi.com/?apikey=${
         process.env.VUE_APP_OMDB_API_KEY
       }&i=${this.imdbId}`;
-      const { data } = await axios.get(url);
-      this.rt = data.Ratings.find(
-        rating => rating.Source === "Rotten Tomatoes"
-      ).Value;
-      this.metacritic = data.Ratings.find(
-        rating => rating.Source === "Metacritic"
-      ).Value;
-      this.imdbRating = data.Ratings.find(
-        rating => rating.Source === "Internet Movie Database"
-      ).Value;
-      this.title = data.Title;
+      try {
+        const { data } = await axios.get(url);
+        this.title = data.Title;
+        if (!data.hasOwnProperty("Ratings")) return;
+        this.rt = this.findValue("Rotten Tomatoes", data.Ratings);
+        this.metacritic = this.findValue("Metacritic", data.Ratings);
+        this.imdbRating = this.findValue(
+          "Internet Movie Database",
+          data.Ratings
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    findValue(name, ratings) {
+      const idx = ratings.findIndex(rating => rating.Source === name);
+      if (idx >= 0) {
+        return ratings[idx].Value;
+      }
+      return null;
     }
   }
 };

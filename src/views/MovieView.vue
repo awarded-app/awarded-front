@@ -9,13 +9,13 @@
       </nav>
       <h2 class="flex items-center flex-wrap">
         <span class="mr-2">{{ movie.title }}</span>
-        <span class="text-gray-500 leading-none mr-1">{{
+        <span class="text-gray-500 leading-none mr-2">{{
           movie.releaseDate | year
         }}</span>
         <sup
           v-for="{ country } in movie.movieCountries.nodes"
           :key="country.id"
-          class="text-base text-gray-500"
+          class="text-base text-gray-500 mr-1"
           >{{ country.code }}</sup
         >
       </h2>
@@ -77,8 +77,8 @@
 import gql from "graphql-tag";
 const groupBy = require("lodash.groupby");
 import Spinner from "@/components/Spinner";
-import MovieListItem from "@/components/MovieListItem"
-import NominationListItem from "@/components/NominationListItem"
+import MovieListItem from "@/components/MovieListItem";
+import NominationListItem from "@/components/NominationListItem";
 import MoviePoster from "@/components/MoviePoster";
 import MovieLinksRatings from "@/components/MovieLinksRatings";
 import MovieLinksShopping from "@/components/MovieLinksShopping";
@@ -143,7 +143,6 @@ export default {
                   date
                   name
                 }
-
               }
             }
           }

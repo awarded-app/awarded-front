@@ -10,7 +10,7 @@
     <div v-if="isOpen" class="pl-6 lg:pl-8">
       <template v-if="isFestival">
         <nomination-festival
-          v-for="nomination in category.nominations.nodes"
+          v-for="nomination in nominationsByPrize"
           :key="nomination.id"
           :nomination="nomination"
         />
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+const orderBy = require("lodash.orderby");
 import Nomination from "../components/Nomination";
 import NominationFestival from "../components/NominationFestival";
 import CategoryPosters from "../components/CategoryPosters";
@@ -57,7 +58,34 @@ export default {
     };
   },
   computed: {
-
+    winners() {
+      return this.category.nominations.nodes.filter(
+        nomination => nomination.winner
+      );
+    },
+    losers() {
+      return this.category.nominations.nodes.filter(
+        nomination => !nomination.winner
+      );
+    },
+    orderWinnersByPrize() {
+      const winners = this.winners.map(winner => {
+        return {
+          ...winner,
+          prizeOrder: this.getHighestPrize(winner.nominatedPeople.nodes).prize
+            .order
+        };
+      });
+      return orderBy([...winners], "prizeOrder");
+    },
+    nominationsByPrize() {
+      return [...this.orderWinnersByPrize, ...this.losers];
+    }
+  },
+  methods: {
+    getHighestPrize(nominatedPeople) {
+      return orderBy([...nominatedPeople], "prize.order")[0];
+    }
   }
 };
 </script>

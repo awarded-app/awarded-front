@@ -34,7 +34,7 @@ export default new Router({
         import(/* webpackChunkName: "edition" */ "./views/EditionView.vue")
     },
     {
-      path: "/award/:nameShort/:categoryName",
+      path: "/award/:nameShort/category/:categoryName",
       name: "category",
       props: true,
       component: () =>
@@ -46,6 +46,13 @@ export default new Router({
       props: true,
       component: () =>
         import(/* webpackChunkName: "Movie" */ "./views/MovieView.vue")
+    },
+    {
+      path: "/person/:personId/:personName",
+      name: "Person",
+      props: true,
+      component: () =>
+        import(/* webpackChunkName: "Person" */ "./views/PersonView.vue")
     }
   ]
 });

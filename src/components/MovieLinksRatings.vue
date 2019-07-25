@@ -1,5 +1,5 @@
 <template>
-  <ul class="text-sm flex">
+  <ul class="text-sm flex flex-wrap">
     <li>
       <a
         :href="`https://www.themoviedb.org/movie/${tmdbId}/`"
@@ -72,9 +72,7 @@ export default {
   },
   methods: {
     async getOMDBInfo() {
-      const url = `http://www.omdbapi.com/?apikey=${
-        process.env.VUE_APP_OMDB_API_KEY
-      }&i=${this.imdbId}`;
+      const url = `http://www.omdbapi.com/?apikey=${process.env.VUE_APP_OMDB_API_KEY}&i=${this.imdbId}`;
       try {
         const { data } = await axios.get(url);
         this.title = data.Title;

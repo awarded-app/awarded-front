@@ -23,11 +23,11 @@
     <main>
       <spinner v-if="$apollo.loading" />
       <template v-else>
-        <section id="movie-details" class="flex">
-          <div class="mr-4">
+        <section id="movie-details" class="sm:flex">
+          <div class="mb-2 sm:mr-4">
             <movie-poster :tmdb-id="movie.tmdbId" w="200" />
           </div>
-          <div class="w-1/2">
+          <div class="sm:w-1/2">
             <p class="text-gray-500 mb-2">
               {{ movie.overview }}
             </p>

@@ -6,12 +6,12 @@
       :key="nomination.id"
       class="mb-4 flex"
     >
-      <div class="mt-1 flex-none mr-2">
+      <div class="mt-1 mr-2 hidden sm:block">
         <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
       </div>
       <div>
-        <h4 class="md:flex md:flex-row md:items-center">
-          <star :winner="true" class="text-lg mr-2" />
+        <h4 class="flex items-center">
+          <star :winner="true" class="text-lg mr-2 mb-1 md:mb-0" />
           <span>
             <movie-link
               :movie-id="nomination.movie.id"
@@ -23,17 +23,20 @@
           <li
             v-for="nominatedPerson in nomination.nominatedPeople.nodes"
             :key="nominatedPerson.id"
+            class="flex flex-col md:flex-row"
           >
-            <span v-if="nominatedPerson.prize" class="text-gray-500">
-              <span class="mr-2">{{ nominatedPerson.prize.name }}</span
+            <template v-if="nominatedPerson.prize">
+              <span class="text-gray-500 mr-2">{{
+                nominatedPerson.prize.name
+              }}</span
               ><span class="text-white"
                 ><person-link
                   :person-name="nominatedPerson.person.name"
                   :person-id="nominatedPerson.person.id"
                   >{{ nominatedPerson.person.name }}</person-link
                 ></span
-              ><br />
-            </span>
+              >
+            </template>
           </li>
         </ul>
       </div>

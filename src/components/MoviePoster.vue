@@ -1,6 +1,6 @@
 <template functional>
   <div
-    class="shadow"
+    class="shadow flex-none"
     :class="[data.class, data.staticClass]"
     v-bind="data.attrs"
     v-on="listeners"

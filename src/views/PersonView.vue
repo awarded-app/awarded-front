@@ -14,15 +14,15 @@
     <main>
       <spinner v-if="$apollo.loading" class="mt-4" />
       <template v-else>
-        <section id="person" class="flex">
-          <div class="mr-4">
+        <section id="person" class="sm:flex">
+          <div class="mb-2 sm:mr-4">
             <person-headshot
               :tmdb-id="person.tmdbId"
               :profilePath="person.profilePath"
               w="200"
             />
           </div>
-          <div class="w-1/2">
+          <div class="sm:w-1/2">
             <p v-if="person.biography" class="text-gray-500 mb-2">
               {{ person.biography }}
             </p>
@@ -58,7 +58,7 @@
               :key="index"
               class="flex mb-4 w-full xl:w-1/3 xl:mr-4"
             >
-              <div class="mr-2">
+              <div class="mr-2 flex-none">
                 <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
               </div>
               <div>
@@ -227,7 +227,7 @@ export default {
         return {
           movie: { ...nomination[0].movie },
           edition: { ...nomination[0].edition },
-          nominations: orderBy(nomination,"winner", 'desc')
+          nominations: orderBy(nomination, "winner", "desc")
         };
       });
 

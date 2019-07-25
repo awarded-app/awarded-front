@@ -97,13 +97,6 @@
                 </ul>
               </div>
             </div>
-            <!-- <div
-              v-for="(awardNominations, index) in nominationsByAward"
-              :key="index"
-              class="mb-4"
-            >
-              <person-nominations-by-award :nominations="awardNominations" />
-            </div> -->
           </div>
         </section>
       </template>
@@ -119,8 +112,6 @@ import Spinner from "@/components/Spinner";
 import PersonSocialLinks from "@/components/PersonSocialLinks";
 import PersonHeadshot from "@/components/PersonHeadshot";
 import PersonListItem from "@/components/PersonListItem";
-import PersonNominationsByAward from "@/components/PersonNominationsByAward";
-
 import MoviePoster from "@/components/MoviePoster";
 import MovieLink from "@/components/MovieLink";
 import CategoryLink from "@/components/CategoryLink";
@@ -129,7 +120,6 @@ import EditionLink from "@/components/EditionLink";
 export default {
   name: "PersonView",
   components: {
-    PersonNominationsByAward,
     Spinner,
     PersonHeadshot,
     PersonSocialLinks,
@@ -228,20 +218,6 @@ export default {
     }
   },
   computed: {
-    nominationsByEdition() {
-      if (!this.nominations) return null;
-      let sortedNominations = Object.values(
-        groupBy(this.nominations, "edition.id")
-      );
-      sortedNominations = sortedNominations.map(nomination => {
-        return {
-          edition: { ...nomination[0].edition },
-          nominations: [...nomination]
-        };
-      });
-      sortedNominations = orderBy(sortedNominations, "edition.date", "desc");
-      return sortedNominations;
-    },
     nominationsByMovie() {
       if (!this.nominations) return null;
       let sortedNominations = Object.values(
@@ -251,9 +227,10 @@ export default {
         return {
           movie: { ...nomination[0].movie },
           edition: { ...nomination[0].edition },
-          nominations: [...nomination]
+          nominations: orderBy(nomination,"winner", 'desc')
         };
       });
+
       sortedNominations = orderBy(sortedNominations, "edition.date", "desc");
       return sortedNominations;
     },

@@ -12,7 +12,7 @@
       </h2>
     </header>
     <main>
-      <spinner v-if="$apollo.loading" />
+      <spinner v-if="$apollo.loading" class="mt-4" />
       <template v-else>
         <section id="person" class="flex">
           <div class="mr-4">
@@ -46,20 +46,64 @@
           </div>
         </section>
         <section id="movie-nominations" class="pt-4">
-          <p class="text-gray-500">
+          <p class="text-gray-500 mb-4">
             {{ stats.nominations }} nominations<span
               class="text-xs mx-1 text-gray-800"
               >★</span
             >{{ stats.wins }} wins
           </p>
-          <div>
+          <div class="xl:flex xl:flex-wrap">
             <div
+              v-for="(movieGroup, index) in nominationsByMovie"
+              :key="index"
+              class="flex mb-4 w-full xl:w-1/3 xl:mr-4"
+            >
+              <div class="mr-2">
+                <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
+              </div>
+              <div>
+                <h3 class="mb-1">
+                  <movie-link
+                    :movie-id="movieGroup.movie.id"
+                    :movie-title="movieGroup.movie.title"
+                  >
+                    {{ movieGroup.movie.title }}
+                  </movie-link>
+                </h3>
+
+                <ul>
+                  <li
+                    v-for="nomination in movieGroup.nominations"
+                    :key="nomination.id"
+                    class="mb-1"
+                  >
+                    <star :winner="nomination.winner" class="mr-2" />
+                    <category-link
+                      :category-name="nomination.category.name"
+                      :award-name-short="nomination.award.nameShort"
+                      class="mr-2"
+                      >{{ nomination.category.name }}</category-link
+                    >
+                    <edition-link
+                      :edition-date="nomination.edition.date"
+                      :award-name-short="nomination.award.nameShort"
+                      class="mr-2"
+                      ><span class="text-gray-500"
+                        >{{ nomination.edition.date | year }}
+                        {{ nomination.award.nameShort }}</span
+                      ></edition-link
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- <div
               v-for="(awardNominations, index) in nominationsByAward"
               :key="index"
               class="mb-4"
             >
               <person-nominations-by-award :nominations="awardNominations" />
-            </div>
+            </div> -->
           </div>
         </section>
       </template>
@@ -70,11 +114,17 @@
 <script>
 import gql from "graphql-tag";
 const groupBy = require("lodash.groupby");
+const orderBy = require("lodash.orderby");
 import Spinner from "@/components/Spinner";
 import PersonSocialLinks from "@/components/PersonSocialLinks";
 import PersonHeadshot from "@/components/PersonHeadshot";
-import PersonListItem from "../components/PersonListItem";
-import PersonNominationsByAward from "../components/PersonNominationsByAward";
+import PersonListItem from "@/components/PersonListItem";
+import PersonNominationsByAward from "@/components/PersonNominationsByAward";
+
+import MoviePoster from "@/components/MoviePoster";
+import MovieLink from "@/components/MovieLink";
+import CategoryLink from "@/components/CategoryLink";
+import EditionLink from "@/components/EditionLink";
 
 export default {
   name: "PersonView",
@@ -82,7 +132,11 @@ export default {
     PersonNominationsByAward,
     Spinner,
     PersonHeadshot,
-    PersonSocialLinks
+    PersonSocialLinks,
+    EditionLink,
+    CategoryLink,
+    MovieLink,
+    MoviePoster
   },
   props: {
     personName: {
@@ -97,12 +151,12 @@ export default {
   data() {
     return {
       person: {
-        id: this.personId,
+        id: Number(this.personId),
         name: this.personName
       },
       prevScreen: "",
       prevScreenParams: null,
-      stats: null
+      nominations: []
     };
   },
   apollo: {
@@ -111,52 +165,6 @@ export default {
         query person($id: Int!) {
           person(id: $id) {
             ...person
-            nominatedPeople {
-              nodes {
-                id
-                tmdbCreditId
-                character
-                job {
-                  id
-                  name
-                }
-                nomination {
-                  movie {
-                    id
-                    title
-                    tmdbId
-                  }
-                  award {
-                    id
-                    nameShort
-                    isFestival
-                  }
-                  category {
-                    id
-                    name
-                    order
-                    editionCategories {
-                      nodes {
-                        complete
-                      }
-                    }
-                  }
-                  edition {
-                    id
-                    name
-                    date
-                    publish
-                  }
-                  winner
-                }
-                prize {
-                  id
-                  name
-                  order
-                }
-              }
-              totalCount
-            }
           }
         }
         ${PersonListItem.fragments.person}
@@ -167,25 +175,100 @@ export default {
         };
       },
       update(data) {
-        this.stats = this.getStats(data.person.nominatedPeople.nodes);
         return (this.person = data.person);
+      }
+    },
+    nominatedPeople: {
+      query: gql`
+        query nominatedPeople($condition: NominatedPersonCondition) {
+          nominatedPeople(condition: $condition) {
+            totalCount
+            nodes {
+              nomination {
+                id
+                winner
+                edition {
+                  id
+                  name
+                  date
+                  publish
+                }
+                award {
+                  id
+                  nameShort
+                }
+                category {
+                  id
+                  name
+                  display
+                  important
+                  order
+                }
+
+                movie {
+                  id
+                  tmdbId
+                  title
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables() {
+        return {
+          condition: { personId: this.person.id }
+        };
+      },
+      update(data) {
+        return (this.nominations = data.nominatedPeople.nodes.map(
+          node => node.nomination
+        ));
       }
     }
   },
   computed: {
-    nominationsByAward() {
-      return this.groupByAward(this.person.nominatedPeople.nodes);
+    nominationsByEdition() {
+      if (!this.nominations) return null;
+      let sortedNominations = Object.values(
+        groupBy(this.nominations, "edition.id")
+      );
+      sortedNominations = sortedNominations.map(nomination => {
+        return {
+          edition: { ...nomination[0].edition },
+          nominations: [...nomination]
+        };
+      });
+      sortedNominations = orderBy(sortedNominations, "edition.date", "desc");
+      return sortedNominations;
+    },
+    nominationsByMovie() {
+      if (!this.nominations) return null;
+      let sortedNominations = Object.values(
+        groupBy(this.nominations, "movie.id")
+      );
+      sortedNominations = sortedNominations.map(nomination => {
+        return {
+          movie: { ...nomination[0].movie },
+          edition: { ...nomination[0].edition },
+          nominations: [...nomination]
+        };
+      });
+      sortedNominations = orderBy(sortedNominations, "edition.date", "desc");
+      return sortedNominations;
+    },
+    stats() {
+      if (!this.nominations) return null;
+      return this.getStats(this.nominations);
     }
   },
   methods: {
-    groupByAward(nominations) {
-      return Object.values(groupBy(nominations, "nomination.award.id"));
+    orderByEditionDate(nominations) {
+      return orderBy(nominations, "edition.date");
     },
     getStats(nominations) {
       const stats = { nominations: nominations.length, wins: 0 };
-      stats.wins = nominations.filter(
-        nomination => nomination.nomination.winner
-      ).length;
+      stats.wins = nominations.filter(nomination => nomination.winner).length;
       return stats;
     }
   },

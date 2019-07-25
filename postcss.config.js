@@ -3,7 +3,8 @@ const purgecss = require("@fullhuman/postcss-purgecss")({
   content: [
     "./src/**/*.html",
     "./public/*.html",
-    "./src/**/*.vue"
+    "./src/**/*.vue",
+    "./node_modules/epic-spinners/src/components/lib/*.vue"
     // etc.
   ],
   // Include any special characters you're using in this regular expression
@@ -11,9 +12,8 @@ const purgecss = require("@fullhuman/postcss-purgecss")({
 });
 module.exports = {
   plugins: [
-    require('tailwindcss'),
-    require('autoprefixer'),
+    require("tailwindcss"),
+    require("autoprefixer"),
     ...(process.env.NODE_ENV === "production" ? [purgecss] : [])
   ]
-
 };

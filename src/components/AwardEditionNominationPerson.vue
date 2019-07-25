@@ -16,10 +16,14 @@
           >
             <template v-if="prize.length > 1">
               <span v-if="index === prize.length - 1">&</span>
-              <span v-else-if="index > 0">,</span>
-            </template>
-            {{ nomination.person.name }}
-          </span>
+              <span v-else-if="index > 0">,</span> </template
+            ><person-link
+              :person-id="nomination.person.id"
+              :person-name="nomination.person.name"
+            >
+              {{ nomination.person.name }}
+            </person-link></span
+          >
         </span>
       </span>
     </template>
@@ -29,10 +33,9 @@
       <category-link
         :category-name="nomination.category.name"
         :award-name-short="nomination.category.award.nameShort"
-      >
-        {{ nomination.category.name }}
+        >{{ nomination.category.name }}
       </category-link>
-      <span class="ml-1">
+      <span class="pl-1">
         <span
           v-for="(nominatedPerson, index) in nomination.nominatedPeople.nodes"
           :key="nominatedPerson.id"
@@ -42,9 +45,13 @@
             <span v-if="index === nomination.nominatedPeople.nodes.length - 1"
               >&</span
             >
-            <span v-else-if="index > 0">,</span>
-          </template>
-          {{ nominatedPerson.person.name }}
+            <span v-else-if="index > 0">,</span> </template
+          ><person-link
+            :person-id="nominatedPerson.person.id"
+            :person-name="nominatedPerson.person.name"
+          >
+            {{ nominatedPerson.person.name }}
+          </person-link>
         </span>
       </span>
     </span>
@@ -54,9 +61,11 @@
 <script>
 const groupBy = require("lodash.groupby");
 import CategoryLink from "./CategoryLink";
+import PersonLink from "./PersonLink";
 
 export default {
   components: {
+    PersonLink,
     CategoryLink
   },
   props: {

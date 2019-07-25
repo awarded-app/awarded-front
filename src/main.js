@@ -34,7 +34,6 @@ Vue.filter("formatUrl", function(value) {
 //GLOBAL COMPONENTS
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("breadcrumbs", () => import("./components/Breadcrumbs"));
-
 Vue.component("star", () => import("./components/Star"));
 Vue.component("plus-sign", () => import("./components/PlusSign"));
 Vue.component("back-arrow", () => import("./components/BackArrow"));

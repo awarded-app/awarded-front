@@ -1,14 +1,13 @@
 <template>
   <div v-if="peopleByPrize">
     <template v-for="prize in peopleByPrize">
-      <span class="text-gray-500" :key="prize[0].prize.id">
+      <span class="text-gray-500 mr-1" :key="prize[0].prize.id">
         <category-link
           :category-name="nomination.category.name"
           :award-name-short="nomination.category.award.nameShort"
-        >
-          {{ prize[0].prize.name }}
-        </category-link>
-        <span class="ml-1">
+          >{{ prize[0].prize.name }}</category-link
+        >&nbsp;
+        <span>
           <span
             v-for="(nomination, index) in prize"
             :key="nomination.id"

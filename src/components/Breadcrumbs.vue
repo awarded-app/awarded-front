@@ -1,6 +1,6 @@
 <template>
-  <nav class="flex items-center text-gray-500 text-sm mb-2">
-    <ul>
+  <nav class="flex items-center flex-wrap text-gray-500 text-sm mb-2">
+    <ul class="flex flex-wrap">
       <li>
         <router-link to="/" tag="a" class="title-link">Awards</router-link>
       </li>
@@ -28,7 +28,7 @@
       </template>
       <li>
         <slot />
-        </li>
+      </li>
     </ul>
   </nav>
 </template>

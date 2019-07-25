@@ -6,11 +6,11 @@
       :key="movieNominations.id"
       class="mb-4 flex"
     >
-      <div class="mt-1 flex-none">
+      <div class="mt-1 hidden mr-2 sm:block">
         <movie-poster :tmdb-id="movieNominations[0].movie.tmdbId" w="100" />
       </div>
 
-      <div class="pl-4">
+      <div>
         <h4 class="md:flex md:flex-row md:items-center">
           <movie-link
             :movie-id="movieNominations[0].movie.id"
@@ -35,11 +35,10 @@
 const groupBy = require("lodash.groupby");
 import MovieLink from "./MovieLink";
 import MoviePoster from "./MoviePoster";
-import MovieStats from "./MovieStats";
 import AwardEditionNomination from "./AwardEditionNomination";
 export default {
-  name: "NominationListAwardItem",
-  components: { AwardEditionNomination, MoviePoster, MovieLink, MovieStats },
+  name: "NominationListAward",
+  components: { AwardEditionNomination, MoviePoster, MovieLink },
   props: {
     nominations: {
       type: Array,

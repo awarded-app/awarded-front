@@ -1,6 +1,6 @@
 <template>
   <li>
-    <div class="flex items-center mb-4 -ml-6 lg:-ml-8">
+    <div class="flex items-center mb-2 -ml-6 lg:-ml-8">
       <plus-sign @click="showEditions = !showEditions" class="lg:mr-2" />
       <h2 class="lg:ml-2">
         <router-link

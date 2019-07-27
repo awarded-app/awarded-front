@@ -1,5 +1,5 @@
 <template>
-  <article class="pl-6 lg:pl-8">
+  <article class="indented">
     <breadcrumbs :prevScreenParams="prevScreenParams">{{
       person.name
     }}</breadcrumbs>

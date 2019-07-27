@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-6 lg:pl-8">
+  <div class="indented">
     <breadcrumbs :prevScreenParams="prevScreenParams">{{
       categoryName
     }}</breadcrumbs>

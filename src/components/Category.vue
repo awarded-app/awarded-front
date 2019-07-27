@@ -7,7 +7,7 @@
         :category-name="category.name"
       />
     </h3>
-    <div v-if="isOpen" class="pl-6 lg:pl-8">
+    <div v-if="isOpen" class="indented">
       <template v-if="isFestival">
         <nomination-festival
           v-for="nomination in nominationsByPrize"

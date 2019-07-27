@@ -11,15 +11,8 @@ Vue.use(VueApollo);
 
 // Name of the localStorage item
 const AUTH_TOKEN = "apollo-token";
-
-// Http endpoint
-const httpEndpoint =
-  process.env.VUE_APP_GRAPHQL_HTTP || "http://localhost:8080/graphql";
-
 // Config
 const defaultOptions = {
-  // You can use `https` for secure connection (recommended in production)
-  httpEndpoint,
   // You can use `wss` for secure connection (recommended in production)
   // Use `null` to disable subscriptions
   wsEndpoint: null, //process.env.VUE_APP_GRAPHQL_WS || "ws://localhost:4000/graphql",
@@ -51,23 +44,41 @@ const defaultOptions = {
   // clientState: { resolvers: { ... }, defaults: { ... } }
 };
 
+const apiOptions = {
+  httpEndpoint:
+    process.env.VUE_APP_GRAPHQL_HTTP || "http://localhost:8080/graphql"
+};
+const strapiOptions = {
+  httpEndpoint:
+    process.env.VUE_APP_STRAPI_GRAPHQL_HTTP || "http://localhost:8080/strapi"
+};
+
 // Call this in the Vue app file
 export function createProvider(options = {}) {
   // Create apollo client
-  const { apolloClient, wsClient } = createApolloClient({
+  const createApi = createApolloClient({
     ...defaultOptions,
+    ...apiOptions,
     ...options
   });
-  apolloClient.wsClient = wsClient;
+
+  const createStrapi = createApolloClient({
+    ...defaultOptions,
+    ...strapiOptions,
+    ...options
+  });
+
+  const api = createApi.apolloClient;
+  const strapi = createStrapi.apolloClient;
 
   // Create vue apollo provider
   const apolloProvider = new VueApollo({
-    defaultClient: apolloClient,
-    defaultOptions: {
-      $query: {
-        // fetchPolicy: 'cache-and-network',
-      }
+    clients: {
+      api,
+      strapi
     },
+    defaultClient: api,
+
     errorHandler(error) {
       // eslint-disable-next-line no-console
       console.log(

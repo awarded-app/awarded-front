@@ -10,25 +10,18 @@
           <sup class="text-sm">{{ award.country.code }}</sup>
         </span>
       </h2>
-    </div>
+    </header>
     <section>
       <template v-if="$apollo.loading">
         <spinner />
       </template>
       <template v-else>
-        <p class="text-gray-500 mt-2 lg:mt-0">
-          <a
-            :href="award.link"
-            class="link-external hover:text-white"
-            target="_blank"
-            >{{ award.link | formatUrl }}</a
-          >
+        <p class="text-gray-500 mb-4">
+          <a :href="award.link" class="link-external hover:text-white" target="_blank">{{
+            award.link | formatUrl
+          }}</a>
         </p>
-        <p class="text-gray-500">
-          {{ award.editions.totalCount }} editions since
-          {{ editionYears.minDate | year }}
-        </p>
-        <section class="pt-4">
+        <section>
           <edition-list :award-id="award.id" />
         </section>
       </template>

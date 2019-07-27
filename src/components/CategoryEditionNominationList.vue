@@ -37,7 +37,7 @@
         />
       </h3>
 
-      <ul v-if="showNominations" class="mb-4 pl-6 lg:pl-8">
+      <ul v-if="showNominations" class="mb-4 indented">
         <li
           v-for="nomination in otherNominations"
           :key="nomination.id"

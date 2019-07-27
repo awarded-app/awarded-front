@@ -13,7 +13,7 @@
         </span>
       </router-link>
     </h3>
-    <section v-if="isOpen" class="pl-6 lg:pl-8">
+    <section v-if="isOpen" class="indented">
       <ul class="text-xl">
         <li>
           <p class="mr-2 mb-1">

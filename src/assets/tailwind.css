@@ -26,6 +26,15 @@ h5 {
   @apply text-lg;
 }
 
+.indented {
+  @apply pl-6;
+}
+@screen lg {
+  .indented {
+    @apply pl-8;
+  }
+}
+
 a.link-external::after {
   content: '↗';
   @apply text-xs text-gray-500;

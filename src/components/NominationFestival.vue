@@ -50,36 +50,16 @@
           >
         </li>
       </ul>
-      <!-- <div
-        class="flex"
-        :class="
-          display === 'person'
-            ? 'lg:flex-row'
-            : 'lg:flex-row lg:flex-row-reverse'
-        "
-      >
-        <nominatedPeople
-          :nominated-people="nomination.nominatedPeople.nodes"
-          class="mr-2"
-          :class="display === 'person' ? '' : 'text-gray-500'"
-        />
-        <movie-link
-          :movie-id="nomination.movie.id"
-          :movie-title="nomination.movie.title"
-          class="mr-2"
-          :class="display === 'person' ? 'text-gray-500' : ''"
-        />
-      </div> -->
+
     </li>
   </ul>
 </template>
 
 <script>
 import MovieLink from "./MovieLink";
-import NominatedPeople from "./NominatedPeople";
 export default {
   name: "NominationFestival",
-  components: { NominatedPeople, MovieLink },
+  components: {  MovieLink },
   props: {
     nomination: {
       type: Object,

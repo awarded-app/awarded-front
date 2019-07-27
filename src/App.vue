@@ -1,15 +1,29 @@
 <template>
-  <div id="app">
-    <header class="mb-4 pl-6 lg:pl-8">
-      <h1 class="font-bold text-4xl flex flex-col md:flex-row">
-        <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
-        <span class="text-gray-500">MOVIES</span>
-      </h1>
+  <div id="app" class="min-h-full flex flex-col items-stretch">
+    <header class="mb-4 indented flex-shrink-0">
+      <router-link to="/">
+        <h1 class="font-bold text-4xl flex flex-col md:flex-row">
+          <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
+          <span class="text-gray-500">MOVIES</span>
+        </h1>
+      </router-link>
     </header>
-    <main>
+    <main class="flex-1 flex-shrink-0 mb-8">
       <router-view />
     </main>
+    <base-footer />
   </div>
 </template>
+
+<script>
+import BaseFooter from "@/components/BaseFooter.vue";
+
+export default {
+  name: "Home",
+  components: {
+    BaseFooter
+  }
+};
+</script>
 
 <style></style>

@@ -1,7 +1,7 @@
 <template functional>
-  <footer class="indented bottom-0 text-xs pt-8 mb-4 flex-shrink-0">
-    <p class="mb-2">
-      Made with <span class="text-gray-500">&#9829;</span> by
+  <footer class="indented bottom-0 text-xs mb-4 w-auto text-gray-500">
+    <p class="pt-8 mb-2 border-t border-gray-800">
+      Made with &#9829; by
       <a
         href="https://twitter.com/danrocc"
         target="_blank"
@@ -12,7 +12,9 @@
     </p>
     <ul>
       <li>
-        <router-link to="/about" class="title-link">Learn more</router-link>
+        <router-link to="/about" class="title-link text-white"
+          >Learn more</router-link
+        >
       </li>
       <li>
         <a

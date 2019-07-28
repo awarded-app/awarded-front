@@ -1,5 +1,5 @@
 <template>
-  <spinner v-if="$apollo.loading" />
+  <spinner v-if="$apollo.loading" class="indented"/>
   <ul v-else-if="awards" class="indented">
     <award-list-item
       v-for="award in awards.nodes"

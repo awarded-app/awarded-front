@@ -1,9 +1,11 @@
 <template>
-  <font-awesome-icon
-    :icon="icon"
-    class="h-full mr-2 flex items-center cursor-pointer hover:text-yellow-500"
-    @click="toggleOpen"
-  />
+  <div class="h-full w-4 inline-block">
+    <font-awesome-icon
+      :icon="icon"
+      class="cursor-pointer hover:text-yellow-500"
+      @click="toggleOpen"
+    />
+  </div>
 </template>
 
 <script>
@@ -22,7 +24,7 @@ export default {
   },
   computed: {
     icon() {
-      return this.open ? "minus" : "plus";
+      return this.open ? "caret-down" : "caret-right";
     }
   },
   methods: {

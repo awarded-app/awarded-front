@@ -1,11 +1,7 @@
 <template>
   <spinner v-if="$apollo.loading" />
   <ul v-else-if="editions && editions.totalCount > 0" class="indented">
-    <edition-list-item
-      v-for="edition in editions.nodes"
-      :key="edition.id"
-      :edition="edition"
-    />
+    <edition-list-item v-for="edition in editions.nodes" :key="edition.id" :edition="edition" />
   </ul>
   <p v-else>
     Hmm, something went wrong! Try reloading?
@@ -38,11 +34,16 @@ export default {
           editions(condition: $condition, orderBy: DATE_DESC) {
             totalCount
             nodes {
-              ...edition
+              id
+              date
+              name
+              award {
+                nameShort
+                isFestival
+              }
             }
           }
         }
-        ${EditionListItem.fragments.edition}
       `,
       variables() {
         return {

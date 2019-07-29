@@ -1,65 +1,36 @@
 <template>
-  <ul class="lg:flex lg:items-center flex-wrap">
-    <li
-      :class="
-        nomination.winner
-          ? ''
-          : 'flex flex-col items-start lg:flex-row lg:items-center'
-      "
+  <article class="flex" :class="nomination.winner ? 'mb-4':'mb-2'">
+    <figure
+      v-if="nomination.winner"
+      class="mt-1 mr-2 hidden sm:block flex-none"
     >
-      <h4 class="flex items-start mr-2 lg:items-center ">
-        <star
-          class="w-6 mr-1 mt-2 lg:mt-0 lg:mb-2 text-base"
-          :winner="nomination.winner"
-        />
-        <movie-link
-          :movie-id="nomination.movie.id"
-          :movie-title="nomination.movie.title"
-        />
-      </h4>
-      <!-- PEOPLE -->
-      <ul
-        class="flex flex-wrap text-xl pl-6 -mt-2 mb-4"
-        :class="nomination.winner ? '' : 'lg:pl-0 lg:mt-0 lg:mb-2'"
-      >
-        <li
-          v-if="
-            nomination.winner &&
-              nominatedPeople.prizes.length < nominatedPeople.people.length
-          "
-          class="mr-2"
-        >
-          {{ nominatedPeople.prizes[0].name }}
-        </li>
-        <li
-          v-for="nominatedPerson in nominatedPeople.people"
-          :key="nominatedPerson.id"
-        >
-          <span
-            v-if="
-              nominatedPerson.prize &&
-                nominatedPeople.prizes.length === nominatedPeople.people.length
-            "
-            class="mr-2"
-            >{{ nominatedPerson.prize.name }}</span
-          ><span class="text-gray-500 mr-2">{{
-            nominatedPerson.person.name
-          }}</span>
-          <span v-if="nominatedPerson.character" class="text-gray-500"
-            >(as {{ nominatedPerson.character }})</span
+      <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
+    </figure>
+    <section>
+      <header class="flex items-center">
+        <star :winner="nomination.winner" class="text-base mr-2 mb-1 md:mb-0" />
+        <h4>
+          <movie-link
+            :movie-id="nomination.movie.id"
+            :movie-title="nomination.movie.title"
+            >{{ nomination.movie.title }}</movie-link
           >
-        </li>
-      </ul>
-
-    </li>
-  </ul>
+        </h4>
+      </header>
+      <nomination-credits
+        :nominated-people="nomination.nominatedPeople.nodes"
+      />
+    </section>
+  </article>
 </template>
 
 <script>
-import MovieLink from "./MovieLink";
+import MovieLink from "@/components/MovieLink";
+import MoviePoster from "@/components/MoviePoster";
+import NominationCredits from "@/components/NominationCredits";
 export default {
   name: "NominationFestival",
-  components: {  MovieLink },
+  components: { MovieLink, MoviePoster, NominationCredits },
   props: {
     nomination: {
       type: Object,

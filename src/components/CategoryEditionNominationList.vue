@@ -1,18 +1,18 @@
 <template>
   <article class="flex">
-    <movie-poster
-      :tmdb-id="winnerNomination.movie.tmdbId"
-      w="100"
-      class="mr-2 flex-none"
-    />
+    <figure class="mr-2 mt-1 flex-none">
+      <movie-poster :tmdb-id="winnerNomination.movie.tmdbId" />
+    </figure>
+
     <div>
-      <h3
+      <h3 class="text-gray-500">
+        <edition-link :edition-date="edition.date" :award-name-short="nameShort">{{
+          edition.date | year
+        }}</edition-link>
+      </h3>
+      <h4
         class="mb-2"
-        :class="
-          display === 'movie'
-            ? 'flex-row justify-start'
-            : 'flex-row-reverse justify-end'
-        "
+        :class="display === 'movie' ? 'flex-row justify-start' : 'flex-row-reverse justify-end'"
       >
         <span :class="display === 'movie' ? 'mr-2' : 'text-gray-500'">
           <movie-link
@@ -20,49 +20,33 @@
             :movie-title="winnerNomination.movie.title"
           />
         </span>
-        <nominated-people
+        <nomination-credits
           :nominated-people="winnerNomination.nominatedPeople.nodes"
-          :is-festival="isFestival"
-          :class="display === 'movie' ? 'text-gray-500' : 'mr-2'"
+          :has-star="true"
+          :show-prize="isFestival"
         />
-      </h3>
-      <h3 class="text-gray-500 flex items-center">
-        <plus-sign
-          @click="showNominations = !showNominations"
-          class="text-lg mb-2 mr-4"
-        />
-        <edition-link
-          :edition-date="edition.date"
-          :award-name-short="nameShort"
-        />
-      </h3>
+      </h4>
+      <h4 class="text-gray-500 flex items-center">
+        <plus-sign @click="showNominations = !showNominations" class="text-lg mb-2 mr-2" />
+        <edition-link :edition-date="edition.date" :award-name-short="nameShort"
+          >Other Nominees</edition-link
+        >
+      </h4>
 
       <ul v-if="showNominations" class="mb-4 indented">
-        <li
-          v-for="nomination in otherNominations"
-          :key="nomination.id"
-          class="mb-1"
-        >
-          <h4
+        <li v-for="nomination in otherNominations" :key="nomination.id" class="mb-2">
+          <p
             class="flex flex-wrap"
-            :class="
-              display === 'movie'
-                ? 'flex-row justify-start'
-                : 'flex-row-reverse justify-end'
-            "
+            :class="display === 'movie' ? 'flex-row justify-start' : 'flex-row-reverse justify-end'"
           >
             <span :class="display === 'movie' ? 'mr-2' : 'text-gray-500'">
-              <movie-link
-                :movie-id="nomination.movie.id"
-                :movie-title="nomination.movie.title"
-              />
+              <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title" />
             </span>
-            <nominated-people
-              :is-festival="isFestival"
-              :nominated-people="nomination.nominatedPeople.nodes"
-              :class="display === 'movie' ? 'text-gray-500' : 'mr-2'"
-            />
-          </h4>
+          </p>
+          <nomination-credits
+            :nominated-people="nomination.nominatedPeople.nodes"
+            :has-star="true"
+          />
         </li>
       </ul>
     </div>
@@ -72,6 +56,7 @@
 <script>
 import MoviePoster from "@/components/MoviePoster";
 import NominatedPeople from "@/components/NominatedPeople";
+import NominationCredits from "@/components/NominationCredits";
 import EditionLink from "@/components/EditionLink";
 import MovieLink from "@/components/MovieLink";
 
@@ -79,6 +64,7 @@ export default {
   components: {
     MovieLink,
     EditionLink,
+    NominationCredits,
     NominatedPeople,
     MoviePoster
   },
@@ -107,9 +93,7 @@ export default {
   },
   computed: {
     winnerNomination() {
-      const winners = this.edition.nominations.nodes.filter(
-        nomination => nomination.winner
-      );
+      const winners = this.edition.nominations.nodes.filter(nomination => nomination.winner);
       if (this.isFestival) {
         return winners.find(winner =>
           winner.nominatedPeople.nodes.find(person =>

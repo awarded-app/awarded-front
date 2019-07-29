@@ -1,28 +1,18 @@
 <template>
   <li class="mb-2">
-    <div class="sm:flex sm:items-center sm:flex-wrap  -ml-6 lg:-ml-8">
-      <div class="flex items-center flex-wrap">
-        <plus-sign
-          @click="showNominations = !showNominations"
-          class="lg:mr-2"
-        />
-        <h3 class="lg:ml-2">
-          <router-link
-            class="title-link"
-            tag="a"
-            :to="
-              `/award/${edition.award.nameShort}/${$options.filters.year(
-                edition.date
-              )}`
-            "
-            >{{ edition.date | year }}</router-link
-          >
+    <article class="sm:flex sm:items-center sm:flex-wrap -ml-6 lg:-ml-8 mb-2">
+      <header class="flex items-center flex-wrap">
+        <plus-sign @click="showNominations = !showNominations" />
+        <h3 class="mr-2">
+          <edition-link :award-name-short="edition.award.nameShort" :edition-date="edition.date">{{
+            edition.date | year
+          }}</edition-link>
         </h3>
-      </div>
-      <h3 class="leading-tight text-gray-500 ml-6 sm:ml-2">
+      </header>
+      <p class="text-2xl leading-tight text-gray-500 pl-6 sm:pl-0">
         {{ edition.name }}
-      </h3>
-    </div>
+      </p>
+    </article>
     <nomination-list v-if="showNominations" :edition="edition" />
   </li>
 </template>
@@ -30,12 +20,13 @@
 <script>
 import gql from "graphql-tag";
 import NominationList from "./NominationList";
-//import AwardListItem from "./AwardListItem";
+import EditionLink from "@/components/EditionLink";
 
 export default {
   name: "EditionListItem",
   components: {
-    NominationList
+    NominationList,
+    EditionLink
   },
   props: {
     edition: {
@@ -51,28 +42,13 @@ export default {
   fragments: {
     edition: gql`
       fragment edition on Edition {
+        id
         date
         name
-        id
-        poster
         award {
-          ...award
+          nameShort
+          isFestival
         }
-      }
-      fragment award on Award {
-        nodeId
-        id
-        link
-        logo
-        nameLong
-        nameShort
-        description
-        country {
-          id
-          code
-          name
-        }
-        isFestival
       }
     `
   }

@@ -4,7 +4,7 @@
       :person-id="nominatedPerson.person.id"
       :person-name="nominatedPerson.person.name"
       >{{ nominatedPerson.person.name }}</person-link
-    ><span class="ml-1 text-gray-500" v-if="nominatedPerson.character">
+    ><span v-if="nominatedPerson.character" class="ml-1 text-gray-500">
       (as {{ nominatedPerson.character }})</span
     ></span
   >
@@ -42,6 +42,17 @@ export default {
           name
           order
           display
+        }
+        nominatedPersonPrizes {
+          totalCount
+          nodes {
+            prize {
+              id
+              name
+              order
+              display
+            }
+          }
         }
       }
       ${PersonListItem.fragments.person}

@@ -1,18 +1,13 @@
 <template functional>
-  <div
+  <img
     class="shadow flex-none"
     :class="[data.class, data.staticClass]"
     v-bind="data.attrs"
     v-on="listeners"
-  >
-    <img
-      :src="
-        `https://awarded.imgix.net/movies/posters/${
-          props.tmdbId
-        }_poster.jpg?w=${props.w}&ar=2:3&fit=crop`
-      "
-    />
-  </div>
+    :src="
+      `https://awarded.imgix.net/movies/posters/${props.tmdbId}_poster.jpg?w=${props.w}&ar=2:3&fit=crop`
+    "
+  />
 </template>
 
 <script>

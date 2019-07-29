@@ -1,30 +1,26 @@
 <template>
-  <div v-if="peopleByPrize">
+  <div v-if="peopleByPrize" class="lg:flex">
     <template v-for="prize in peopleByPrize">
-      <span class="text-gray-500 mr-1" :key="prize[0].prize.id">
+      <p :key="prize[0].prize.id" class="text-gray-500 mr-2">
         <category-link
           :category-name="nomination.category.name"
           :award-name-short="nomination.category.award.nameShort"
           >{{ prize[0].prize.name }}</category-link
-        >&nbsp;
-        <span>
-          <span
-            v-for="(nomination, index) in prize"
-            :key="nomination.id"
-            class="text-gray-300"
-          >
-            <template v-if="prize.length > 1">
-              <span v-if="index === prize.length - 1">&</span>
-              <span v-else-if="index > 0">,</span> </template
-            ><person-link
-              :person-id="nomination.person.id"
-              :person-name="nomination.person.name"
-            >
-              {{ nomination.person.name }}
-            </person-link></span
-          >
-        </span>
-      </span>
+        >
+      </p>
+      <ul :key="prize[0].prize.id" class="flex flex-wrap mb-1">
+        <li
+          v-for="(nomination, index) in prize"
+          :key="nomination.id"
+          class="text-gray-300"
+        >
+          <person-link
+            :person-id="nomination.person.id"
+            :person-name="nomination.person.name"
+            >{{ nomination.person.name }}</person-link
+          ><span v-if="index < prize.length - 1">,&nbsp;</span>
+        </li>
+      </ul>
     </template>
   </div>
   <div v-else>
@@ -40,11 +36,8 @@
           :key="nominatedPerson.id"
           class="text-gray-400"
         >
-          <template v-if="nomination.nominatedPeople.nodes.length > 1">
-            <span v-if="index === nomination.nominatedPeople.nodes.length - 1"
-              >&</span
-            >
-            <span v-else-if="index > 0">,</span> </template
+          <span v-if="index < nomination.nominatedPeople.nodes.length - 1"
+            >,&nbsp;</span
           ><person-link
             :person-id="nominatedPerson.person.id"
             :person-name="nominatedPerson.person.name"

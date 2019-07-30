@@ -121,6 +121,11 @@ export default {
                       nominatedPeople {
                         nodes {
                           ...nominatedPerson
+                          nomination {
+                            category {
+                              display
+                            }
+                          }
                         }
                       }
                     }

@@ -36,6 +36,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "category" */ "./views/CategoryView.vue")
     },
     {
+      path: "/award/:nameShort/category/:categoryName/prize/:prizeName",
+      name: "prize",
+      props: true,
+      component: () => import(/* webpackChunkName: "prize" */ "./views/PrizeView.vue")
+    },
+    {
       path: "/movie/:movieId/:title",
       name: "Movie",
       props: true,

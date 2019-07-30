@@ -7,7 +7,9 @@ import "./assets/tailwind.css";
 import FontAwesomeIcon from "./plugins/FontAwesomeIcon";
 import moment from "moment";
 import Vue2Filters from "vue2-filters";
+import VueMeta from "vue-meta";
 
+Vue.use(VueMeta);
 // GLOBAL FILTERS
 Vue.use(Vue2Filters);
 Vue.filter("formatDate", function(value, format = "DD.MMM.YY") {

@@ -20,6 +20,18 @@ import BaseFooter from "@/components/BaseFooter.vue";
 
 export default {
   name: "Home",
+  metaInfo: {
+    title: "Awarded",
+    titleTemplate: "%s ★ Awarded",
+    meta: [
+      {
+        vmid: "description",
+        name: "description",
+        content:
+          "Keep track of the most important award and movie festivals. Find the next movie to watch."
+      }
+    ]
+  },
   components: {
     BaseFooter
   }

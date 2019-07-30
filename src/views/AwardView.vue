@@ -17,7 +17,7 @@
       </template>
       <template v-else>
         <p class="text-gray-500 mb-4">
-          <a :href="award.link" class="link-external hover:text-white" target="_blank">{{
+          <a :href="award.link" class="link-external hover:text-white" target="_blank" rel="noopener">{{
             award.link | formatUrl
           }}</a>
         </p>
@@ -38,6 +38,19 @@ import EditionListItem from "../components/EditionListItem";
 import BackArrow from "../components/BackArrow";
 export default {
   name: "AwardView",
+  metaInfo() {
+    const nameShort = this.nameShort;
+    return {
+      title: `${this.nameShort} - All Editions`,
+      meta: [
+        {
+          vmid: "description",
+          name: "description",
+          content: `Explore all past editions of the ${nameShort}.`
+        }
+      ]
+    };
+  },
   components: { BackArrow, EditionList, Spinner },
   props: {
     nameShort: {

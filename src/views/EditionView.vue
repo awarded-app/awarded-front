@@ -1,8 +1,6 @@
 <template>
   <div class="indented">
-    <breadcrumbs :prevScreenParams="{ nameShort }">{{
-      editionYear
-    }}</breadcrumbs>
+    <breadcrumbs :prev-screen-params="{ nameShort }">{{ editionYear }}</breadcrumbs>
     <div class="flex sm:items-center">
       <div class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
         <back-arrow :to="`/award/${nameShort}`" />
@@ -18,9 +16,6 @@
         <p class="text-gray-500">
           {{ edition.date | formatDate("MMMM Do") }}
         </p>
-        <!-- <p class="text-gray-500 uppercase text-sm mt-4 sm:mt-0">
-          DISPLAY by <span class="text-white">Category</span> / Movie
-        </p> -->
       </div>
       <section class="pt-4">
         <h4 class="text-xl text-gray-500 mb-2">
@@ -54,6 +49,21 @@ import Category from "../components/Category";
 
 export default {
   name: "EditionView",
+  metaInfo() {
+    const editionName = this.edition.name;
+    return {
+      title: `${this.editionYear} ${this.nameShort} - Winners and nominees in all categories`,
+      meta: [
+        {
+          vmid: "description",
+          name: "description",
+          content: `Winners and nominees in all categories of the ${this.nameShort} ${
+            this.editionYear
+          } (${editionName})`
+        }
+      ]
+    };
+  },
   components: { Category, Spinner },
   props: {
     nameShort: {
@@ -102,10 +112,7 @@ export default {
                   complete
                 }
               }
-              nominations(
-                condition: $nominationCondition
-                orderBy: WINNER_DESC
-              ) {
+              nominations(condition: $nominationCondition, orderBy: WINNER_DESC) {
                 totalCount
                 nodes {
                   ...nomination
@@ -211,10 +218,7 @@ export default {
       return { nominations: wins + losses, wins, losses };
     },
     isWinner(nomination) {
-      return (
-        nomination.nominatedPeople.nodes.filter(person => person.prize).length >
-        0
-      );
+      return nomination.nominatedPeople.nodes.filter(person => person.prize).length > 0;
     }
   }
 };

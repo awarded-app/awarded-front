@@ -7,7 +7,7 @@
   />
 </template>
 <script>
- import { HollowDotsSpinner } from "epic-spinners";
+ import HollowDotsSpinner from 'epic-spinners/src/components/lib/HollowDotsSpinner';
  export default {
    components: {HollowDotsSpinner}
  }

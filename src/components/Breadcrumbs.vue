@@ -6,17 +6,28 @@
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-          <router-link :to="`/award/${prevScreenParams.nameShort}`" tag="a" class="title-link">
+          <router-link
+            :to="`/award/${prevScreenParams.nameShort}`"
+            tag="a"
+            class="title-link"
+          >
             {{ prevScreenParams.nameShort }}</router-link
           >
         </li>
         <li v-if="prevScreenParams.hasOwnProperty('editionYear')">
-          <router-link
-            :to="`/award/${prevScreenParams.nameShort}/${prevScreenParams.editionYear}`"
-            tag="a"
-            class="title-link"
+          <edition-link
+            :award-name-short="prevScreenParams.nameShort"
+            :edition-date="prevScreenParams.editionYear"
+            :edition-year="prevScreenParams.editionYear"
           >
-            {{ prevScreenParams.editionYear }}</router-link
+            {{ prevScreenParams.editionYear }}
+          </edition-link>
+        </li>
+        <li v-if="prevScreenParams.hasOwnProperty('categoryName')">
+          <category-link
+            :category-name="prevScreenParams.categoryName"
+            :award-name-short="prevScreenParams.nameShort"
+            >{{ prevScreenParams.categoryName }}</category-link
           >
         </li>
       </template>
@@ -28,8 +39,14 @@
 </template>
 
 <script>
+import CategoryLink from "@/components/CategoryLink";
+import EditionLink from "@/components/EditionLink";
 export default {
   name: "Breadcrumbs",
+  components: {
+    CategoryLink,
+    EditionLink
+  },
   props: {
     prevScreenParams: {
       type: Object,

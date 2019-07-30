@@ -1,65 +1,76 @@
 <template>
-  <article class="indented">
-    <breadcrumbs :prev-screen-params="prevScreenParams">{{ movie.title }}</breadcrumbs>
-    <header class="mb-2 flex sm:items-center">
-      <nav class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
+  <div>
+    <breadcrumbs :prev-screen-params="prevScreenParams">{{
+      movie.title
+    }}</breadcrumbs>
+    <article>
+      <header class="mb-2 flex sm:items-center">
         <back-arrow :to="prevScreen" />
-      </nav>
-      <h2 class="flex items-center flex-wrap">
-        <span class="mr-2">{{ movie.title }}</span>
-        <span class="text-gray-500 leading-none mr-2">{{ movie.releaseDate | year }}</span>
-        <sup
-          v-for="{ country } in movie.movieCountries.nodes"
-          :key="country.id"
-          class="text-base text-gray-500 mr-1"
-          >{{ country.code }}</sup
-        >
-      </h2>
-    </header>
-    <main>
-      <spinner v-if="$apollo.loading" />
-      <template v-else>
-        <section id="movie-details" class="sm:flex">
-          <div class="mb-2 sm:mr-4">
-            <movie-poster :tmdb-id="movie.tmdbId" w="200" />
-          </div>
-          <div class="sm:w-1/2">
-            <p class="text-gray-500 mb-2">
-              {{ movie.overview }}
-            </p>
-            <p v-if="movie.originalTitle !== movie.title" class="mb-2">
-              <span class="mr-1">{{ movie.originalTitle }}</span
-              ><span class="text-gray-500">Original Title</span>
-            </p>
-            <p class="text-gray-500 mb-2">{{ movie.runtime }} minutes</p>
-            <movie-links-ratings :imdb-id="movie.imdbId" :tmdb-id="movie.tmdbId" />
-            <movie-links-shopping
-              v-if="movie.asin"
-              :imdb-id="movie.imdbId"
-              :movie-title="movie.title"
-              :asin="movie.asin"
-            />
-          </div>
-        </section>
-        <section id="movie-nominations" class="pt-4">
-          <div v-if="movieStats" class="block text-sm text-gray-700  mb-1">
-            {{ movieStats.nominations }}
-            {{ movieStats.nominations | pluralize("nomination") }}
-            <span v-if="movieStats.wins">
-              <span class="text-xs mx-1 text-gray-800">★</span>
-              {{ movieStats.wins }}
-              {{ movieStats.wins | pluralize("win") }}
-            </span>
-          </div>
-          <div>
-            <div v-for="(awardNominations, index) in nominationsByAward" :key="index" class="mb-4">
-              <movie-nominations-by-award :nominations="awardNominations" />
+        <h2 class="flex items-center flex-wrap">
+          <span class="mr-2">{{ movie.title }}</span>
+          <span class="text-gray-500 leading-none mr-2">{{
+            movie.releaseDate | year
+          }}</span>
+          <sup
+            v-for="{ country } in movie.movieCountries.nodes"
+            :key="country.id"
+            class="text-base text-gray-500 mr-1"
+            >{{ country.code }}</sup
+          >
+        </h2>
+      </header>
+      <main class="indented">
+        <spinner v-if="$apollo.loading" />
+        <template v-else>
+          <section id="movie-details" class="sm:flex">
+            <div class="mb-2 sm:mr-4">
+              <movie-poster :tmdb-id="movie.tmdbId" w="200" />
             </div>
-          </div>
-        </section>
-      </template>
-    </main>
-  </article>
+            <div class="sm:w-1/2">
+              <p class="text-gray-500 mb-2">
+                {{ movie.overview }}
+              </p>
+              <p v-if="movie.originalTitle !== movie.title" class="mb-2">
+                <span class="mr-1">{{ movie.originalTitle }}</span
+                ><span class="text-gray-500">Original Title</span>
+              </p>
+              <p class="text-gray-500 mb-2">{{ movie.runtime }} minutes</p>
+              <movie-links-ratings
+                :imdb-id="movie.imdbId"
+                :tmdb-id="movie.tmdbId"
+              />
+              <movie-links-shopping
+                v-if="movie.asin"
+                :imdb-id="movie.imdbId"
+                :movie-title="movie.title"
+                :asin="movie.asin"
+              />
+            </div>
+          </section>
+          <section id="movie-nominations" class="pt-4">
+            <div v-if="movieStats" class="block text-sm text-gray-700  mb-1">
+              {{ movieStats.nominations }}
+              {{ movieStats.nominations | pluralize("nomination") }}
+              <span v-if="movieStats.wins">
+                <span class="text-xs mx-1 text-gray-800">★</span>
+                {{ movieStats.wins }}
+                {{ movieStats.wins | pluralize("win") }}
+              </span>
+            </div>
+            <div>
+              <div
+                v-for="(awardNominations, index) in nominationsByAward"
+                :key="index"
+                class="mb-4"
+              >
+                <movie-nominations-by-award :nominations="awardNominations" />
+              </div>
+            </div>
+          </section>
+        </template>
+      </main>
+    </article>
+  </div>
 </template>
 
 <script>
@@ -171,7 +182,9 @@ export default {
       this.movie.nominations.nodes.map(nomination => {
         if (nomination.winner) {
           return (wins += 1);
-        } else if (nomination.nominatedPeople.nodes.some(person => person.prize)) {
+        } else if (
+          nomination.nominatedPeople.nodes.some(person => person.prize)
+        ) {
           return (wins += 1);
         }
       });
@@ -181,7 +194,7 @@ export default {
       if (this.movie.releaseDate) {
         return this.$options.filters.year(this.movie.releaseDate);
       }
-      return ''
+      return "";
     }
   },
   methods: {

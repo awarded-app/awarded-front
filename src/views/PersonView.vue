@@ -1,17 +1,17 @@
 <template>
-  <article class="indented">
+  <div>
     <breadcrumbs :prevScreenParams="prevScreenParams">{{
       person.name
     }}</breadcrumbs>
+    <article>
+
     <header class="mb-2 flex sm:items-center">
-      <nav class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
         <back-arrow :to="prevScreen" />
-      </nav>
       <h2 class="flex items-center flex-wrap">
         <span class="mr-2">{{ person.name }}</span>
       </h2>
     </header>
-    <main>
+    <main class="indented">
       <spinner v-if="$apollo.loading" class="mt-4" />
       <template v-else>
         <section id="person" class="sm:flex">
@@ -34,8 +34,7 @@
               }}<span class="text-gray-500 "> years old</span>
             </p>
             <p v-if="person.placeOfBirth" class="mb-2">
-              <span class="mr-2">{{ person.placeOfBirth }}</span
-              ><span class="text-gray-500 ">Place of Birth</span>
+              <span class="text-gray-500">From</span> {{ person.placeOfBirth }}
             </p>
             <p>
               <person-social-links
@@ -101,7 +100,8 @@
         </section>
       </template>
     </main>
-  </article>
+    </article>
+  </div>
 </template>
 
 <script>

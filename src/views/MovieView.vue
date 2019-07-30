@@ -1,17 +1,13 @@
 <template>
   <article class="indented">
-    <breadcrumbs :prevScreenParams="prevScreenParams">{{
-      movie.title
-    }}</breadcrumbs>
+    <breadcrumbs :prev-screen-params="prevScreenParams">{{ movie.title }}</breadcrumbs>
     <header class="mb-2 flex sm:items-center">
       <nav class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
         <back-arrow :to="prevScreen" />
       </nav>
       <h2 class="flex items-center flex-wrap">
         <span class="mr-2">{{ movie.title }}</span>
-        <span class="text-gray-500 leading-none mr-2">{{
-          movie.releaseDate | year
-        }}</span>
+        <span class="text-gray-500 leading-none mr-2">{{ movie.releaseDate | year }}</span>
         <sup
           v-for="{ country } in movie.movieCountries.nodes"
           :key="country.id"
@@ -36,10 +32,7 @@
               ><span class="text-gray-500">Original Title</span>
             </p>
             <p class="text-gray-500 mb-2">{{ movie.runtime }} minutes</p>
-            <movie-links-ratings
-              :imdb-id="movie.imdbId"
-              :tmdb-id="movie.tmdbId"
-            />
+            <movie-links-ratings :imdb-id="movie.imdbId" :tmdb-id="movie.tmdbId" />
             <movie-links-shopping
               v-if="movie.asin"
               :imdb-id="movie.imdbId"
@@ -59,11 +52,7 @@
             </span>
           </div>
           <div>
-            <div
-              v-for="(awardNominations, index) in nominationsByAward"
-              :key="index"
-              class="mb-4"
-            >
+            <div v-for="(awardNominations, index) in nominationsByAward" :key="index" class="mb-4">
               <movie-nominations-by-award :nominations="awardNominations" />
             </div>
           </div>
@@ -87,6 +76,20 @@ import MovieNominationsByAward from "../components/MovieNominationsByAward";
 
 export default {
   name: "MovieView",
+  metaInfo() {
+    const movieTitle = this.title;
+    const movieYear = this.movieYear;
+    return {
+      title: `${movieTitle} (${movieYear}) - Nominations and Wins`,
+      meta: [
+        {
+          vmid: "description",
+          name: "description",
+          content: `${movieTitle} (${movieYear}): nominations and wins in all Awards and Festivals.`
+        }
+      ]
+    };
+  },
   components: {
     MovieNominationsByAward,
     Spinner,
@@ -99,7 +102,7 @@ export default {
       type: String,
       required: true
     },
-    movie_id: {
+    movieId: {
       type: String,
       required: true
     }
@@ -153,7 +156,7 @@ export default {
       `,
       variables() {
         return {
-          id: Number(this.movie_id)
+          id: Number(this.movieId)
         };
       }
     }
@@ -168,13 +171,17 @@ export default {
       this.movie.nominations.nodes.map(nomination => {
         if (nomination.winner) {
           return (wins += 1);
-        } else if (
-          nomination.nominatedPeople.nodes.some(person => person.prize)
-        ) {
+        } else if (nomination.nominatedPeople.nodes.some(person => person.prize)) {
           return (wins += 1);
         }
       });
       return { nominations: this.movie.nominations.totalCount, wins };
+    },
+    movieYear() {
+      if (this.movie.releaseDate) {
+        return this.$options.filters.year(this.movie.releaseDate);
+      }
+      return ''
     }
   },
   methods: {

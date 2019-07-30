@@ -34,7 +34,7 @@
         online,
         <a
           href="http://eepurl.com/dnFggL"
-          target="_blank"
+          target="_blank" rel="noopener"
           class="link-external title-link  text-white"
           >subscribe to my little newsletter</a
         >.
@@ -45,6 +45,14 @@
     </section>
   </article>
 </template>
+<script>
+export default {
+  metaInfo: {
+    title: `About`,
+
+  },
+}
+</script>
 <style scoped>
 p {
   @apply mb-4 text-gray-500;

@@ -119,6 +119,18 @@ import EditionLink from "@/components/EditionLink";
 
 export default {
   name: "PersonView",
+  metaInfo() {
+    return {
+      title: `${this.personName} - Nominations and wins`,
+      meta: [
+        {
+          vmid: "description",
+          name: "description",
+          content: `${this.personName}: nominations and wins in all Awards and Festivals.`
+        }
+      ]
+    };
+  },
   components: {
     Spinner,
     PersonHeadshot,

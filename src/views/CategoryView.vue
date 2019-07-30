@@ -44,6 +44,20 @@ import NominatedPerson from "../components/NominatedPerson";
 
 export default {
   name: "CategoryView",
+  metaInfo() {
+    return {
+      title: `${this.categoryName} - ${this.nameShort} - Winner and nominees`,
+      meta: [
+        {
+          vmid: "description",
+          name: "description",
+          content: `${this.categoryName} winners and nominees in all editions of the ${
+            this.nameShort
+          }.`
+        }
+      ]
+    };
+  },
   components: {
     Spinner,
     CategoryEditionNominationList

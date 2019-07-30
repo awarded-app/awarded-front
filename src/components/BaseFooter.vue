@@ -4,7 +4,7 @@
       Made with &#9829; by
       <a
         href="https://twitter.com/danrocc"
-        target="_blank"
+        target="_blank" rel="noopener"
         class="title-link link-external"
         >Daniel</a
       >
@@ -19,7 +19,7 @@
       <li>
         <a
           href="http://eepurl.com/dnFggL"
-          target="_blank"
+          target="_blank" rel="noopener"
           class="link-external title-link  text-white"
           >Subscribe to updates</a
         >

@@ -1,7 +1,7 @@
 <template>
   <ul class="text-sm flex">
     <li>
-      <a :href="amazonUrl" target="_blank" class="link-external">
+      <a :href="amazonUrl" target="_blank" rel="noopener" class="link-external">
         Buy on Amazon
       </a>
     </li>

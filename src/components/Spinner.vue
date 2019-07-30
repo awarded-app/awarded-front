@@ -1,14 +1,22 @@
-<template>
-  <hollow-dots-spinner
-    :animation-duration="1000"
-    :dot-size="15"
-    :dots-num="3"
-    color="#f2d024"
-  />
+<template functional>
+  <div
+    :class="[data.class, data.staticClass]"
+    :style="[data.style, data.staticStyle]"
+    v-bind="data.attrs"
+    class="ball-pulse my-2"
+    v-on="listeners"
+  >
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </template>
-<script>
- import HollowDotsSpinner from 'epic-spinners/src/components/lib/HollowDotsSpinner';
- export default {
-   components: {HollowDotsSpinner}
- }
-</script>
+<style scoped>
+@import "../assets/loaders.min.css";
+.ball-pulse > div {
+  @apply bg-yellow-500;
+}
+.loader-small .loader-inner {
+  transform: scale(0.5, 0.5);
+}
+</style>

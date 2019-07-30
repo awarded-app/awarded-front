@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -46,6 +46,41 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
+    <!-- To run web application in full-screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Status Bar Style (see Supported Meta Tags below for available values) -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- SOCIAL META -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://awarded.to/" />
+    <meta property="og:title" content="Awarded" />
+    <meta
+      property="og:image"
+      content="https://awarded.imgix.net/social-media/1200-630-banner.jpg"
+    />
+    <meta
+      property="og:description"
+      content="Keep track of the most important award and movie festivals. Find the next movie to watch."
+    />
+    <meta property="og:site_name" content="Awarded" />
+    <meta property="og:locale" content="en_US" />
+    <!-- Next tags are optional but recommended -->
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="Award nominated movies." />
+    <meta name="twitter:site" content="@awardedapp" />
+    <meta name="twitter:creator" content="@danrocc" />
+    <meta name="twitter:url" content="https://awarded.to/" />
+    <meta name="twitter:title" content="Awarded" />
+    <meta
+      name="twitter:description"
+      content="Keep track of the most important award and movie festivals. Find the next movie to watch."
+    />
+    <meta
+      name="twitter:image"
+      content="https://awarded.imgix.net/social-media/1200-630-banner.jpg"
+    />
 
     <title>Awarded</title>
   </head>
@@ -58,5 +93,26 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
+    <script>
+      if (!location.host.includes('localhost')) {
+        (function(f, a, t, h, o, m) {
+          a[h] =
+            a[h] ||
+            function() {
+              (a[h].q = a[h].q || []).push(arguments);
+            };
+          (o = f.createElement('script')),
+            (m = f.getElementsByTagName('script')[0]);
+          o.async = 1;
+          o.src = t;
+          o.id = 'fathom-script';
+          m.parentNode.insertBefore(o, m);
+        })(document, window, '//stats.danroc.dev/tracker.js', 'fathom');
+        fathom('set', 'siteId', 'FGJXL');
+        fathom('trackPageview');
+      }
+    </script>
+    <!-- / Fathom -->
   </body>
 </html>

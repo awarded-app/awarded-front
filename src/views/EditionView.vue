@@ -1,39 +1,44 @@
 <template>
-  <div class="indented">
-    <breadcrumbs :prev-screen-params="{ nameShort }">{{ editionYear }}</breadcrumbs>
-    <div class="flex sm:items-center">
-      <div class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
+  <div>
+    <breadcrumbs :prev-screen-params="{ nameShort }">{{
+      editionYear
+    }}</breadcrumbs>
+      <header class="flex sm:items-center">
         <back-arrow :to="`/award/${nameShort}`" />
-      </div>
-      <h2 class="flex items-center flex-wrap">
-        <span class="mr-2">{{ editionYear }}</span>
-        <span class="text-gray-500 leading-none mt-0">{{ edition.name }}</span>
-      </h2>
-    </div>
-    <spinner v-if="$apollo.loading" />
-    <section v-else>
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <p class="text-gray-500">
-          {{ edition.date | formatDate("MMMM Do") }}
-        </p>
-      </div>
-      <section class="pt-4">
-        <h4 class="text-xl text-gray-500 mb-2">
-          <template v-if="award.isFestival"
-            >Main Sections</template
-          >
-          <template v-else
-            >All Categories</template
-          >
-        </h4>
-        <category
-          v-for="category in categories.nodes"
-          :key="category.id"
-          :category="category"
-          :is-festival="award.isFestival"
-        />
+        <h2 class="flex items-center flex-wrap">
+          <span class="mr-2">{{ editionYear }}</span>
+          <span class="text-gray-500 leading-none mt-0">{{
+            edition.name
+          }}</span>
+        </h2>
+      </header>
+      <spinner v-if="$apollo.loading"  class="indented"/>
+      <section v-else class="indented">
+        <div
+          class="flex flex-col sm:flex-row sm:items-center sm:justify-between"
+        >
+          <p class="text-gray-500">
+            {{ edition.date | formatDate("MMMM Do") }}
+          </p>
+        </div>
+        <section class="pt-4">
+          <h4 class="text-xl text-gray-500 mb-2">
+            <template v-if="award.isFestival"
+              >Main Sections</template
+            >
+            <template v-else
+              >All Categories</template
+            >
+          </h4>
+          <category
+            v-for="category in categories.nodes"
+            :key="category.id"
+            :category="category"
+            :is-festival="award.isFestival"
+          />
+        </section>
       </section>
-    </section>
+    </article>
   </div>
 </template>
 
@@ -57,9 +62,7 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `Winners and nominees in all categories of the ${this.nameShort} ${
-            this.editionYear
-          } (${editionName})`
+          content: `Winners and nominees in all categories of the ${this.nameShort} ${this.editionYear} (${editionName})`
         }
       ]
     };
@@ -112,7 +115,10 @@ export default {
                   complete
                 }
               }
-              nominations(condition: $nominationCondition, orderBy: WINNER_DESC) {
+              nominations(
+                condition: $nominationCondition
+                orderBy: WINNER_DESC
+              ) {
                 totalCount
                 nodes {
                   ...nomination
@@ -218,7 +224,10 @@ export default {
       return { nominations: wins + losses, wins, losses };
     },
     isWinner(nomination) {
-      return nomination.nominatedPeople.nodes.filter(person => person.prize).length > 0;
+      return (
+        nomination.nominatedPeople.nodes.filter(person => person.prize).length >
+        0
+      );
     }
   }
 };

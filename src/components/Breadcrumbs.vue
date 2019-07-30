@@ -1,24 +1,18 @@
 <template>
-  <nav class="flex items-center flex-wrap text-gray-500 text-sm mb-2">
+  <nav class="flex items-center flex-wrap text-gray-500 text-sm mb-2 indented">
     <ul class="flex flex-wrap">
       <li>
         <router-link to="/" tag="a" class="title-link">Awards</router-link>
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-          <router-link
-            :to="`/award/${prevScreenParams.nameShort}`"
-            tag="a"
-            class="title-link"
-          >
+          <router-link :to="`/award/${prevScreenParams.nameShort}`" tag="a" class="title-link">
             {{ prevScreenParams.nameShort }}</router-link
           >
         </li>
         <li v-if="prevScreenParams.hasOwnProperty('editionYear')">
           <router-link
-            :to="
-              `/award/${prevScreenParams.nameShort}/${prevScreenParams.editionYear}`
-            "
+            :to="`/award/${prevScreenParams.nameShort}/${prevScreenParams.editionYear}`"
             tag="a"
             class="title-link"
           >

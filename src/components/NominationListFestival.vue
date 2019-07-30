@@ -1,20 +1,29 @@
 <template>
   <ul>
     <h4 class="text-xl text-gray-500 mb-2">Winners (Official Competition)</h4>
-    <li v-for="nomination in nominationsMainCategorySorted" :key="nomination.id" class="mb-4 flex">
+    <li
+      v-for="nomination in nominationsMainCategorySorted"
+      :key="nomination.id"
+      class="mb-4 flex"
+    >
       <figure class="mt-1 mr-2 hidden sm:block flex-none">
         <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
       </figure>
       <article>
         <header class="flex items-center">
-          <star :winner="true" class="text-base mr-2 mb-1 md:mb-0" />
+          <!-- <star :winner="true" class="text-base mr-2 mb-1 md:mb-0" /> -->
           <h4>
-            <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title">{{
-              nomination.movie.title
-            }}</movie-link>
+            <movie-link
+              :movie-id="nomination.movie.id"
+              :movie-title="nomination.movie.title"
+              >{{ nomination.movie.title }}</movie-link
+            >
           </h4>
         </header>
-        <nomination-credits :nominated-people="nomination.nominatedPeople.nodes" />
+        <nomination-credits
+          :nominated-people="nomination.nominatedPeople.nodes"
+          :has-star="true"
+        />
       </article>
     </li>
   </ul>
@@ -50,7 +59,8 @@ export default {
     nominationsMainCategorySorted() {
       for (let nomination of this.nominationsMainCategory) {
         nomination.nominatedPeople.nodes = nomination.nominatedPeople.nodes.filter(
-          nominatedPerson => nominatedPerson.nominatedPersonPrizes.totalCount > 0
+          nominatedPerson =>
+            nominatedPerson.nominatedPersonPrizes.totalCount > 0
         );
       }
 

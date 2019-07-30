@@ -1,34 +1,39 @@
 <template>
-  <div class="indented">
+  <div>
     <breadcrumbs :prev-screen-params="{ nameShort }">{{ categoryName }}</breadcrumbs>
-    <header class="flex sm:items-center">
-      <nav class="-ml-6 pr-2 lg:-ml-8 lg:pr-4">
+    <article>
+      <header class="flex sm:items-center">
         <back-arrow :to="prevScreen" />
-      </nav>
-      <h2 class="flex items-center flex-wrap">
-        <span class="mr-2">{{ categoryName }}</span>
-        <span class="text-gray-500 leading-none mt-0">{{ nameShort }}</span>
-      </h2>
-    </header>
-    <spinner v-if="!category" />
-    <section v-else>
-      <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
-        {{ category.description }}
-      </p>
-      <p class="mb-4 md:w-2/3 lg:w-1/2">
-        Winners and nominees from past editions:
-      </p>
-      <ul>
-        <li v-for="{ edition } in category.editionCategories.nodes" :key="edition.id" class="mb-8">
-          <category-edition-nomination-list
-            :edition="edition"
-            :name-short="nameShort"
-            :is-festival="award.isFestival"
-            :display="category.display"
-          />
-        </li>
-      </ul>
-    </section>
+
+        <h2 class="flex items-center flex-wrap">
+          <span class="mr-2">{{ categoryName }}</span>
+          <span class="text-gray-500 leading-none mt-0">{{ nameShort }}</span>
+        </h2>
+      </header>
+      <spinner v-if="!category" class="indented" />
+      <section v-else class="indented">
+        <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
+          {{ category.description }}
+        </p>
+        <p class="mb-4 md:w-2/3 lg:w-1/2">
+          Winners and nominees from past editions:
+        </p>
+        <ul>
+          <li
+            v-for="{ edition } in category.editionCategories.nodes"
+            :key="edition.id"
+            class="mb-8"
+          >
+            <category-edition-nomination-list
+              :edition="edition"
+              :name-short="nameShort"
+              :is-festival="award.isFestival"
+              :display="category.display"
+            />
+          </li>
+        </ul>
+      </section>
+    </article>
   </div>
 </template>
 

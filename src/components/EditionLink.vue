@@ -1,9 +1,9 @@
 <template>
   <router-link
-    :to="`/award/${awardNameShort}/${$options.filters.year(editionDate)}`"
+    :to="`/award/${awardNameShort}/${editionYear || $options.filters.year(editionDate)}`"
     tag="a"
     class="title-link"
-    ><slot>{{ editionDate | year }}</slot></router-link
+    ><slot>{{ (editionYear || editionDate) | year }}</slot></router-link
   >
 </template>
 <script>
@@ -16,6 +16,10 @@ export default {
     awardNameShort: {
       type: String,
       required: true
+    },
+    editionYear: {
+      type: String,
+      default: undefined
     }
   }
 };

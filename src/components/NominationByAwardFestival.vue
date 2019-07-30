@@ -7,13 +7,13 @@
         >{{ nomination.category.name }}</category-link
       >
     </li>
-    <nomination-credits :nominated-people="nomination.nominatedPeople.nodes"/>
+    <nomination-credits :nominated-people="nomination.nominatedPeople.nodes" :is-festival="true" />
   </ul>
 </template>
 
 <script>
-import CategoryLink from "@/components/CategoryLink"
-import NominationCredits from "@/components/NominationCredits"
+import CategoryLink from "@/components/CategoryLink";
+import NominationCredits from "@/components/NominationCredits";
 export default {
   components: {
     CategoryLink,

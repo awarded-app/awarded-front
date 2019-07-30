@@ -51,6 +51,12 @@ export default {
               name
               order
               display
+              award {
+                nameShort
+              }
+              category {
+                name
+              }
             }
           }
         }

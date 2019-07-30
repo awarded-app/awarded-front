@@ -1,19 +1,24 @@
 <template>
-  <div class="pb-4">
-    <h3 class="flex items-center">
-      <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" class="mb-2" />
-      <category-link
-        :award-name-short="category.award.nameShort"
-        :category-name="category.name"
-      />
-    </h3>
-    <div v-if="isOpen" class="indented">
+  <div>
+    <header class="flex items-center mb-2">
+      <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" />
+      <h3>
+        <category-link
+          :award-name-short="category.award.nameShort"
+          :category-name="category.name"
+          >{{ category.name }}</category-link
+        >
+      </h3>
+    </header>
+    <div v-if="isOpen" class="indented mb-4">
       <template v-if="isFestival">
         <nomination-festival
           v-for="nomination in nominationsByPrize"
           :key="nomination.id"
           :nomination="nomination"
         />
+        <p class="text-gray-500">Other movies in {{ category.name }}:</p>
+        <category-posters :nominations="losers" />
       </template>
       <template v-else>
         <nomination
@@ -22,8 +27,8 @@
           :nomination="nomination"
           :display="category.display"
         />
+        <category-posters :nominations="category.nominations.nodes" />
       </template>
-      <category-posters :nominations="category.nominations.nodes" />
     </div>
   </div>
 </template>
@@ -59,32 +64,37 @@ export default {
   },
   computed: {
     winners() {
-      return this.category.nominations.nodes.filter(
-        nomination => nomination.winner
-      );
+      return this.category.nominations.nodes.filter(nomination => nomination.winner);
     },
     losers() {
-      return this.category.nominations.nodes.filter(
-        nomination => !nomination.winner
-      );
+      return this.category.nominations.nodes.filter(nomination => !nomination.winner);
     },
     orderWinnersByPrize() {
       const winners = this.winners.map(winner => {
         return {
           ...winner,
-          prizeOrder: this.getHighestPrize(winner.nominatedPeople.nodes).prize
-            .order
+          prizeOrder: this.getHighestPrize(winner.nominatedPeople.nodes).order
         };
       });
       return orderBy([...winners], "prizeOrder");
     },
     nominationsByPrize() {
-      return [...this.orderWinnersByPrize, ...this.losers];
+      return [...this.orderWinnersByPrize];
     }
   },
   methods: {
     getHighestPrize(nominatedPeople) {
-      return orderBy([...nominatedPeople], "prize.order")[0];
+      let highestPrize;
+      let highestOrder = 9999;
+      for (const nominatedPerson of nominatedPeople) {
+        for (const { prize } of nominatedPerson.nominatedPersonPrizes.nodes) {
+          if (prize.order < highestOrder) {
+            highestOrder = prize.order;
+            highestPrize = prize;
+          }
+        }
+      }
+      return highestPrize;
     }
   }
 };

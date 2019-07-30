@@ -1,24 +1,25 @@
 <template>
-  <article class="flex" :class="nomination.winner ? 'mb-4':'mb-2'">
-    <figure
-      v-if="nomination.winner"
-      class="mt-1 mr-2 hidden sm:block flex-none"
-    >
+  <article class="flex" :class="nomination.winner ? 'mb-4' : 'mb-2'">
+    <figure v-if="nomination.winner" class="mt-1 mr-2 hidden sm:block flex-none">
       <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
     </figure>
     <section>
       <header class="flex items-center">
-        <star :winner="nomination.winner" class="text-base mr-2 mb-1 md:mb-0" />
+        <star
+          v-if="!nomination.winner"
+          :winner="nomination.winner"
+          class="text-base mr-2 mb-1 md:mb-0"
+        />
         <h4>
-          <movie-link
-            :movie-id="nomination.movie.id"
-            :movie-title="nomination.movie.title"
-            >{{ nomination.movie.title }}</movie-link
-          >
+          <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title">{{
+            nomination.movie.title
+          }}</movie-link>
         </h4>
       </header>
       <nomination-credits
         :nominated-people="nomination.nominatedPeople.nodes"
+        :has-star="true"
+        :is-festival="true"
       />
     </section>
   </article>
@@ -45,8 +46,7 @@ export default {
         );
         let prizes = people.map(person => person.prize);
         prizes = prizes.filter(
-          (prize, index, self) =>
-            index === self.findIndex(p => prize.id === p.id)
+          (prize, index, self) => index === self.findIndex(p => prize.id === p.id)
         );
         return {
           people,

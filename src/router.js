@@ -15,43 +15,37 @@ export default new Router({
     {
       path: "/about",
       name: "about",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      component: () => import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
       path: "/award/:nameShort",
       name: "award",
       props: true,
-      component: () =>
-        import(/* webpackChunkName: "award" */ "./views/AwardView.vue")
+      component: () => import(/* webpackChunkName: "award" */ "./views/AwardView.vue")
     },
     {
       path: "/award/:nameShort/:editionYear(\\d+)",
       name: "edition",
       props: true,
-      component: () =>
-        import(/* webpackChunkName: "edition" */ "./views/EditionView.vue")
+      component: () => import(/* webpackChunkName: "edition" */ "./views/EditionView.vue")
     },
     {
       path: "/award/:nameShort/category/:categoryName",
       name: "category",
       props: true,
-      component: () =>
-        import(/* webpackChunkName: "category" */ "./views/CategoryView.vue")
+      component: () => import(/* webpackChunkName: "category" */ "./views/CategoryView.vue")
     },
     {
-      path: "/movie/:movie_id/:title",
+      path: "/movie/:movieId/:title",
       name: "Movie",
       props: true,
-      component: () =>
-        import(/* webpackChunkName: "Movie" */ "./views/MovieView.vue")
+      component: () => import(/* webpackChunkName: "Movie" */ "./views/MovieView.vue")
     },
     {
       path: "/person/:personId/:personName",
       name: "Person",
       props: true,
-      component: () =>
-        import(/* webpackChunkName: "Person" */ "./views/PersonView.vue")
+      component: () => import(/* webpackChunkName: "Person" */ "./views/PersonView.vue")
     }
   ]
 });

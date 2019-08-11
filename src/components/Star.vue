@@ -1,18 +1,11 @@
 <template functional>
-  <!-- <font-awesome-icon
-    :icon="props.winner ? 'star' : ['far', 'star']"
+  <span
+    class="inline-block w-4 text-base mr-2"
     :class="[
       data.class,
       data.staticClass,
       props.winner ? 'text-yellow-500' : 'text-gray-800'
     ]"
-    :style="[data.style, data.staticStyle]"
-    v-bind="data.attrs"
-    v-on="listeners"
-  /> -->
-  <span
-    class="inline-block w-4 text-base mr-2"
-    :class="[data.class, data.staticClass, props.winner ? 'text-yellow-500' : 'text-gray-800']"
     :style="[data.style, data.staticStyle]"
     v-bind="data.attrs"
     v-on="listeners"
@@ -25,7 +18,7 @@ export default {
     winner: {
       type: Boolean,
       default: true
-    },
-  },
-}
+    }
+  }
+};
 </script>

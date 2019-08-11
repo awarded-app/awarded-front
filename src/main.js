@@ -5,26 +5,26 @@ import "./registerServiceWorker";
 import { createProvider } from "./vue-apollo";
 import "./assets/tailwind.css";
 import FontAwesomeIcon from "./plugins/FontAwesomeIcon";
-import moment from "moment";
+import { format, differenceInCalendarYears, startOfToday, getYear} from 'date-fns'
 import Vue2Filters from "vue2-filters";
 import VueMeta from "vue-meta";
 
 Vue.use(VueMeta);
 // GLOBAL FILTERS
 Vue.use(Vue2Filters);
-Vue.filter("formatDate", function(value, format = "DD.MMM.YY") {
+Vue.filter("formatDate", function(value, dateFormat = "DD.MMM.YY") {
   if (value) {
-    return moment(new Date(String(value))).format(format);
+    return format(new Date(String(value)), dateFormat);
   }
 });
 Vue.filter("age", function(value) {
   if (value) {
-    return moment().diff(new Date(String(value)), "years", false);
+    return differenceInCalendarYears(new Date(String(value)), startOfToday());
   }
 });
 Vue.filter("year", function(value) {
   if (value) {
-    return moment(new Date(String(value))).format("YYYY");
+    return getYear(new Date(String(value)));
   }
 });
 Vue.filter("formatUrl", function(value) {

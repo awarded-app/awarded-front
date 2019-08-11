@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="min-h-full flex flex-col items-stretch">
+  <div id="app" class="min-h-full flex flex-col items-stretch antialiased">
     <header class="mb-4 indented flex-shrink-0">
       <router-link to="/">
         <h1 class="font-bold text-4xl flex flex-col md:flex-row">

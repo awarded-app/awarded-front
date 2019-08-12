@@ -20,17 +20,16 @@
           v-for="nomination in nominationsSorted"
           :key="nomination.id"
         >
-          <star class="mr-2 mt-1 text-lg" :winner="nomination.winner" />
+          <star class="mr-2 text-lg" :winner="nomination.winner" />
           <div class="lg:flex lg:flex-wrap">
             <template v-if="isFestival">
               <nomination-by-award-festival :nomination="nomination" />
             </template>
             <template v-else>
-              <p>
+              <p class="mr-2">
                 <category-link
                   :category-name="nomination.category.name"
                   :award-name-short="awardNameShort"
-                  class="mr-2"
                   >{{ nomination.category.name }}</category-link
                 >
               </p>

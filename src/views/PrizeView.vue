@@ -18,8 +18,10 @@
         <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
           {{ prize.description }}
         </p>
-        <p class="mb-4 md:w-2/3 lg:w-1/2">
-          Winners:
+        <p
+          class="mb-4 md:w-2/3 lg:w-1/2 uppercase tracking-wide font-semibold text-sm"
+        >
+          Past editions winners
         </p>
         <ul>
           <li
@@ -49,7 +51,7 @@
                   <li class="text-xl">
                     <div class="flex items-center mr-2">
                       <star :winner="true" />
-                      <p>
+                      <p class="font-semibold">
                         <movie-link
                           :movie-id="movie.id"
                           :movie-title="movie.title"

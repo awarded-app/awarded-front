@@ -192,6 +192,7 @@ export default {
                   id
                   character
                   job {
+                    id
                     name
                   }
                   person {
@@ -199,11 +200,13 @@ export default {
                     name
                   }
                   nomination {
+                    id
                     edition {
                       id
                       date
                       name
                       award {
+                        id
                         nameShort
                       }
                     }

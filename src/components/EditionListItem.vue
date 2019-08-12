@@ -55,6 +55,7 @@ export default {
         date
         name
         award {
+          id
           nameShort
           isFestival
         }

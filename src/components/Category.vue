@@ -27,7 +27,7 @@
           :nomination="nomination"
           :display="category.display"
         />
-        <category-posters :nominations="category.nominations.nodes" />
+        <category-posters :nominations="category.nominations.nodes" class="indented" />
       </template>
     </div>
   </div>

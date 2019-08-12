@@ -19,7 +19,7 @@ Vue.filter("formatDate", function(value, dateFormat = "DD.MMM.YY") {
 });
 Vue.filter("age", function(value) {
   if (value) {
-    return differenceInCalendarYears(new Date(String(value)), startOfToday());
+    return differenceInCalendarYears(startOfToday(), new Date(String(value)));
   }
 });
 Vue.filter("year", function(value) {

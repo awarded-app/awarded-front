@@ -112,8 +112,8 @@ export default {
             ) {
               nodes {
                 edition {
-                  date
                   id
+                  date
                   name
                   publish
                   nominations(condition: $nCondition) {
@@ -128,7 +128,9 @@ export default {
                         nodes {
                           ...nominatedPerson
                           nomination {
+                            id
                             category {
+                              id
                               display
                             }
                           }

@@ -23,6 +23,7 @@ export default {
           }
         }
         award {
+          id
           nameShort
         }
       }

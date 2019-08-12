@@ -8,12 +8,10 @@
 
 <script>
 import AwardEditionNominationPerson from "./AwardEditionNominationPerson";
-import AwardEditionNominationMovie from "./AwardEditionNominationMovie";
 
 export default {
   name: "AwardEditionNomination",
   components: {
-    AwardEditionNominationMovie,
     AwardEditionNominationPerson
   },
   props: {

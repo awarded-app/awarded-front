@@ -28,8 +28,8 @@ export default {
   fragments: {
     nominatedPerson: gql`
       fragment nominatedPerson on NominatedPerson {
-        character
         id
+        character
         job {
           id
           name
@@ -52,9 +52,11 @@ export default {
               order
               display
               award {
+                id
                 nameShort
               }
               category {
+                id
                 name
               }
             }

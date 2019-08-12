@@ -1,6 +1,8 @@
 <template>
   <div>
-    <breadcrumbs :prev-screen-params="{ nameShort }">{{ categoryName }}</breadcrumbs>
+    <breadcrumbs :prev-screen-params="{ nameShort }">{{
+      categoryName
+    }}</breadcrumbs>
     <article>
       <header class="flex sm:items-center">
         <back-arrow :to="prevScreen" />
@@ -15,8 +17,10 @@
         <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
           {{ category.description }}
         </p>
-        <p class="mb-4 md:w-2/3 lg:w-1/2">
-          Winners and nominees from past editions:
+        <p
+          class="mb-4 md:w-2/3 lg:w-1/2 uppercase tracking-wide text-sm text-gray-500"
+        >
+          Winners and nominees from past editions
         </p>
         <ul>
           <li
@@ -56,9 +60,7 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `${this.categoryName} winners and nominees in all editions of the ${
-            this.nameShort
-          }.`
+          content: `${this.categoryName} winners and nominees in all editions of the ${this.nameShort}.`
         }
       ]
     };
@@ -97,7 +99,11 @@ export default {
   apollo: {
     category: {
       query: gql`
-        query category($id: Int!, $awardId: Int!, $nCondition: NominationCondition) {
+        query category(
+          $id: Int!
+          $awardId: Int!
+          $nCondition: NominationCondition
+        ) {
           category(id: $id, awardId: $awardId) {
             ...category
             editionCategories(

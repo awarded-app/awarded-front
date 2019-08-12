@@ -48,11 +48,14 @@
             </div>
           </section>
           <section id="movie-nominations" class="pt-4">
-            <div v-if="movieStats" class="block text-sm text-gray-700  mb-1">
+            <div
+              v-if="movieStats"
+              class="text-gray-500 mb-4 uppercase text-sm font-semibold tracking-wide"
+            >
               {{ movieStats.nominations }}
               {{ movieStats.nominations | pluralize("nomination") }}
               <span v-if="movieStats.wins">
-                <span class="text-xs mx-1 text-gray-800">★</span>
+                <span class="text-xs mx-1 text-gray-700">★</span>
                 {{ movieStats.wins }}
                 {{ movieStats.wins | pluralize("win") }}
               </span>

@@ -3,9 +3,12 @@
     <div class="flex items-center mb-2">
       <plus-sign @click="showEditions = !showEditions" />
       <h2>
-        <router-link class="title-link" tag="a" :to="`/award/${award.nameShort}`">{{
-          award.nameShort
-        }}</router-link>
+        <router-link
+          class="title-link"
+          tag="a"
+          :to="`/award/${award.nameShort}`"
+          >{{ award.nameShort }}</router-link
+        >
       </h2>
     </div>
     <edition-list v-if="showEditions" :award-id="award.id" class="-mt-2 mb-4" />

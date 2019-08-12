@@ -7,7 +7,10 @@
         >{{ nomination.category.name }}</category-link
       >
     </li>
-    <nomination-credits :nominated-people="nomination.nominatedPeople.nodes" :is-festival="true" />
+    <nomination-credits
+      :nominated-people="nomination.nominatedPeople.nodes"
+      :is-festival="true"
+    />
   </ul>
 </template>
 
@@ -33,7 +36,8 @@ export default {
         );
         let prizes = people.map(person => person.prize);
         prizes = prizes.filter(
-          (prize, index, self) => index === self.findIndex(p => prize.id === p.id)
+          (prize, index, self) =>
+            index === self.findIndex(p => prize.id === p.id)
         );
         return {
           people,

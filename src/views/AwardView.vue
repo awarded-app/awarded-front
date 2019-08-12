@@ -17,6 +17,9 @@
           <spinner />
         </template>
         <template v-else>
+          <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2 indented">
+            {{ award.description }}
+          </p>
           <p class="text-gray-500 mb-4 indented">
             <a
               :href="award.link"

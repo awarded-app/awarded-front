@@ -1,18 +1,20 @@
 <template>
   <div class="pb-4">
-    <h3 class="flex items-center">
-      <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" class="mb-2" />
-      <router-link
-        :to="`/award/${awardNameShort}/${$options.filters.year(editionDate)}`"
-        tag="a"
-        class="title-link"
-      >
-        {{ awardNameShort
-        }}<span class="text-gray-500">
-          {{ editionDate | year }}
-        </span>
-      </router-link>
-    </h3>
+    <div class="flex items-center mb-1">
+      <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" />
+      <h3>
+        <router-link
+          :to="`/award/${awardNameShort}/${$options.filters.year(editionDate)}`"
+          tag="a"
+          class="title-link"
+        >
+          {{ awardNameShort
+          }}<span class="text-gray-500">
+            {{ editionDate | year }}
+          </span>
+        </router-link>
+      </h3>
+    </div>
     <section v-if="isOpen" class="indented">
       <ul class="text-xl">
         <li

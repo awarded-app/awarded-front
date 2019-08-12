@@ -8,7 +8,6 @@ export default {
   fragments: {
     movie: gql`
       fragment movie on Movie {
-        nodeId
         id
         title
         homepage
@@ -28,7 +27,6 @@ export default {
           totalCount
           nodes {
             country {
-              nodeId
               id
               name
               code

@@ -8,7 +8,6 @@ export default {
   fragments: {
     category: gql`
       fragment category on Category {
-        nodeId
         id
         important
         name

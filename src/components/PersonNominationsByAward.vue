@@ -66,13 +66,13 @@
 <script>
 import CategoryLink from "@/components/CategoryLink";
 import MovieLink from "@/components/MovieLink";
-import NominationByAwardFestival from "@/components/NominationByAwardFestival";
+//import NominationByAwardFestival from "@/components/NominationByAwardFestival";
 export default {
   name: "PersonNominationsByAward",
   components: {
     MovieLink,
     CategoryLink,
-    NominationByAwardFestival
+    //NominationByAwardFestival
   },
   props: {
     nominations: {

@@ -8,7 +8,6 @@ export default {
   fragments: {
     person: gql`
       fragment person on Person {
-        nodeId
         id
         tmdbId
         imdbId

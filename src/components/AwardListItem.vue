@@ -28,7 +28,6 @@ export default {
   fragments: {
     award: gql`
       fragment award on Award {
-        nodeId
         id
         link
         logo

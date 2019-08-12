@@ -1,7 +1,7 @@
 <template>
   <li class="mb-2 block">
     <article class="mb-2">
-      <header class="sm:flex sm:items-center sm:flex-wrap">
+      <header class="sm:flex sm:items-center sm:flex-wrap mb-2">
         <div class="flex items-center">
           <plus-sign
             @click="showNominations = !showNominations"
@@ -15,7 +15,7 @@
             >
           </h3>
         </div>
-        <p class="text-2xl leading-tight text-gray-500 pl-6 sm:pl-0">
+        <p class="text-2xl  text-gray-500 pl-6 sm:pl-0">
           {{ edition.name }}
         </p>
       </header>

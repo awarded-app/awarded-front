@@ -20,7 +20,9 @@
             : 'flex-col-reverse justify-end'
         "
       >
-        <p :class="display === 'movie' ? '' : 'pl-6 text-gray-500'">
+        <p
+          :class="display === 'movie' ? 'font-semibold' : 'pl-6 text-gray-500'"
+        >
           <star v-if="display === 'movie'" :winner="true" />
           <movie-link
             :movie-id="winnerNomination.movie.id"
@@ -33,7 +35,7 @@
           :show-prize="isFestival"
           :is-festival="isFestival"
           :display="display"
-          :class="display=== 'movie'?'pl-6':''"
+          :class="display === 'movie' ? 'pl-6' : 'font-semibold'"
         />
       </div>
       <div class=" flex items-center mb-2">
@@ -61,7 +63,11 @@
                 : 'flex-row-reverse justify-end'
             "
           >
-            <span :class="display === 'movie' ? 'mr-2' : 'text-gray-500'">
+            <span
+              :class="
+                display === 'movie' ? 'mr-2 font-semibold' : 'text-gray-500'
+              "
+            >
               <star :winner="nomination.winner" class="mr-2" />
               <movie-link
                 :movie-id="nomination.movie.id"
@@ -76,6 +82,7 @@
             :is-festival="isFestival"
             class="indented"
             :display="display"
+            :class="display === 'movie' ? '' : 'font-semibold'"
           />
         </li>
       </ul>

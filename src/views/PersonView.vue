@@ -4,102 +4,105 @@
       person.name
     }}</breadcrumbs>
     <article>
-
-    <header class="mb-2 flex sm:items-center">
+      <header class="mb-2 flex sm:items-center">
         <back-arrow :to="prevScreen" />
-      <h2 class="flex items-center flex-wrap">
-        <span class="mr-2">{{ person.name }}</span>
-      </h2>
-    </header>
-    <main class="indented">
-      <spinner v-if="$apollo.loading" class="mt-4" />
-      <template v-else>
-        <section id="person" class="sm:flex">
-          <div class="mb-2 sm:mr-4">
-            <person-headshot
-              :tmdb-id="person.tmdbId"
-              :profilePath="person.profilePath"
-              w="200"
-            />
-          </div>
-          <div class="sm:w-1/2">
-            <p v-if="person.biography" class="text-gray-500 mb-2">
-              {{ person.biography }}
-            </p>
-            <p v-if="person.deathday">
-              &#10013; {{ person.deathday | formatDate("Do MMMM YY") }}
-            </p>
-            <p v-else-if="person.birthday">
-              {{ person.birthday | age
-              }}<span class="text-gray-500 "> years old</span>
-            </p>
-            <p v-if="person.placeOfBirth" class="mb-2">
-              <span class="text-gray-500">From</span> {{ person.placeOfBirth }}
-            </p>
-            <p>
-              <person-social-links
+        <h2 class="flex items-center flex-wrap">
+          <span class="mr-2">{{ person.name }}</span>
+        </h2>
+      </header>
+      <main class="indented">
+        <spinner v-if="$apollo.loading" class="mt-4" />
+        <template v-else>
+          <section id="person">
+            <div class="lg:w-2/3">
+              <person-headshot
                 :tmdb-id="person.tmdbId"
-                :imdb-id="person.imdbId"
+                :profilePath="person.profilePath"
+                w="200"
+                class="mb-2 sm:mr-4 sm:float-left"
               />
-            </p>
-          </div>
-        </section>
-        <section id="movie-nominations" class="pt-4">
-          <p class="text-gray-500 mb-4">
-            {{ stats.nominations }} nominations<span
-              class="text-xs mx-1 text-gray-800"
-              >★</span
-            >{{ stats.wins }} wins
-          </p>
-          <div class="xl:flex xl:flex-wrap">
-            <div
-              v-for="(movieGroup, index) in nominationsByMovie"
-              :key="index"
-              class="flex mb-4 w-full xl:w-1/3 xl:mr-4"
+              <p v-if="person.biography" class="text-gray-500 mb-2">
+                {{ person.biography }}
+              </p>
+            </div>
+            <div class="clearfix">
+              <p v-if="person.deathday">
+                &#10013; {{ person.deathday | formatDate("Do MMMM YY") }}
+              </p>
+              <p v-else-if="person.birthday">
+                {{ person.birthday | age
+                }}<span class="text-gray-500 "> years old</span>
+              </p>
+              <p v-if="person.placeOfBirth" class="mb-2">
+                <span class="text-gray-500">From</span>
+                {{ person.placeOfBirth }}
+              </p>
+              <p>
+                <person-social-links
+                  :tmdb-id="person.tmdbId"
+                  :imdb-id="person.imdbId"
+                />
+              </p>
+            </div>
+          </section>
+          <section id="movie-nominations" class="pt-4">
+            <p
+              class="text-gray-500 mb-4 uppercase text-sm font-semibold tracking-wide"
             >
-              <div class="mr-2 flex-none">
-                <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
-              </div>
-              <div>
-                <h3 class="mb-1">
-                  <movie-link
-                    :movie-id="movieGroup.movie.id"
-                    :movie-title="movieGroup.movie.title"
-                  >
-                    {{ movieGroup.movie.title }}
-                  </movie-link>
-                </h3>
+              {{ stats.nominations }} nominations<span
+                class="text-xs mx-1 text-gray-700"
+                >★</span
+              >{{ stats.wins }} wins
+            </p>
+            <div class="xl:flex xl:flex-wrap">
+              <div
+                v-for="(movieGroup, index) in nominationsByMovie"
+                :key="index"
+                class="flex mb-4 w-full xl:w-1/3 xl:mr-4"
+              >
+                <div class="mr-2 flex-none">
+                  <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
+                </div>
+                <div>
+                  <h3 class="mb-1">
+                    <movie-link
+                      :movie-id="movieGroup.movie.id"
+                      :movie-title="movieGroup.movie.title"
+                    >
+                      {{ movieGroup.movie.title }}
+                    </movie-link>
+                  </h3>
 
-                <ul>
-                  <li
-                    v-for="nomination in movieGroup.nominations"
-                    :key="nomination.id"
-                    class="mb-1"
-                  >
-                    <star :winner="nomination.winner" class="mr-2" />
-                    <category-link
-                      :category-name="nomination.category.name"
-                      :award-name-short="nomination.award.nameShort"
-                      class="mr-2"
-                      >{{ nomination.category.name }}</category-link
+                  <ul>
+                    <li
+                      v-for="nomination in movieGroup.nominations"
+                      :key="nomination.id"
+                      class="mb-1"
                     >
-                    <edition-link
-                      :edition-date="nomination.edition.date"
-                      :award-name-short="nomination.award.nameShort"
-                      class="mr-2"
-                      ><span class="text-gray-500"
-                        >{{ nomination.edition.date | year }}
-                        {{ nomination.award.nameShort }}</span
-                      ></edition-link
-                    >
-                  </li>
-                </ul>
+                      <star :winner="nomination.winner" class="mr-2" />
+                      <category-link
+                        :category-name="nomination.category.name"
+                        :award-name-short="nomination.award.nameShort"
+                        class="mr-2"
+                        >{{ nomination.category.name }}</category-link
+                      >
+                      <edition-link
+                        :edition-date="nomination.edition.date"
+                        :award-name-short="nomination.award.nameShort"
+                        class="mr-2"
+                        ><span class="text-gray-500"
+                          >{{ nomination.edition.date | year }}
+                          {{ nomination.award.nameShort }}</span
+                        ></edition-link
+                      >
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </template>
-    </main>
+          </section>
+        </template>
+      </main>
     </article>
   </div>
 </template>

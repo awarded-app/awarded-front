@@ -47,7 +47,7 @@
           </section>
           <section id="movie-nominations" class="pt-4">
             <p
-              class="text-gray-500 mb-4 uppercase text-sm font-semibold tracking-wide"
+              class="text-gray-500 mb-4 a-uppercase-info"
             >
               {{ stats.nominations }} nominations<span
                 class="text-xs mx-1 text-gray-700"

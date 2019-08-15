@@ -19,7 +19,7 @@
           {{ prize.description }}
         </p>
         <p
-          class="mb-4 md:w-2/3 lg:w-1/2 uppercase tracking-wide font-semibold text-sm"
+          class="mb-4 md:w-2/3 lg:w-1/2 a-uppercase-info"
         >
           Past editions winners
         </p>

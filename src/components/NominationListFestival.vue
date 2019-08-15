@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <h4 class="text-lg text-gray-500 mb-2 font-semibold">
+    <h4 class="text-gray-500 mb-2 a-uppercase-info">
       Winners (Official Competition)
     </h4>
     <li

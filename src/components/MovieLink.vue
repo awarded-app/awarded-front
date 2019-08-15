@@ -3,6 +3,7 @@
     :to="`/movie/${props.movieId}/${props.movieTitle}`"
     tag="a"
     class="title-link"
+    :title="movieTitle"
     :class="[data.class, data.staticClass]"
     :style="[data.style, data.staticStyle]"
     v-bind="data.attrs"

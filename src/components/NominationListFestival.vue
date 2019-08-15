@@ -9,7 +9,9 @@
       class="mb-4 flex"
     >
       <figure class="mt-1 mr-2 hidden sm:block flex-none">
-        <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
+        <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title"
+          ><movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" h="150"
+        /></movie-link>
       </figure>
       <article>
         <header class="flex items-center">

@@ -3,7 +3,11 @@
     <h4 class="text-xl text-gray-500 mb-2">Winners</h4>
     <li v-for="movieGroup in winnerNominationsByMovie" :key="movieGroup.movie.id" class="mb-4 flex">
       <figure class="mt-1 hidden mr-2 sm:block flex-none">
-        <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
+        <movie-link
+          :movie-id="movieGroup.movie.id"
+          :movie-title="movieGroup.movie.title"
+          ><movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100"
+        /></movie-link>
       </figure>
       <article>
         <h4 class="mb-1">

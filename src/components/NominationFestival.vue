@@ -1,7 +1,9 @@
 <template>
   <article class="flex" :class="nomination.winner ? 'mb-4' : 'mb-2'">
     <figure v-if="nomination.winner" class="mt-1 mr-2 hidden sm:block flex-none">
-      <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
+      <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title">
+        <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
+      </movie-link>
     </figure>
     <section>
       <header class="flex items-center">

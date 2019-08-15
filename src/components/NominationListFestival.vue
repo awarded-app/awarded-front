@@ -3,12 +3,11 @@
     <h4 class="text-gray-500 mb-2 a-uppercase-info">
       Winners (Official Competition)
       <star-separator />
+      <edition-link :award-name-short="awardNameShort" :edition-date="editionDate"
+        >Full Edition</edition-link
+      >
     </h4>
-    <li
-      v-for="nomination in nominationsMainCategorySorted"
-      :key="nomination.id"
-      class="mb-4 flex"
-    >
+    <li v-for="nomination in nominationsMainCategorySorted" :key="nomination.id" class="mb-4 flex">
       <figure class="mt-1 mr-2 hidden sm:block flex-none">
         <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title"
           ><movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" h="150"
@@ -18,11 +17,9 @@
         <header class="flex items-center">
           <!-- <star :winner="true" class="text-base mr-2 mb-1 md:mb-0" /> -->
           <h4>
-            <movie-link
-              :movie-id="nomination.movie.id"
-              :movie-title="nomination.movie.title"
-              >{{ nomination.movie.title }}</movie-link
-            >
+            <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title">{{
+              nomination.movie.title
+            }}</movie-link>
           </h4>
         </header>
         <nomination-credits
@@ -38,18 +35,35 @@
 <script>
 const groupBy = require("lodash.groupby");
 import MovieLink from "@/components/MovieLink";
+import EditionLink from "@/components/EditionLink";
 import MoviePoster from "@/components/MoviePoster";
 import NominationCredits from "@/components/NominationCredits";
+import StarSeparator from "@/components/StarSeparator";
 
 export default {
   name: "NominationListFestival",
-  components: { MovieLink, MoviePoster, NominationCredits },
+  components: {
+    EditionLink,
+    MovieLink,
+    MoviePoster,
+    StarSeparator,
+    NominationCredits
+  },
   props: {
     nominations: {
       type: Array,
       required: true
+    },
+    editionDate: {
+      type: String,
+      required: true
+    },
+    awardNameShort: {
+      type: String,
+      required: true
     }
   },
+
   computed: {
     winnerNominations() {
       return this.nominations.filter(nomination => nomination.winner);
@@ -65,8 +79,7 @@ export default {
     nominationsMainCategorySorted() {
       for (let nomination of this.nominationsMainCategory) {
         nomination.nominatedPeople.nodes = nomination.nominatedPeople.nodes.filter(
-          nominatedPerson =>
-            nominatedPerson.nominatedPersonPrizes.totalCount > 0
+          nominatedPerson => nominatedPerson.nominatedPersonPrizes.totalCount > 0
         );
       }
 

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <breadcrumbs :prev-screen-params="{ nameShort }">{{
-      categoryName
-    }}</breadcrumbs>
+    <breadcrumbs :prev-screen-params="{ nameShort }">{{ categoryName }}</breadcrumbs>
     <article>
       <header class="flex sm:items-center">
         <back-arrow :to="prevScreen" />
@@ -58,7 +56,9 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `${this.categoryName} winners and nominees in all editions of the ${this.nameShort}.`
+          content: `${this.categoryName} winners and nominees in all editions of the ${
+            this.nameShort
+          }.`
         }
       ]
     };
@@ -97,11 +97,7 @@ export default {
   apollo: {
     category: {
       query: gql`
-        query category(
-          $id: Int!
-          $awardId: Int!
-          $nCondition: NominationCondition
-        ) {
+        query category($id: Int!, $awardId: Int!, $nCondition: NominationCondition) {
           category(id: $id, awardId: $awardId) {
             ...category
             editionCategories(

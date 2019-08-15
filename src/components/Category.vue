@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      isOpen: this.category.important
+      isOpen: true//this.category.important
     };
   },
   computed: {

@@ -1,15 +1,12 @@
 <template>
   <ul class="text-xl mb-2">
-    <li class="mr-2 text-gray-500">
-      <category-link
-        :award-name-short="nomination.award.nameShort"
-        :category-name="nomination.category.name"
-        >{{ nomination.category.name }}</category-link
-      >
+    <li class="mr-2 text-gray-500 font-semibold">
+      {{ nomination.category.name }}
     </li>
     <nomination-credits
       :nominated-people="nomination.nominatedPeople.nodes"
       :is-festival="true"
+      :show-job="true"
     />
   </ul>
 </template>
@@ -36,8 +33,7 @@ export default {
         );
         let prizes = people.map(person => person.prize);
         prizes = prizes.filter(
-          (prize, index, self) =>
-            index === self.findIndex(p => prize.id === p.id)
+          (prize, index, self) => index === self.findIndex(p => prize.id === p.id)
         );
         return {
           people,

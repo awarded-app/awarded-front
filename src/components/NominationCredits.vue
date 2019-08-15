@@ -44,6 +44,7 @@
             credit.person.name
           }}</person-link
           ><span v-if="credit.character"> (as {{ credit.character }})</span
+          ><span v-else-if="credit.job && showJob"> ({{ credit.job.name }})</span
           ><span v-if="index < nominatedPeople.length - 1">,&nbsp;</span>
         </p>
       </li>
@@ -82,6 +83,10 @@ export default {
     display: {
       type: String,
       default: "movie"
+    },
+    showJob: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

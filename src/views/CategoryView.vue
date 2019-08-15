@@ -17,9 +17,7 @@
         <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
           {{ category.description }}
         </p>
-        <p
-          class="mb-4 md:w-2/3 lg:w-1/2 uppercase tracking-wide text-sm text-gray-500 font-semibold"
-        >
+        <p class="mb-4 md:w-2/3 lg:w-1/2 text-gray-500 a-uppercase-info">
           Winners and nominees from past editions
         </p>
         <ul>

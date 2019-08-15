@@ -50,7 +50,7 @@
           <section id="movie-nominations" class="pt-4">
             <div
               v-if="movieStats"
-              class="text-gray-500 mb-4 uppercase text-sm font-semibold tracking-wide"
+              class="text-gray-500 mb-4 a-uppercase-info"
             >
               {{ movieStats.nominations }}
               {{ movieStats.nominations | pluralize("nomination") }}

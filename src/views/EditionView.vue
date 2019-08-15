@@ -22,7 +22,7 @@
           </p>
         </div>
         <section class="pt-4">
-          <h4 class="text-sm text-gray-500 mb-2 uppercase tracking-wide font-semibold">
+          <h4 class="text-gray-500 mb-2 a-uppercase-info">
             <template v-if="award.isFestival"
               >Main Sections</template
             >

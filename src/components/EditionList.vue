@@ -1,7 +1,12 @@
 <template>
   <spinner v-if="$apollo.loading" />
   <ul v-else-if="editions && editions.totalCount > 0" class="indented">
-    <edition-list-item v-for="edition in editions.nodes" :key="edition.id" :edition="edition" />
+    <p class="a-uppercase-info text-gray-500 mb-2">Editions</p>
+    <edition-list-item
+      v-for="edition in editions.nodes"
+      :key="edition.id"
+      :edition="edition"
+    />
   </ul>
   <p v-else>
     Hmm, something went wrong! Try reloading?

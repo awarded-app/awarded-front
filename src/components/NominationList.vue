@@ -1,7 +1,12 @@
 <template>
   <spinner v-if="$apollo.loading" class="indented" />
   <div v-else-if="nominations" class="mb-8 indented">
-    <nomination-list-festival v-if="edition.award.isFestival" :nominations="nominations.nodes" />
+    <nomination-list-festival
+      v-if="edition.award.isFestival"
+      :nominations="nominations.nodes"
+      :edition-date="edition.date"
+      :award-name-short="edition.award.nameShort"
+    />
     <nomination-list-award v-else :nominations="nominations.nodes" />
   </div>
   <p v-else>

@@ -2,6 +2,7 @@
   <ul>
     <h4 class="text-gray-500 mb-2 a-uppercase-info">
       Winners (Official Competition)
+      <star-separator />
     </h4>
     <li
       v-for="nomination in nominationsMainCategorySorted"

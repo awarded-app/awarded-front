@@ -13,19 +13,14 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      open: this.isOpen
-    };
-  },
+
   computed: {
     icon() {
-      return this.open ? "caret-down" : "caret-right";
+      return this.isOpen ? "caret-down" : "caret-right";
     }
   },
   methods: {
     toggleOpen() {
-      this.open = !this.open;
       this.$emit("click", open);
     }
   }

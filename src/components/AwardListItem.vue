@@ -1,7 +1,7 @@
 <template>
   <li>
     <div class="flex items-center mb-2">
-      <plus-sign @click="showEditions = !showEditions" />
+      <plus-sign :is-open="showEditions" @click="showEditions = !showEditions" />
       <h2>
         <router-link
           class="title-link"

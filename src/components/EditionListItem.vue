@@ -4,6 +4,7 @@
       <header class="sm:flex sm:items-center sm:flex-wrap mb-2">
         <div class="flex items-center">
           <plus-sign
+            :is-open="showNominations"
             @click="showNominations = !showNominations"
             class="text-base"
           />

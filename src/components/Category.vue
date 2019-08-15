@@ -17,7 +17,9 @@
           :key="nomination.id"
           :nomination="nomination"
         />
-        <p class="text-gray-500">Other movies in {{ category.name }}:</p>
+        <p class="text-gray-500 a-uppercase-info">
+          Other movies in {{ category.name }}:
+        </p>
         <category-posters :nominations="losers" />
       </template>
       <template v-else>
@@ -27,7 +29,10 @@
           :nomination="nomination"
           :display="category.display"
         />
-        <category-posters :nominations="category.nominations.nodes" class="indented" />
+        <category-posters
+          :nominations="category.nominations.nodes"
+          class="indented"
+        />
       </template>
     </div>
   </div>
@@ -59,15 +64,19 @@ export default {
   },
   data() {
     return {
-      isOpen: true//this.category.important
+      isOpen: true //this.category.important
     };
   },
   computed: {
     winners() {
-      return this.category.nominations.nodes.filter(nomination => nomination.winner);
+      return this.category.nominations.nodes.filter(
+        nomination => nomination.winner
+      );
     },
     losers() {
-      return this.category.nominations.nodes.filter(nomination => !nomination.winner);
+      return this.category.nominations.nodes.filter(
+        nomination => !nomination.winner
+      );
     },
     orderWinnersByPrize() {
       const winners = this.winners.map(winner => {

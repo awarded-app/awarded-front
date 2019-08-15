@@ -1,16 +1,16 @@
 <template>
   <li>
-    <div class="flex items-center mb-2">
+    <div class="flex items-center flex-wrap">
       <plus-sign :is-open="showEditions" @click="showEditions = !showEditions" />
-      <h2>
-        <router-link
-          class="title-link"
-          tag="a"
-          :to="`/award/${award.nameShort}`"
-          >{{ award.nameShort }}</router-link
-        >
+      <h2 class="mr-2">
+        <router-link class="title-link" tag="a" :to="`/award/${award.nameShort}`">{{
+          award.nameShort
+        }}</router-link>
       </h2>
     </div>
+    <p class="text-2xl text-gray-500 indented -mt-1 font-semibold" :class="showEditions ? 'mb-4' : 'mb-2'">
+      {{ award.nameLong }}
+    </p>
     <edition-list v-if="showEditions" :award-id="award.id" class="-mt-2 mb-4" />
   </li>
 </template>

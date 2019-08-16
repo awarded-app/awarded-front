@@ -9,7 +9,7 @@
           class="title-link"
         >
           {{ awardNameShort
-          }}<span class="text-gray-500">
+          }}<span class="text-gray-500 font-mono">
             {{ editionDate | year }}
           </span>
         </router-link>

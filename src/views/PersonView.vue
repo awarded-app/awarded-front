@@ -84,7 +84,7 @@
                         :award-name-short="nomination.award.nameShort"
                         class="mr-2"
                         ><span class="text-gray-500"
-                          >{{ nomination.edition.date | year }}
+                          ><span class="font-mono">{{ nomination.edition.date | year }}</span>
                           {{ nomination.award.nameShort }}</span
                         ></edition-link
                       >

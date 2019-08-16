@@ -6,7 +6,7 @@
       <header class="flex sm:items-center">
         <back-arrow :to="`/award/${nameShort}`" />
         <h2 class="flex items-center flex-wrap">
-          <span class="mr-2">{{ editionYear }}</span>
+          <span class="mr-2 font-mono">{{ editionYear }}</span>
           <span class="text-gray-500 leading-none mt-0">{{
             edition.name
           }}</span>

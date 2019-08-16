@@ -8,7 +8,7 @@
         class="title-link"
       >
         {{ awardNameShort
-        }}<span class="text-gray-500">
+        }}<span class="text-gray-500 font-mono">
           {{ editionDate | year }}
         </span>
       </router-link>
@@ -71,7 +71,7 @@ export default {
   name: "PersonNominationsByAward",
   components: {
     MovieLink,
-    CategoryLink,
+    CategoryLink
     //NominationByAwardFestival
   },
   props: {

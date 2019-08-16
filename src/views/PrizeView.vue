@@ -40,7 +40,7 @@
                 </figure>
               </div>
               <section>
-                <h3>
+                <h3 class="font-mono">
                   <edition-link
                     :edition-date="edition.date"
                     :award-name-short="edition.award.nameShort"

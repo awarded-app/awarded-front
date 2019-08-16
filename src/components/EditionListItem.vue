@@ -8,7 +8,7 @@
             @click="showNominations = !showNominations"
             class="text-base"
           />
-          <h3 class="mr-2">
+          <h3 class="mr-2 font-mono">
             <edition-link
               :award-name-short="edition.award.nameShort"
               :edition-date="edition.date"

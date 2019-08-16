@@ -1,8 +1,6 @@
 <template>
   <div>
-    <breadcrumbs :prevScreenParams="prevScreenParams">{{
-      person.name
-    }}</breadcrumbs>
+    <breadcrumbs :prev-screen-params="prevScreenParams">{{ person.name }}</breadcrumbs>
     <article>
       <header class="mb-2 flex sm:items-center">
         <back-arrow :to="prevScreen" />
@@ -17,7 +15,7 @@
             <div class="lg:w-2/3">
               <person-headshot
                 :tmdb-id="person.tmdbId"
-                :profilePath="person.profilePath"
+                :profile-path="person.profilePath"
                 w="200"
                 class="mb-2 sm:mr-4 sm:float-left"
               />
@@ -30,29 +28,21 @@
                 &#10013; {{ person.deathday | formatDate("Do MMMM YY") }}
               </p>
               <p v-else-if="person.birthday">
-                {{ person.birthday | age
-                }}<span class="text-gray-500 "> years old</span>
+                {{ person.birthday | age }}<span class="text-gray-500 "> years old</span>
               </p>
               <p v-if="person.placeOfBirth" class="mb-2">
                 <span class="text-gray-500">From</span>
                 {{ person.placeOfBirth }}
               </p>
               <p>
-                <person-social-links
-                  :tmdb-id="person.tmdbId"
-                  :imdb-id="person.imdbId"
-                />
+                <person-social-links :tmdb-id="person.tmdbId" :imdb-id="person.imdbId" />
               </p>
             </div>
           </section>
           <section id="movie-nominations" class="pt-4">
-            <p
-              class="text-gray-500 mb-4 a-uppercase-info"
-            >
-              {{ stats.nominations }} nominations<span
-                class="text-xs mx-1 text-gray-700"
-                >★</span
-              >{{ stats.wins }} wins
+            <p class="text-gray-500 mb-4 a-uppercase-info">
+              {{ stats.nominations }} nominations<star-separator />{{ stats.wins }}
+              wins
             </p>
             <div class="xl:flex xl:flex-wrap">
               <div
@@ -80,6 +70,9 @@
                       class="mb-1"
                     >
                       <star :winner="nomination.winner" class="mr-2" />
+                      <span v-if="nomination.prizes.totalCount > 0" class="mr-2">{{
+                        nomination.prizes.nodes[0].prize.name
+                      }}</span>
                       <category-link
                         :category-name="nomination.category.name"
                         :award-name-short="nomination.award.nameShort"
@@ -119,6 +112,7 @@ import MoviePoster from "@/components/MoviePoster";
 import MovieLink from "@/components/MovieLink";
 import CategoryLink from "@/components/CategoryLink";
 import EditionLink from "@/components/EditionLink";
+import StarSeparator from "@/components/StarSeparator";
 
 export default {
   name: "PersonView",
@@ -138,6 +132,7 @@ export default {
     Spinner,
     PersonHeadshot,
     PersonSocialLinks,
+    StarSeparator,
     EditionLink,
     CategoryLink,
     MovieLink,
@@ -189,6 +184,15 @@ export default {
           nominatedPeople(condition: $condition) {
             totalCount
             nodes {
+              nominatedPersonPrizes {
+                nodes {
+                  prize {
+                    id
+                    name
+                  }
+                }
+                totalCount
+              }
               nomination {
                 id
                 winner
@@ -209,7 +213,6 @@ export default {
                   important
                   order
                 }
-
                 movie {
                   id
                   tmdbId
@@ -226,18 +229,19 @@ export default {
         };
       },
       update(data) {
-        return (this.nominations = data.nominatedPeople.nodes.map(
-          node => node.nomination
-        ));
+        return (this.nominations = data.nominatedPeople.nodes.map(node => {
+          return {
+            ...node.nomination,
+            prizes: { ...node.nominatedPersonPrizes }
+          };
+        }));
       }
     }
   },
   computed: {
     nominationsByMovie() {
       if (!this.nominations) return null;
-      let sortedNominations = Object.values(
-        groupBy(this.nominations, "movie.id")
-      );
+      let sortedNominations = Object.values(groupBy(this.nominations, "movie.id"));
       sortedNominations = sortedNominations.map(nomination => {
         return {
           movie: { ...nomination[0].movie },

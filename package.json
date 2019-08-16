@@ -32,8 +32,7 @@
     "vue-apollo": "^3.0.0-rc.2",
     "vue-markdown": "^2.2.4",
     "vue-meta": "^2.2.0",
-    "vue-router": "^3.1.2",
-    "vue2-filters": "^0.6.1"
+    "vue-router": "^3.1.2"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^1.2.0",

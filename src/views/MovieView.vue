@@ -38,6 +38,7 @@
               <movie-links-ratings
                 :imdb-id="movie.imdbId"
                 :tmdb-id="movie.tmdbId"
+                :title="movie.title"
               />
               <movie-links-shopping
                 v-if="movie.asin"
@@ -48,10 +49,7 @@
             </div>
           </section>
           <section id="movie-nominations" class="pt-4">
-            <div
-              v-if="movieStats"
-              class="text-gray-500 mb-4 a-uppercase-info"
-            >
+            <div v-if="movieStats" class="text-gray-500 mb-4 a-uppercase-info">
               {{ movieStats.nominations }}
               {{ movieStats.nominations | pluralize("nomination") }}
               <span v-if="movieStats.wins">

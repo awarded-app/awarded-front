@@ -34,7 +34,7 @@
         >Metacritic<span class="pl-1 text-gray-500">{{ metacritic }}</span></a
       >
     </li>
-    <li v-if="title">
+    <li>
       <a
         :href="`https://www.youtube.com/results?search_query=${title} trailer`"
         target="_blank" rel="noopener"
@@ -53,6 +53,10 @@ export default {
       type: String,
       required: true
     },
+    title: {
+      type: String,
+      required: true
+    },
     tmdbId: {
       type: Number,
       required: true
@@ -64,7 +68,7 @@ export default {
       imdbRating: null,
       metacritic: null,
       rt: null,
-      title: ""
+
     };
   },
   mounted() {
@@ -75,7 +79,6 @@ export default {
       const url = `http://www.omdbapi.com/?apikey=${process.env.VUE_APP_OMDB_API_KEY}&i=${this.imdbId}`;
       try {
         const { data } = await axios.get(url);
-        this.title = data.Title;
         if (!data.hasOwnProperty("Ratings")) return;
         this.rt = this.findValue("Rotten Tomatoes", data.Ratings);
         this.metacritic = this.findValue("Metacritic", data.Ratings);

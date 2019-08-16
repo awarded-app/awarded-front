@@ -1,16 +1,12 @@
 <template>
   <div>
-    <breadcrumbs :prev-screen-params="prevScreenParams">{{
-      movie.title
-    }}</breadcrumbs>
+    <breadcrumbs :prev-screen-params="prevScreenParams">{{ movie.title }}</breadcrumbs>
     <article>
       <header class="mb-2 flex sm:items-center">
         <back-arrow :to="prevScreen" />
         <h2 class="flex items-center flex-wrap">
           <span class="mr-2">{{ movie.title }}</span>
-          <span class="text-gray-500 leading-none mr-2">{{
-            movie.releaseDate | year
-          }}</span>
+          <span class="text-gray-500 leading-none mr-2">{{ movie.releaseDate | year }}</span>
           <sup
             v-for="{ country } in movie.movieCountries.nodes"
             :key="country.id"
@@ -30,9 +26,15 @@
               <p class="text-gray-500 mb-2">
                 {{ movie.overview }}
               </p>
-              <p v-if="movie.originalTitle !== movie.title" class="mb-2">
+              <p v-if="movie.originalTitle !== movie.title">
                 <span class="mr-1">{{ movie.originalTitle }}</span
                 ><span class="text-gray-500">Original Title</span>
+              </p>
+              <p v-if="movie.movieGenres.totalCount > 0" class="text-gray-500">
+                <span v-for="({ genre }, index) in movie.movieGenres.nodes" :key="index"
+                  >{{ genre.name
+                  }}<span v-if="index < movie.movieGenres.totalCount - 1">, </span></span
+                >
               </p>
               <p class="text-gray-500 mb-2">{{ movie.runtime }} minutes</p>
               <movie-links-ratings
@@ -183,9 +185,7 @@ export default {
       this.movie.nominations.nodes.map(nomination => {
         if (nomination.winner) {
           return (wins += 1);
-        } else if (
-          nomination.nominatedPeople.nodes.some(person => person.prize)
-        ) {
+        } else if (nomination.nominatedPeople.nodes.some(person => person.prize)) {
           return (wins += 1);
         }
       });

@@ -48,6 +48,17 @@ export default {
           }
           totalCount
         }
+        movieGenres {
+          nodes {
+            id
+            genre {
+              id
+              name
+              tmdbId
+            }
+          }
+          totalCount
+        }
       }
     `
   }

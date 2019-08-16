@@ -1,13 +1,28 @@
 <template>
   <div id="app" class="min-h-full flex flex-col items-stretch antialiased">
-    <header class="mb-4 indented flex-shrink-0">
+    <nav class="mb-4 indented flex flex-shrink-0 justify-between items-center flex-wrap">
       <router-link to="/">
         <h1 class="font-bold text-4xl flex flex-col md:flex-row">
           <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
           <span class="text-gray-500">MOVIES</span>
         </h1>
       </router-link>
-    </header>
+      <ul class="flex text-gray-500 a-uppercase-info">
+        <!-- <li class="mr-4">Articles</li> -->
+        <li class="mr-4">
+          <router-link to="/about" class="title-link">Learn more</router-link>
+        </li>
+        <li>
+          <a
+            href="http://eepurl.com/dnFggL"
+            target="_blank"
+            rel="noopener"
+            class="link-external title-link"
+            >Subscribe</a
+          >
+        </li>
+      </ul>
+    </nav>
     <main class="flex-1 flex-shrink-0 mb-8">
       <router-view />
     </main>
@@ -22,7 +37,7 @@ export default {
   name: "Home",
   metaInfo: {
     title: "Awarded",
-    titleTemplate: "%s ★ Awarded",
+    titleTemplate: "%s - Awarded",
     meta: [
       {
         vmid: "description",

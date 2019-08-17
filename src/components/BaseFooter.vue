@@ -1,5 +1,11 @@
 <template functional>
-  <footer class="indented bottom-0 text-xs mb-4 w-auto text-gray-500">
+  <footer
+    class="bottom-0 text-xs mb-4 w-auto text-gray-500"
+    :class="[data.class, data.staticClass]"
+    :style="[data.style, data.staticStyle]"
+    v-bind="data.attrs"
+    v-on="listeners"
+  >
     <p class="pt-8 mb-2 border-t border-gray-800">
       Made with &#9829; by
       <a
@@ -13,9 +19,7 @@
     </p>
     <ul>
       <li>
-        <router-link to="/about" class="title-link text-white"
-          >Learn more</router-link
-        >
+        <router-link to="/about" class="title-link text-white">Learn more</router-link>
       </li>
       <li>
         <a

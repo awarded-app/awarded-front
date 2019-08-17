@@ -1,6 +1,9 @@
 <template>
   <div id="app" class="min-h-full flex flex-col items-stretch antialiased">
-    <nav class="mb-4 indented flex flex-shrink-0 justify-between items-center flex-wrap">
+    <nav
+      class="mb-4 flex flex-shrink-0 justify-between items-center flex-wrap"
+      :class="$route.name === 'homeMovies' ? 'indented' : ''"
+    >
       <router-link to="/">
         <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
           <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
@@ -26,7 +29,7 @@
     <main class="flex-1 flex-shrink-0 mb-8">
       <router-view />
     </main>
-    <base-footer />
+    <base-footer :class="$route.name === 'homeMovies' ? 'indented' : ''" />
   </div>
 </template>
 

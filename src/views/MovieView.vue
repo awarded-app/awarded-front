@@ -3,7 +3,7 @@
     <breadcrumbs :prev-screen-params="prevScreenParams">{{
       movie.title
     }}</breadcrumbs>
-    <article class="indented">
+    <article>
       <header class="mb-2 flex sm:items-center">
         <h2 class="flex items-center flex-wrap">
           <span class="mr-2">{{ movie.title }}</span>

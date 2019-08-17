@@ -1,7 +1,7 @@
 <template>
   <div>
     <breadcrumbs :prev-screen-params="{ nameShort, categoryName }">{{ prizeName }}</breadcrumbs>
-    <article class="indented">
+    <article>
       <header class="flex sm:items-center">
         <h2 class="flex items-center flex-wrap">
           <span class="mr-2">{{ prizeName }}</span>
@@ -9,7 +9,7 @@
         </h2>
       </header>
       <spinner v-if="!prize" />
-      <section v-else class="indented">
+      <section v-else>
         <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
           {{ prize.description }}
         </p>

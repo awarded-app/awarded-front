@@ -1,7 +1,7 @@
 <template>
   <div>
     <breadcrumbs :prev-screen-params="{ nameShort }">{{ categoryName }}</breadcrumbs>
-    <article class="indented">
+    <article>
       <header class="flex sm:items-center">
         <h2 class="flex items-center flex-wrap">
           <span class="mr-2">{{ categoryName }}</span>

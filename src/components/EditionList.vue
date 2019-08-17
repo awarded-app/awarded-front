@@ -1,5 +1,5 @@
 <template>
-  <spinner v-if="$apollo.loading" />
+  <spinner v-if="$apollo.loading" class="indented"/>
   <ul v-else-if="editions && editions.totalCount > 0" class="indented">
     <p class="a-uppercase-info text-gray-500 mb-2">Editions</p>
     <edition-list-item

@@ -1,5 +1,11 @@
 <template>
-  <award-list />
+  <div>
+    <p class="indented -mt-4 mb-8 text-gray-500">
+      Keep track of the most important movie awards and festivals.<br />
+      Find the next movie to watch.
+    </p>
+    <award-list />
+  </div>
 </template>
 
 <script>

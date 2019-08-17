@@ -26,7 +26,7 @@ export default {
     awards: {
       query: gql`
         query awards {
-          awards(condition: { publish: true }) {
+          awards(condition: { publish: true }, orderBy: NAME_SHORT_ASC) {
             totalCount
             nodes {
               ...award

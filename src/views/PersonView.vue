@@ -1,7 +1,7 @@
 <template>
   <div>
     <breadcrumbs :prev-screen-params="prevScreenParams">{{ person.name }}</breadcrumbs>
-    <article class="indented">
+    <article>
       <header class="mb-2 flex sm:items-center">
         <h2 class="flex items-center flex-wrap leading-tight">
           <span class="mr-2">{{ person.name }}</span>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <breadcrumbs>{{ nameShort }}</breadcrumbs>
-    <article class="indented">
+    <article>
       <header class="flex mb-2">
         <h2 class="flex items-center flex-wrap leading-none">
           <span class="mr-2 ">{{ nameShort }}</span>

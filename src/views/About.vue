@@ -1,5 +1,5 @@
 <template functional>
-  <article class="indented md:w-2/3 lg:w-1/3">
+  <article class="md:w-2/3 lg:w-1/3">
     <h2 class="mb-8">What is this?</h2>
     <section>
       <p>
@@ -34,7 +34,8 @@
         online,
         <a
           href="http://eepurl.com/dnFggL"
-          target="_blank" rel="noopener"
+          target="_blank"
+          rel="noopener"
           class="link-external title-link  text-white"
           >subscribe to my little newsletter</a
         >.
@@ -48,10 +49,9 @@
 <script>
 export default {
   metaInfo: {
-    title: `About`,
-
-  },
-}
+    title: `About`
+  }
+};
 </script>
 <style scoped>
 p {

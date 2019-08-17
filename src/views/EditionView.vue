@@ -3,7 +3,7 @@
     <breadcrumbs :prev-screen-params="{ nameShort }">{{
       editionYear
     }}</breadcrumbs>
-    <article class="indented">
+    <article>
       <header class="flex sm:items-center mb-2">
         <h2 class="flex items-center flex-wrap">
           <span class="mr-2 font-mono">{{ editionYear }}</span>

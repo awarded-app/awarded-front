@@ -1,23 +1,29 @@
 <template>
   <ul v-if="peopleByPrize.length > 0">
-    <li v-for="prizeGroup in peopleByPrize" :key="prizeGroup.prize.id" class="flex flex-wrap">
-      <star v-if="hasStar" :winner="true" />
-      <div class="flex items-center">
-        <p v-if="showPrize" class="mr-2">
-          <prize-link
-            v-if="isFestival"
-            :category-name="prizeGroup.prize.category.name"
-            :award-name-short="prizeGroup.prize.award.nameShort"
-            :prize-name="prizeGroup.prize.name"
-            >{{ prizeGroup.prize.name }}</prize-link
-          >
-          <category-link
-            v-else
-            :category-name="prizeGroup.prize.category.name"
-            :award-name-short="prizeGroup.prize.award.nameShort"
-            >{{ prizeGroup.prize.name }}</category-link
-          >
-        </p>
+    <li
+      v-for="prizeGroup in peopleByPrize"
+      :key="prizeGroup.prize.id"
+      class="flex flex-wrap"
+    >
+      <div class="flex">
+        <star v-if="hasStar" :winner="true" />
+        <div class="flex items-center">
+          <p v-if="showPrize" class="mr-2">
+            <prize-link
+              v-if="isFestival"
+              :category-name="prizeGroup.prize.category.name"
+              :award-name-short="prizeGroup.prize.award.nameShort"
+              :prize-name="prizeGroup.prize.name"
+              >{{ prizeGroup.prize.name }}</prize-link
+            >
+            <category-link
+              v-else
+              :category-name="prizeGroup.prize.category.name"
+              :award-name-short="prizeGroup.prize.award.nameShort"
+              >{{ prizeGroup.prize.name }}</category-link
+            >
+          </p>
+        </div>
       </div>
       <ul
         class="flex flex-wrap"
@@ -26,9 +32,10 @@
       >
         <li v-for="(credit, index) in prizeGroup.people" :key="credit.id">
           <p :class="display === 'movie' ? 'text-gray-500' : 'text-white'">
-            <person-link :person-name="credit.person.name" :person-id="credit.person.id">{{
-              credit.person.name
-            }}</person-link
+            <person-link
+              :person-name="credit.person.name"
+              :person-id="credit.person.id"
+              >{{ credit.person.name }}</person-link
             ><span v-if="credit.character"> (as {{ credit.character }})</span
             ><span v-if="index < prizeGroup.people.length - 1">,&nbsp;</span>
           </p>
@@ -37,17 +44,30 @@
     </li>
   </ul>
   <ul v-else>
-    <ul class="flex flex-wrap" :class="hasStar && showPrize ? 'pl-6 md:pl-0' : ''" v-bind="$attrs">
+    <ul
+      class="flex flex-wrap"
+      :class="hasStar && showPrize ? 'pl-6 md:pl-0' : ''"
+      v-bind="$attrs"
+    >
+    <template v-if="nominatedPeople.length">
       <li v-for="(credit, index) in nominatedPeople" :key="credit.id">
         <p :class="display === 'movie' ? 'text-gray-500' : 'text-white'">
-          <person-link :person-name="credit.person.name" :person-id="credit.person.id">{{
-            credit.person.name
-          }}</person-link
+          <person-link
+            :person-name="credit.person.name"
+            :person-id="credit.person.id"
+            >{{ credit.person.name }}</person-link
           ><span v-if="credit.character"> (as {{ credit.character }})</span
-          ><span v-else-if="credit.job && showJob"> ({{ credit.job.name }})</span
+          ><span v-else-if="credit.job && showJob">
+            ({{ credit.job.name }})</span
           ><span v-if="index < nominatedPeople.length - 1">,&nbsp;</span>
         </p>
       </li>
+    </template>
+    <template v-else>
+      <li v-for="{prize} in prizes" :key="prize.id">
+        {{prize.name}}
+      </li>
+    </template>
     </ul>
   </ul>
 </template>
@@ -67,6 +87,10 @@ export default {
     nominatedPeople: {
       type: Array,
       required: true
+    },
+    prizes: {
+      type: Array,
+      default: () => []
     },
     hasStar: {
       type: Boolean,
@@ -90,7 +114,8 @@ export default {
     }
   },
   computed: {
-    prizes() {
+    allPrizes() {
+      if (!this.nominatedPeople.length) return this.prizes;
       const prizes = [];
       for (const nominatedPerson of this.nominatedPeople) {
         if (!nominatedPerson.hasOwnProperty("nominatedPersonPrizes")) break;
@@ -103,7 +128,8 @@ export default {
       return prizes;
     },
     peopleByPrize() {
-      const people = this.prizes.map(p => {
+      if (!this.nominatedPeople.length) return [];
+      const people = this.allPrizes.map(p => {
         const nominees = this.nominatedPeople.filter(
           nominatedPerson =>
             nominatedPerson.nominatedPersonPrizes.nodes.findIndex(

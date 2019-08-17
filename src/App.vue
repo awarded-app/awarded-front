@@ -2,14 +2,14 @@
   <div id="app" class="min-h-full flex flex-col items-stretch antialiased">
     <nav class="mb-4 indented flex flex-shrink-0 justify-between items-center flex-wrap">
       <router-link to="/">
-        <h1 class="font-bold text-4xl flex flex-col md:flex-row">
+        <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
           <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
           <span class="text-gray-500">MOVIES</span>
         </h1>
       </router-link>
-      <ul class="flex text-gray-500 a-uppercase-info">
+      <ul class="text-gray-500 a-uppercase-info hidden sm:flex">
         <!-- <li class="mr-4">Articles</li> -->
-        <li class="mr-4">
+        <li class="mr-4 mb-2">
           <router-link to="/about" class="title-link">Learn more</router-link>
         </li>
         <li>

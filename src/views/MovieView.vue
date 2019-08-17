@@ -3,9 +3,8 @@
     <breadcrumbs :prev-screen-params="prevScreenParams">{{
       movie.title
     }}</breadcrumbs>
-    <article>
+    <article class="indented">
       <header class="mb-2 flex sm:items-center">
-        <back-arrow :to="prevScreen" />
         <h2 class="flex items-center flex-wrap">
           <span class="mr-2">{{ movie.title }}</span>
           <span class="text-gray-500 leading-none mr-2 font-mono">{{
@@ -19,7 +18,7 @@
           >
         </h2>
       </header>
-      <main class="indented">
+      <main>
         <spinner v-if="$apollo.loading" />
         <template v-else>
           <section id="movie-details" class="sm:flex">

@@ -4,22 +4,18 @@
     <li
       v-for="movieGroup in winnerNominationsByMovie"
       :key="movieGroup.movie.id"
-      class="mb-4 flex"
+      class="mb-4 sm:flex"
     >
-      <figure class="mt-1 hidden mr-2 sm:block flex-none">
-        <movie-link
-          :movie-id="movieGroup.movie.id"
-          :movie-title="movieGroup.movie.title"
+      <figure class="mt-1 mr-2 mb-2 flex-none">
+        <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title"
           ><movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100"
         /></movie-link>
       </figure>
       <article>
         <h4 class="mb-1">
-          <movie-link
-            :movie-id="movieGroup.movie.id"
-            :movie-title="movieGroup.movie.title"
-            >{{ movieGroup.movie.title }}</movie-link
-          >
+          <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">{{
+            movieGroup.movie.title
+          }}</movie-link>
         </h4>
         <nomination-credits
           v-for="nomination in movieGroup.nominations"
@@ -93,18 +89,13 @@ export default {
       return Object.values(groupBy(nominations, "movie.id"));
     },
     isWinner(nomination) {
-      return (
-        nomination.nominatedPeople.nodes.filter(person => person.prize).length >
-        0
-      );
+      return nomination.nominatedPeople.nodes.filter(person => person.prize).length > 0;
     },
     sortMoviesByCategory(movies) {
       let moviesCategoriesSorted = movies.map(movie =>
         movie.sort((a, b) => a.category.order - b.category.order)
       );
-      return moviesCategoriesSorted.sort(
-        (a, b) => a[0].category.order - b[0].category.order
-      );
+      return moviesCategoriesSorted.sort((a, b) => a[0].category.order - b[0].category.order);
     }
   }
 };

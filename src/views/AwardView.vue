@@ -1,12 +1,11 @@
 <template>
   <div>
     <breadcrumbs>{{ nameShort }}</breadcrumbs>
-    <article>
-      <header class="flex items-center">
-        <back-arrow to="/" />
-        <h2 class="flex items-center flex-wrap">
-          <span class="mr-2">{{ nameShort }}</span>
-          <span class="text-gray-500 leading-none mt-0">
+    <article class="indented">
+      <header class="flex mb-2">
+        <h2 class="flex items-center flex-wrap leading-none">
+          <span class="mr-2 ">{{ nameShort }}</span>
+          <span class="text-gray-500 ">
             {{ award.nameLong }}
             <sup class="text-sm">{{ award.country.code }}</sup>
           </span>
@@ -17,10 +16,10 @@
           <spinner />
         </template>
         <template v-else>
-          <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2 indented">
+          <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
             {{ award.description }}
           </p>
-          <p class="text-gray-500 mb-4 indented">
+          <p class="text-gray-500 mb-4">
             <a
               :href="award.link"
               class="link-external hover:text-white"

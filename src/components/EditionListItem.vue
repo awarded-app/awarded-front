@@ -2,11 +2,11 @@
   <li class="mb-2 block">
     <article class="mb-2">
       <header class="sm:flex sm:items-center sm:flex-wrap mb-2">
-        <div class="flex items-center">
+        <div class="flex items-center flex-wrap">
           <plus-sign
             :is-open="showNominations"
-            @click="showNominations = !showNominations"
             class="text-base"
+            @click="showNominations = !showNominations"
           />
           <h3 class="mr-2 font-mono">
             <edition-link
@@ -16,7 +16,7 @@
             >
           </h3>
         </div>
-        <p class="text-2xl  text-gray-500 pl-6 sm:pl-0">
+        <p class="text-2xl pl-4 sm:pl-0 text-gray-500">
           {{ edition.name }}
         </p>
       </header>

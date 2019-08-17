@@ -1,14 +1,13 @@
 <template>
   <div>
     <breadcrumbs :prev-screen-params="prevScreenParams">{{ person.name }}</breadcrumbs>
-    <article>
+    <article class="indented">
       <header class="mb-2 flex sm:items-center">
-        <back-arrow :to="prevScreen" />
-        <h2 class="flex items-center flex-wrap">
+        <h2 class="flex items-center flex-wrap leading-tight">
           <span class="mr-2">{{ person.name }}</span>
         </h2>
       </header>
-      <main class="indented">
+      <main>
         <spinner v-if="$apollo.loading" class="mt-4" />
         <template v-else>
           <section id="person">
@@ -48,20 +47,29 @@
               <div
                 v-for="(movieGroup, index) in nominationsByMovie"
                 :key="index"
-                class="flex mb-4 w-full xl:w-1/3 xl:mr-4"
+                class="md:flex w-full xl:w-1/3 xl:mr-4"
               >
-                <div class="mr-2 flex-none">
-                  <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
+                <div class="md:flex">
+                  <div class="mr-2 flex-none">
+                    <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
+                  </div>
+                  <div>
+                    <h3 class="mb-1">
+                      <movie-link
+                        :movie-id="movieGroup.movie.id"
+                        :movie-title="movieGroup.movie.title"
+                      >
+                        {{ movieGroup.movie.title }}
+                      </movie-link>
+                    </h3>
+                    <div v-for="({ nominations }, index) in movieGroup.nominations" :key="index">
+                      <movie-nominations-by-award :nominations="nominations" />
+                    </div>
+                  </div>
                 </div>
+                <!--
                 <div>
-                  <h3 class="mb-1">
-                    <movie-link
-                      :movie-id="movieGroup.movie.id"
-                      :movie-title="movieGroup.movie.title"
-                    >
-                      {{ movieGroup.movie.title }}
-                    </movie-link>
-                  </h3>
+
 
                   <ul>
                     <li
@@ -90,7 +98,7 @@
                       >
                     </li>
                   </ul>
-                </div>
+                </div> -->
               </div>
             </div>
           </section>
@@ -113,6 +121,7 @@ import MovieLink from "@/components/MovieLink";
 import CategoryLink from "@/components/CategoryLink";
 import EditionLink from "@/components/EditionLink";
 import StarSeparator from "@/components/StarSeparator";
+import MovieNominationsByAward from "@/components/MovieNominationsByAward";
 
 export default {
   name: "PersonView",
@@ -132,6 +141,7 @@ export default {
     Spinner,
     PersonHeadshot,
     PersonSocialLinks,
+    MovieNominationsByAward,
     StarSeparator,
     EditionLink,
     CategoryLink,
@@ -205,6 +215,7 @@ export default {
                 award {
                   id
                   nameShort
+                  isFestival
                 }
                 category {
                   id
@@ -245,20 +256,35 @@ export default {
       sortedNominations = sortedNominations.map(nomination => {
         return {
           movie: { ...nomination[0].movie },
-          edition: { ...nomination[0].edition },
           nominations: orderBy(nomination, "winner", "desc")
         };
       });
 
-      sortedNominations = orderBy(sortedNominations, "edition.date", "desc");
+      for (const movie of sortedNominations) {
+        let nomByAward = Object.values(groupBy(movie.nominations, "award.id"));
+        nomByAward = nomByAward.map(award => {
+          return {
+            award: { ...award[0].award },
+            edition: { ...award[0].edition },
+            nominations: award
+          };
+        });
+        movie.nominations = nomByAward;
+      }
+
+      sortedNominations = orderBy(sortedNominations, "nominations[0].edition.date", "desc");
       return sortedNominations;
     },
+
     stats() {
       if (!this.nominations) return null;
       return this.getStats(this.nominations);
     }
   },
   methods: {
+    groupByAward(nominations) {
+      return Object.values(groupBy(nominations, "award.id"));
+    },
     orderByEditionDate(nominations) {
       return orderBy(nominations, "edition.date");
     },

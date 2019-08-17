@@ -1,17 +1,15 @@
 <template>
   <div>
     <breadcrumbs :prev-screen-params="{ nameShort }">{{ categoryName }}</breadcrumbs>
-    <article>
+    <article class="indented">
       <header class="flex sm:items-center">
-        <back-arrow :to="prevScreen" />
-
         <h2 class="flex items-center flex-wrap">
           <span class="mr-2">{{ categoryName }}</span>
           <span class="text-gray-500 leading-none mt-0">{{ nameShort }}</span>
         </h2>
       </header>
-      <spinner v-if="!category" class="indented" />
-      <section v-else class="indented">
+      <spinner v-if="!category" />
+      <section v-else>
         <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
           {{ category.description }}
         </p>

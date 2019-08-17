@@ -4,7 +4,8 @@
       {{ nomination.category.name }}
     </li>
     <nomination-credits
-      :nominated-people="nomination.nominatedPeople.nodes"
+      :nominated-people="nominatedPeople.people"
+      :prizes="nominatedPeople.prizes"
       :is-festival="true"
       :show-job="true"
     />
@@ -25,13 +26,19 @@ export default {
       required: true
     }
   },
+
   computed: {
     nominatedPeople() {
       if (this.nomination.winner) {
-        const people = this.nomination.nominatedPeople.nodes.filter(
-          nominatedPerson => nominatedPerson.prize
-        );
-        let prizes = people.map(person => person.prize);
+        const people = this.nomination.hasOwnProperty("nominatedPeople")
+          ? this.nomination.nominatedPeople.nodes.filter(
+              nominatedPerson => nominatedPerson.nominatedPersonPrizes.totalCount > 0
+            )
+          : [];
+        let prizes = people.length
+          ? people.map(person => person.nominatedPersonPrizes.nodes)
+          : this.nomination.prizes.nodes;
+
         prizes = prizes.filter(
           (prize, index, self) => index === self.findIndex(p => prize.id === p.id)
         );
@@ -41,7 +48,9 @@ export default {
         };
       }
       return {
-        people: this.nomination.nominatedPeople.nodes,
+        people: this.nominations.hasOwnProperty("nominatedPeople")
+          ? this.nomination.nominatedPeople.nodes
+          : [],
         prizes: []
       };
     }

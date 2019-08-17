@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-full w-6 inline-block cursor-pointer hover:text-yellow-500"
+    class="h-full w-4 sm:w-6 inline-block cursor-pointer hover:text-yellow-500"
     @click="toggleOpen"
   >
     <font-awesome-icon :icon="icon" />

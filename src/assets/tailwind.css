@@ -27,7 +27,13 @@ h5 {
 }
 
 .indented {
-  @apply pl-6;
+  @apply pl-4;
+}
+
+@screen sm {
+  .indented {
+    @apply pl-6;
+  }
 }
 
 a.link-external::after {

@@ -3,8 +3,8 @@
     <breadcrumbs :prev-screen-params="{ nameShort }">{{
       editionYear
     }}</breadcrumbs>
-      <header class="flex sm:items-center">
-        <back-arrow :to="`/award/${nameShort}`" />
+    <article class="indented">
+      <header class="flex sm:items-center mb-2">
         <h2 class="flex items-center flex-wrap">
           <span class="mr-2 font-mono">{{ editionYear }}</span>
           <span class="text-gray-500 leading-none mt-0">{{
@@ -12,8 +12,8 @@
           }}</span>
         </h2>
       </header>
-      <spinner v-if="$apollo.loading"  class="indented"/>
-      <section v-else class="indented">
+      <spinner v-if="$apollo.loading" />
+      <section v-else>
         <div
           class="flex flex-col sm:flex-row sm:items-center sm:justify-between"
         >

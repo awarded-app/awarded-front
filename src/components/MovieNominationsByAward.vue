@@ -1,8 +1,8 @@
 <template>
-  <div class="pb-4">
+  <div class="mb-2">
     <div class="flex items-center mb-1">
       <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" />
-      <h3>
+      <h4>
         <router-link
           :to="`/award/${awardNameShort}/${$options.filters.year(editionDate)}`"
           tag="a"
@@ -13,15 +13,11 @@
             {{ editionDate | year }}
           </span>
         </router-link>
-      </h3>
+      </h4>
     </div>
-    <section v-if="isOpen" class="indented">
+    <section v-if="isOpen" class="indented mb-2">
       <ul class="text-xl">
-        <li
-          class="flex mb-2"
-          v-for="nomination in nominationsSorted"
-          :key="nomination.id"
-        >
+        <li class="flex mb-2" v-for="nomination in nominationsSorted" :key="nomination.id">
           <star class="mr-2 text-lg" :winner="nomination.winner" />
           <div class="lg:flex lg:flex-wrap">
             <template v-if="isFestival">
@@ -36,6 +32,7 @@
                 >
               </p>
               <nominatedPeople
+                v-if="nominations.hasOwnProperty('nominatedPeople')"
                 :nominated-people="nomination.nominatedPeople.nodes"
                 class="text-gray-500"
               />
@@ -72,6 +69,11 @@ export default {
       isFestival: this.nominations[0].award.isFestival
     };
   },
+  computed: {
+    nominationsSorted() {
+      return [...this.nominations].sort((a, b) => b.winner - a.winner);
+    }
+  },
   methods: {
     getYear(date) {
       const d = new Date(date);
@@ -84,8 +86,7 @@ export default {
         );
         let prizes = people.map(person => person.prize);
         prizes = prizes.filter(
-          (prize, index, self) =>
-            index === self.findIndex(p => prize.id === p.id)
+          (prize, index, self) => index === self.findIndex(p => prize.id === p.id)
         );
         return {
           people,
@@ -96,11 +97,6 @@ export default {
         people: nomination.nominatedPeople.nodes,
         prizes: []
       };
-    }
-  },
-  computed: {
-    nominationsSorted() {
-      return [...this.nominations].sort((a, b) => b.winner - a.winner);
     }
   }
 };

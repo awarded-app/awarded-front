@@ -1,13 +1,8 @@
 @tailwind base;
 
-:root {
-  --mainColor: #ecc94b;
-  --darkGray: #2d3748;
-}
-
 body,
 html {
-  @apply w-full h-full bg-gray-900 text-white p-2;
+  @apply w-full h-full p-2;
 }
 
 h1 {
@@ -35,27 +30,18 @@ h5 {
     @apply pl-6;
   }
 }
+.a-uppercase-info {
+  @apply uppercase text-sm font-semibold tracking-wide;
+}
 
 a.link-external::after {
   content: '↗';
-  @apply text-xs text-gray-500;
+  @apply text-xs;
 }
 
 a.title-link,
 a.title-link:visited {
   text-decoration: none;
-  background-image: linear-gradient(
-      transparent 2px,
-      var(--mainColor) 2px,
-      var(--mainColor) 4px,
-      transparent 4px
-    ),
-    linear-gradient(
-      transparent 2px,
-      var(--darkGray) 2px,
-      var(--darkGray) 4px,
-      transparent 4px
-    );
   background-size: 0% 6px, 100% 6px;
   background-position: 0 bottom, 0 bottom;
   transition: background-size 0.3s ease-in-out;
@@ -73,18 +59,12 @@ a.title-link:hover {
 @supports (-ms-ime-align: auto) {
   a.title-link,
   a.title-link:visited {
-    background-image: linear-gradient(var(--mainColor), var(--mainColor)),
-      linear-gradient(var(--darkGray), var(--darkGray));
     background-size: 0% 2px, 100% 2px;
     padding-bottom: 2px;
   }
   a.title-link:hover {
     background-size: 100% 2px;
   }
-}
-
-.a-uppercase-info {
-  @apply uppercase text-sm font-semibold tracking-wide;
 }
 
 @tailwind components;

@@ -7,7 +7,7 @@
       <router-link to="/">
         <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
           <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
-          <span class="text-gray-500">MOVIES</span>
+          <section-name :path="$route.path" />
         </h1>
       </router-link>
       <ul class="text-gray-500 a-uppercase-info hidden sm:flex">
@@ -34,7 +34,8 @@
 </template>
 
 <script>
-import BaseFooter from "@/components/BaseFooter.vue";
+import BaseFooter from "@/components/BaseFooter";
+import SectionName from "@/components/SectionName";
 
 export default {
   name: "Home",
@@ -51,7 +52,8 @@ export default {
     ]
   },
   components: {
-    BaseFooter
+    BaseFooter,
+    SectionName
   }
 };
 </script>

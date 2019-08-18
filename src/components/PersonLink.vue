@@ -1,6 +1,6 @@
 <template functional>
   <router-link
-    :to="`/person/${props.personId}/${props.personName}`"
+    :to="`/movies/person/${props.personId}/${props.personName}`"
     tag="a"
     class="title-link"
     :class="[data.class, data.staticClass]"

@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="`/award/${awardNameShort}/${editionYear || $options.filters.year(editionDate)}`"
+    :to="`/movies/award/${awardNameShort}/${editionYear || $options.filters.year(editionDate)}`"
     tag="a"
     class="title-link"
     ><slot>{{ (editionYear || editionDate) | year }}</slot></router-link

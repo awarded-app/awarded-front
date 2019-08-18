@@ -3,21 +3,24 @@
     <div class="flex items-center mb-1">
       <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" />
       <h4>
-        <router-link
-          :to="`/award/${awardNameShort}/${$options.filters.year(editionDate)}`"
-          tag="a"
-          class="title-link"
+        <edition-link
+          :award-name-short="awardNameShort"
+          :edition-date="editionDate"
         >
           {{ awardNameShort
           }}<span class="text-gray-500 font-mono">
             {{ editionDate | year }}
           </span>
-        </router-link>
+        </edition-link>
       </h4>
     </div>
     <section v-if="isOpen" class="indented mb-2">
       <ul class="text-xl">
-        <li class="flex mb-2" v-for="nomination in nominationsSorted" :key="nomination.id">
+        <li
+          class="flex mb-2"
+          v-for="nomination in nominationsSorted"
+          :key="nomination.id"
+        >
           <star class="mr-2 text-lg" :winner="nomination.winner" />
           <div class="lg:flex lg:flex-wrap">
             <template v-if="isFestival">
@@ -47,10 +50,12 @@
 <script>
 import NominatedPeople from "@/components/NominatedPeople";
 import CategoryLink from "@/components/CategoryLink";
+import EditionLink from "@/components/EditionLink";
 import NominationByAwardFestival from "@/components/NominationByAwardFestival";
 export default {
   name: "MovieNominationsByAward",
   components: {
+    EditionLink,
     CategoryLink,
     NominatedPeople,
     NominationByAwardFestival
@@ -86,7 +91,8 @@ export default {
         );
         let prizes = people.map(person => person.prize);
         prizes = prizes.filter(
-          (prize, index, self) => index === self.findIndex(p => prize.id === p.id)
+          (prize, index, self) =>
+            index === self.findIndex(p => prize.id === p.id)
         );
         return {
           people,

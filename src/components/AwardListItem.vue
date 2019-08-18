@@ -1,11 +1,14 @@
 <template>
   <li>
     <div class="flex items-center">
-      <plus-sign :is-open="showEditions" @click="showEditions = !showEditions" />
+      <plus-sign
+        :is-open="showEditions"
+        @click="showEditions = !showEditions"
+      />
       <h2 class="mr-2 leading-tight">
-        <router-link class="title-link" tag="a" :to="`/award/${award.nameShort}`">{{
-          award.nameShort
-        }}</router-link>
+        <award-link :award-name-short="award.nameShort">
+          {{ award.nameShort }}
+        </award-link>
       </h2>
     </div>
     <p
@@ -14,17 +17,22 @@
     >
       {{ award.nameLong }}
     </p>
-    <edition-list v-if="showEditions" :award-id="award.id" class="-mt-2 mb-4 indented" />
+    <edition-list
+      v-if="showEditions"
+      :award-id="award.id"
+      class="-mt-2 mb-4 indented"
+    />
   </li>
 </template>
 
 <script>
 import gql from "graphql-tag";
 import EditionList from "./EditionList";
+import AwardLink from "./AwardLink";
 
 export default {
   name: "AwardListItem",
-  components: { EditionList },
+  components: { EditionList, AwardLink },
   props: {
     award: {
       type: Object,

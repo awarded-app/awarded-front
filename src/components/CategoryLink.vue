@@ -1,6 +1,6 @@
 <template functional>
   <router-link
-    :to="`/award/${props.awardNameShort}/category/${props.categoryName}`"
+    :to="`/movies/award/${props.awardNameShort}/category/${props.categoryName}`"
     tag="a"
     class="title-link"
     :class="[data.class, data.staticClass]"

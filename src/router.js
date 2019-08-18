@@ -12,47 +12,47 @@ export default new Router({
       redirect: "/movies"
     },
     {
-      path: "/movies",
-      name: "homeMovies",
-      component: () => import(/* webpackChunkName: "homeMovies" */ "./views/HomeMovies.vue")
-    },
-    {
       path: "/about",
       name: "about",
       component: () => import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
-      path: "/award/:nameShort",
+      path: "/movies",
+      name: "homeMovies",
+      component: () => import(/* webpackChunkName: "homeMovies" */ "./views/HomeMovies.vue")
+    },
+    {
+      path: "/movies/award/:nameShort",
       name: "award",
       props: true,
       component: () => import(/* webpackChunkName: "award" */ "./views/AwardView.vue")
     },
     {
-      path: "/award/:nameShort/:editionYear(\\d+)",
+      path: "/movies/award/:nameShort/:editionYear(\\d+)",
       name: "edition",
       props: true,
       component: () => import(/* webpackChunkName: "edition" */ "./views/EditionView.vue")
     },
     {
-      path: "/award/:nameShort/category/:categoryName",
+      path: "/movies/award/:nameShort/category/:categoryName",
       name: "category",
       props: true,
       component: () => import(/* webpackChunkName: "category" */ "./views/CategoryView.vue")
     },
     {
-      path: "/award/:nameShort/category/:categoryName/prize/:prizeName",
+      path: "/movies/award/:nameShort/category/:categoryName/prize/:prizeName",
       name: "prize",
       props: true,
       component: () => import(/* webpackChunkName: "prize" */ "./views/PrizeView.vue")
     },
     {
-      path: "/movie/:movieId/:title",
+      path: "/movies/movie/:movieId/:title",
       name: "Movie",
       props: true,
       component: () => import(/* webpackChunkName: "Movie" */ "./views/MovieView.vue")
     },
     {
-      path: "/person/:personId/:personName",
+      path: "/movies/person/:personId/:personName",
       name: "Person",
       props: true,
       component: () => import(/* webpackChunkName: "Person" */ "./views/PersonView.vue")

@@ -5,13 +5,13 @@
   >
     <ul class="flex flex-wrap">
       <li>
-        <router-link to="/" tag="a" class="title-link">Awards</router-link>
+        <router-link to="/movies" tag="a" class="title-link">Awards</router-link>
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-          <router-link :to="`/award/${prevScreenParams.nameShort}`" tag="a" class="title-link">
-            {{ prevScreenParams.nameShort }}</router-link
-          >
+          <award-link :award-name-short="prevScreenParams.nameShort">
+            {{ prevScreenParams.nameShort }}
+          </award-link>
         </li>
         <li v-if="prevScreenParams.hasOwnProperty('editionYear')">
           <edition-link
@@ -39,10 +39,12 @@
 
 <script>
 import CategoryLink from "@/components/CategoryLink";
+import AwardLink from "@/components/AwardLink";
 import EditionLink from "@/components/EditionLink";
 export default {
   name: "Breadcrumbs",
   components: {
+    AwardLink,
     CategoryLink,
     EditionLink
   },

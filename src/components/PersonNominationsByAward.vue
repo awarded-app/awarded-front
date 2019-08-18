@@ -2,16 +2,15 @@
   <div class="pb-4">
     <h3 class="flex items-center">
       <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" class="mb-2" />
-      <router-link
-        :to="`/award/${awardNameShort}/${$options.filters.year(editionDate)}`"
-        tag="a"
-        class="title-link"
-      >
-        {{ awardNameShort
-        }}<span class="text-gray-500 font-mono">
-          {{ editionDate | year }}
-        </span>
-      </router-link>
+      <edition-link
+          :award-name-short="awardNameShort"
+          :edition-date="editionDate"
+        >
+          {{ awardNameShort
+          }}<span class="text-gray-500 font-mono">
+            {{ editionDate | year }}
+          </span>
+        </edition-link>
     </h3>
     <section v-if="isOpen" class="indented">
       <ul class="text-xl">
@@ -66,10 +65,12 @@
 <script>
 import CategoryLink from "@/components/CategoryLink";
 import MovieLink from "@/components/MovieLink";
+import EditionLink from "@/components/EditionLink";
 //import NominationByAwardFestival from "@/components/NominationByAwardFestival";
 export default {
   name: "PersonNominationsByAward",
   components: {
+    EditionLink,
     MovieLink,
     CategoryLink
     //NominationByAwardFestival

@@ -2,7 +2,7 @@
   <div id="app" class="min-h-full flex flex-col items-stretch antialiased">
     <nav
       class="mb-4 flex flex-shrink-0 justify-between items-center flex-wrap"
-      :class="$route.name === 'homeMovies' ? 'indented' : ''"
+      :class="$route.name.includes('home') ? 'indented' : ''"
     >
       <router-link to="/">
         <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">

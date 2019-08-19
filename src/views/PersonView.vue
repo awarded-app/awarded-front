@@ -1,4 +1,5 @@
 <template>
+<layout name="MoviesLayout">
   <div>
     <breadcrumbs :prev-screen-params="prevScreenParams">{{ person.name }}</breadcrumbs>
     <article>
@@ -106,12 +107,14 @@
       </main>
     </article>
   </div>
+  </layout>
 </template>
 
 <script>
 import gql from "graphql-tag";
 const groupBy = require("lodash.groupby");
 const orderBy = require("lodash.orderby");
+import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner";
 import PersonSocialLinks from "@/components/PersonSocialLinks";
 import PersonHeadshot from "@/components/PersonHeadshot";
@@ -146,7 +149,8 @@ export default {
     EditionLink,
     CategoryLink,
     MovieLink,
-    MoviePoster
+    MoviePoster,
+    Layout
   },
   props: {
     personName: {

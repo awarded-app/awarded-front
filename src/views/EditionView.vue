@@ -1,4 +1,5 @@
 <template>
+<layout name="MoviesLayout">
   <div>
     <breadcrumbs :prev-screen-params="{ nameShort }">{{
       editionYear
@@ -40,11 +41,13 @@
       </section>
     </article>
   </div>
+  </layout>
 </template>
 
 <script>
 import gql from "graphql-tag";
 const groupBy = require("lodash.groupby");
+import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "../components/AwardListItem";
 import EditionListItem from "../components/EditionListItem";
@@ -67,7 +70,7 @@ export default {
       ]
     };
   },
-  components: { Category, Spinner },
+  components: { Category, Spinner, Layout },
   props: {
     nameShort: {
       type: String,

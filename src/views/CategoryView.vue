@@ -1,4 +1,5 @@
 <template>
+<layout name="MoviesLayout">
   <div>
     <breadcrumbs :prev-screen-params="{ nameShort }">{{ categoryName }}</breadcrumbs>
     <article>
@@ -33,11 +34,13 @@
       </section>
     </article>
   </div>
+  </layout>
 </template>
 
 <script>
 const groupBy = require("lodash.groupby");
 import gql from "graphql-tag";
+import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "../components/AwardListItem";
 import CategoryListItem from "../components/CategoryListItem";
@@ -63,7 +66,8 @@ export default {
   },
   components: {
     Spinner,
-    CategoryEditionNominationList
+    CategoryEditionNominationList,
+    Layout
   },
   props: {
     categoryName: {

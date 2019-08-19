@@ -5,7 +5,9 @@
       :class="$route.name.includes('home') ? 'indented' : ''"
     >
       <router-link to="/">
-        <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
+        <h1
+          class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2"
+        >
           <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
           <span class="text-faded-color uppercase">BOOKS</span>
         </h1>
@@ -63,7 +65,7 @@ export default {
 
 body,
 html {
-  @apply bg-gray-100 text-gray-900;
+  @apply bg-gray-100 text-gray-800;
 }
 
 h1 {
@@ -101,7 +103,12 @@ a.title-link:visited {
       var(--mainColor) 4px,
       transparent 4px
     ),
-    linear-gradient(transparent 2px, var(--darkGray) 2px, var(--darkGray) 4px, transparent 4px);
+    linear-gradient(
+      transparent 2px,
+      var(--darkGray) 2px,
+      var(--darkGray) 4px,
+      transparent 4px
+    );
 }
 
 @supports (-ms-ime-align: auto) {

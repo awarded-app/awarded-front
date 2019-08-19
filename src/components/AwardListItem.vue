@@ -1,10 +1,7 @@
 <template>
   <li>
     <div class="flex items-center">
-      <plus-sign
-        :is-open="showEditions"
-        @click="showEditions = !showEditions"
-      />
+      <plus-sign :is-open="showEditions" @click="showEditions = !showEditions" />
       <h2 class="mr-2 leading-tight">
         <award-link :award-name-short="award.nameShort">
           {{ award.nameShort }}
@@ -12,16 +9,12 @@
       </h2>
     </div>
     <p
-      class="text-2xl text-gray-500 indented font-semibold"
+      class="text-2xl text-faded-color indented font-semibold"
       :class="showEditions ? 'mb-4' : 'mb-2'"
     >
       {{ award.nameLong }}
     </p>
-    <edition-list
-      v-if="showEditions"
-      :award-id="award.id"
-      class="-mt-2 mb-4 indented"
-    />
+    <edition-list v-if="showEditions" :award-id="award.id" class="-mt-2 mb-4 indented" />
   </li>
 </template>
 

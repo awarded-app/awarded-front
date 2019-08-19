@@ -5,7 +5,7 @@
         Keep track of the most important movie awards and festivals.<br />
         Find the next movie to watch.
       </p>
-      <award-list />
+      <award-list type="movies" />
     </div>
   </layout>
 </template>

@@ -5,13 +5,13 @@
         Keep track of the most important book awards and festivals.<br />
         Find the next book to read.
       </p>
-      <!-- <award-list /> -->
+      <award-list type="books"/>
     </div>
   </layout>
 </template>
 
 <script>
-//import AwardList from "@/components/AwardList";
+import AwardList from "@/components/AwardList";
 import Layout from "@/layouts/Layout";
 export default {
   name: "HomeMovies",
@@ -20,7 +20,8 @@ export default {
     titleTemplate: ""
   },
   components: {
-    Layout
+    Layout,
+    AwardList
   }
 };
 </script>

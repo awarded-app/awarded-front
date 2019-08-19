@@ -17,6 +17,12 @@ import AwardListItem from "./AwardListItem";
 export default {
   name: "AwardList",
   components: { AwardListItem, Spinner },
+  props: {
+    type: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       awards: null
@@ -25,8 +31,8 @@ export default {
   apollo: {
     awards: {
       query: gql`
-        query awards {
-          awards(condition: { publish: true }, orderBy: NAME_SHORT_ASC) {
+        query awards($condition: AwardCondition) {
+          awards(condition: $condition, orderBy: NAME_SHORT_ASC) {
             totalCount
             nodes {
               ...award
@@ -34,7 +40,15 @@ export default {
           }
         }
         ${AwardListItem.fragments.award}
-      `
+      `,
+      variables() {
+        return {
+          condition: {
+            publish: true,
+            type: this.type
+          }
+        };
+      }
     }
   }
 };

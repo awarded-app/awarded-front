@@ -1,4 +1,5 @@
 <template>
+<layout name="MoviesLayout">
   <div>
     <breadcrumbs>{{ nameShort }}</breadcrumbs>
     <article>
@@ -35,15 +36,18 @@
       </section>
     </article>
   </div>
+  </layout>
+
 </template>
 
 <script>
 import gql from "graphql-tag";
+import Layout from "@/layouts/Layout";
+
 import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "../components/AwardListItem";
 import EditionList from "../components/EditionList";
 import EditionListItem from "../components/EditionListItem";
-import BackArrow from "../components/BackArrow";
 export default {
   name: "AwardView",
   metaInfo() {
@@ -59,7 +63,7 @@ export default {
       ]
     };
   },
-  components: { BackArrow, EditionList, Spinner },
+  components: { EditionList, Spinner, Layout },
   props: {
     nameShort: {
       type: String,

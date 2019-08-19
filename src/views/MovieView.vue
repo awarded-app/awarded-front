@@ -1,4 +1,5 @@
 <template>
+<layout name="MoviesLayout">
   <div>
     <breadcrumbs :prev-screen-params="prevScreenParams">{{
       movie.title
@@ -81,11 +82,13 @@
       </main>
     </article>
   </div>
+  </layout>
 </template>
 
 <script>
 import gql from "graphql-tag";
 const groupBy = require("lodash.groupby");
+import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner";
 import MovieListItem from "@/components/MovieListItem";
 import NominationListItem from "@/components/NominationListItem";
@@ -116,7 +119,8 @@ export default {
     Spinner,
     MoviePoster,
     MovieLinksShopping,
-    MovieLinksRatings
+    MovieLinksRatings,
+    Layout
   },
   props: {
     title: {

@@ -1,4 +1,5 @@
 <template>
+<layout name="MoviesLayout">
   <div>
     <breadcrumbs :prev-screen-params="{ nameShort, categoryName }">{{ prizeName }}</breadcrumbs>
     <article>
@@ -58,10 +59,12 @@
       </section>
     </article>
   </div>
+  </layout>
 </template>
 
 <script>
 import gql from "graphql-tag";
+import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "@/components/AwardListItem";
 import MoviePoster from "@/components/MoviePoster";
@@ -91,7 +94,8 @@ export default {
     MoviePoster,
     NominationCredits,
     MovieLink,
-    EditionLink
+    EditionLink,
+    Layout
   },
   props: {
     categoryName: {

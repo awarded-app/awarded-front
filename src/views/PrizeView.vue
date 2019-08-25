@@ -1,64 +1,80 @@
 <template>
-<layout name="MoviesLayout">
-  <div>
-    <breadcrumbs :prev-screen-params="{ nameShort, categoryName }">{{ prizeName }}</breadcrumbs>
-    <article>
-      <header class="flex sm:items-center">
-        <h2 class="flex items-center flex-wrap">
-          <span class="mr-2">{{ prizeName }}</span>
-          <span class="text-gray-500 leading-none mt-0">{{ categoryName }} ({{ nameShort }})</span>
-        </h2>
-      </header>
-      <spinner v-if="!prize" />
-      <section v-else>
-        <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
-          {{ prize.description }}
-        </p>
-        <p class="mb-4 md:w-2/3 lg:w-1/2 a-uppercase-info">
-          Past editions winners
-        </p>
-        <ul>
-          <li v-for="{ edition, movies } in groupedByEdition" :key="edition.id" class="mb-4">
-            <article class="flex">
-              <div class="flex flex-col flex-none sm:flex-row">
-                <figure v-for="{ movie } in movies" :key="movie.id" class="mr-2 mt-1 ">
-                  <movie-poster :tmdb-id="movie.tmdbId" w="100" />
-                </figure>
-              </div>
-              <section>
-                <h3 class="font-mono">
-                  <edition-link
-                    :edition-date="edition.date"
-                    :award-name-short="edition.award.nameShort"
-                    >{{ edition.date | year }}</edition-link
+  <layout name="MoviesLayout">
+    <div>
+      <breadcrumbs :prev-screen-params="{ nameShort, categoryName }">{{
+        prizeName
+      }}</breadcrumbs>
+      <article>
+        <header class="flex sm:items-center">
+          <h2 class="flex items-center flex-wrap">
+            <span class="mr-2">{{ prizeName }}</span>
+            <span class="text-gray-500 leading-none mt-0"
+              >{{ categoryName }} ({{ nameShort }})</span
+            >
+          </h2>
+        </header>
+        <spinner v-if="!prize" />
+        <section v-else>
+          <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
+            {{ prize.description }}
+          </p>
+          <p class="mb-4 md:w-2/3 lg:w-1/2 a-uppercase-info">
+            Past editions winners
+          </p>
+          <ul>
+            <li
+              v-for="{ edition, movies } in groupedByEdition"
+              :key="edition.id"
+              class="mb-4"
+            >
+              <article class="flex">
+                <div class="flex flex-col flex-none sm:flex-row">
+                  <figure
+                    v-for="{ movie } in movies"
+                    :key="movie.id"
+                    class="mr-2 mt-1 "
                   >
-                </h3>
-                <ul v-for="{ movie, nominations } in movies" :key="movie.id">
-                  <li class="text-xl">
-                    <div class="flex items-center mr-2">
-                      <star :winner="true" />
-                      <p class="font-semibold">
-                        <movie-link :movie-id="movie.id" :movie-title="movie.title">{{
-                          movie.title
-                        }}</movie-link>
-                      </p>
-                    </div>
-                    <nomination-credits
-                      :nominated-people="nominations"
-                      :has-star="false"
-                      :show-prize="false"
-                      :display="prize.display"
-                      class="indented"
-                    />
-                  </li>
-                </ul>
-              </section>
-            </article>
-          </li>
-        </ul>
-      </section>
-    </article>
-  </div>
+                    <movie-link :movie-id="movie.id" :movie-title="movie.title">
+                      <movie-poster :tmdb-id="movie.tmdbId" w="100" />
+                    </movie-link>
+                  </figure>
+                </div>
+                <section>
+                  <h3 class="font-mono">
+                    <edition-link
+                      :edition-date="edition.date"
+                      :award-name-short="edition.award.nameShort"
+                      >{{ edition.date | year }}</edition-link
+                    >
+                  </h3>
+                  <ul v-for="{ movie, nominations } in movies" :key="movie.id">
+                    <li class="text-xl">
+                      <div class="flex items-center mr-2">
+                        <star :winner="true" />
+                        <p class="font-semibold">
+                          <movie-link
+                            :movie-id="movie.id"
+                            :movie-title="movie.title"
+                            >{{ movie.title }}</movie-link
+                          >
+                        </p>
+                      </div>
+                      <nomination-credits
+                        :nominated-people="nominations"
+                        :has-star="false"
+                        :show-prize="false"
+                        :display="prize.display"
+                        class="indented"
+                      />
+                    </li>
+                  </ul>
+                </section>
+              </article>
+            </li>
+          </ul>
+        </section>
+      </article>
+    </div>
   </layout>
 </template>
 
@@ -82,9 +98,7 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `${this.categoryName} winners and nominees in all editions of the ${
-            this.nameShort
-          }.`
+          content: `${this.categoryName} winners and nominees in all editions of the ${this.nameShort}.`
         }
       ]
     };
@@ -131,7 +145,9 @@ export default {
         const { id, character, job, person } = nomination;
         const edition = group.find(n => n.edition.id === nomination.edition.id);
         if (edition) {
-          const movie = edition.movies.find(m => m.movie.id === nomination.movie.id);
+          const movie = edition.movies.find(
+            m => m.movie.id === nomination.movie.id
+          );
           if (movie) {
             movie.nominations.push({
               ...nomination
@@ -277,7 +293,9 @@ export default {
           category => category.name === this.categoryName
         );
         this.categoryId = category.id;
-        const prize = category.prizes.nodes.find(prize => prize.name === this.prizeName);
+        const prize = category.prizes.nodes.find(
+          prize => prize.name === this.prizeName
+        );
         this.prizeId = prize.id;
         this.$apollo.queries.prize.skip = false;
       }

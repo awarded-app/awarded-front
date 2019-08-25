@@ -52,7 +52,9 @@
               >
                 <div class="md:flex">
                   <div class="mr-2 flex-none">
+                    <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">
                     <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
+                    </movie-link>s
                   </div>
                   <div>
                     <h3 class="mb-1">

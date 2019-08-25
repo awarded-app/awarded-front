@@ -1,7 +1,9 @@
 <template>
   <article :class="showPoster ? 'flex' : ''">
     <picture v-if="showPoster" class="mr-2">
+      <movie-link :movie-id="movie.id" :movie-title="movie.title">
       <movie-poster :tmdb-id="movie.tmdbId" :movie-title="movie.title" />
+      </movie-link>
     </picture>
     <main>
       <h3>

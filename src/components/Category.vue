@@ -16,20 +16,20 @@
           v-for="nomination in nominationsByPrize"
           :key="nomination.id"
           :nomination="nomination"
+          :award-type="awardType"
         />
-        <p class="text-gray-500 a-uppercase-info">
-          Other movies in {{ category.name }}:
-        </p>
+        <p class="text-gray-500 a-uppercase-info">Other movies in {{ category.name }}:</p>
         <category-posters :nominations="losers" />
       </template>
       <template v-else>
         <nomination
-          v-for="nomination in category.nominations.nodes"
+          v-for="nomination in category[`${awardType}Nominations`].nodes"
           :key="nomination.id"
           :nomination="nomination"
           :display="category.display"
+          :award-type="awardType"
         />
-        <category-posters :nominations="category.nominations.nodes" />
+        <category-posters :nominations="category[`${awardType}Nominations`].nodes" />
       </template>
     </div>
   </div>
@@ -41,6 +41,7 @@ import Nomination from "../components/Nomination";
 import NominationFestival from "../components/NominationFestival";
 import CategoryPosters from "../components/CategoryPosters";
 import CategoryLink from "../components/CategoryLink";
+
 export default {
   name: "Category",
   components: {
@@ -57,29 +58,33 @@ export default {
     isFestival: {
       type: Boolean,
       default: false
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
-      isOpen: true //this.category.important
+      isOpen: true
     };
   },
   computed: {
     winners() {
-      return this.category.nominations.nodes.filter(
-        nomination => nomination.winner
+      return this.category[`${this.awardType}Nominations`].nodes.filter(
+        nomination => nomination.isWinner
       );
     },
     losers() {
-      return this.category.nominations.nodes.filter(
-        nomination => !nomination.winner
+      return this.category[`${this.awardType}Nominations`].nodes.filter(
+        nomination => !nomination.isWinner
       );
     },
     orderWinnersByPrize() {
       const winners = this.winners.map(winner => {
         return {
           ...winner,
-          prizeOrder: this.getHighestPrize(winner.nominatedPeople.nodes).order
+          prizeOrder: this.getHighestPrize(winner[`${this.awardType}NominatedPeople`].nodes).order
         };
       });
       return orderBy([...winners], "prizeOrder");
@@ -93,7 +98,7 @@ export default {
       let highestPrize;
       let highestOrder = 9999;
       for (const nominatedPerson of nominatedPeople) {
-        for (const { prize } of nominatedPerson.nominatedPersonPrizes.nodes) {
+        for (const { prize } of nominatedPerson[`${this.awardType}NominatedPersonPrizes`].nodes) {
           if (prize.order < highestOrder) {
             highestOrder = prize.order;
             highestPrize = prize;

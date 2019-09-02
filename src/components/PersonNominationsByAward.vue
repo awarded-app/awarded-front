@@ -29,7 +29,7 @@
         >
           <star
             class="mr-2 mt-1 text-lg"
-            :winner="nomination.nomination.winner"
+            :is-winner="nomination.nomination.isWinner"
           />
           <div class="lg:flex lg:flex-wrap">
             <template v-if="isFestival">
@@ -95,7 +95,7 @@ export default {
       return d.getFullYear();
     },
     nominatedPeople(nomination) {
-      if (nomination.winner) {
+      if (nomination.isWinner) {
         const people = nomination.nominatedPeople.nodes.filter(
           nominatedPerson => nominatedPerson.prize
         );
@@ -118,7 +118,7 @@ export default {
   computed: {
     nominationsSorted() {
       return [...this.nominations].sort(
-        (a, b) => b.nomination.winner - a.nomination.winner
+        (a, b) => b.nomination.isWinner - a.nomination.isWinner
       );
     }
   }

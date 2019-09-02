@@ -6,15 +6,15 @@
 import gql from "graphql-tag";
 export default {
   fragments: {
-    category: gql`
-      fragment category on Category {
+    moviesCategory: gql`
+      fragment moviesCategory on MoviesCategory {
         id
         important
         name
         description
         display
         order
-        prizes {
+        moviesPrizes {
           nodes {
             id
             name

@@ -1,9 +1,7 @@
 <template>
   <layout name="MoviesLayout">
     <div>
-      <breadcrumbs :prev-screen-params="{ nameShort, categoryName }">{{
-        prizeName
-      }}</breadcrumbs>
+      <breadcrumbs :prev-screen-params="{ nameShort, categoryName }">{{ prizeName }}</breadcrumbs>
       <article>
         <header class="flex sm:items-center">
           <h2 class="flex items-center flex-wrap">
@@ -22,18 +20,10 @@
             Past editions winners
           </p>
           <ul>
-            <li
-              v-for="{ edition, movies } in groupedByEdition"
-              :key="edition.id"
-              class="mb-4"
-            >
+            <li v-for="{ edition, movies } in groupedByEdition" :key="edition.id" class="mb-4">
               <article class="flex">
                 <div class="flex flex-col flex-none sm:flex-row">
-                  <figure
-                    v-for="{ movie } in movies"
-                    :key="movie.id"
-                    class="mr-2 mt-1 "
-                  >
+                  <figure v-for="{ movie } in movies" :key="movie.id" class="mr-2 mt-1 ">
                     <movie-link :movie-id="movie.id" :movie-title="movie.title">
                       <movie-poster :tmdb-id="movie.tmdbId" w="100" />
                     </movie-link>
@@ -50,13 +40,11 @@
                   <ul v-for="{ movie, nominations } in movies" :key="movie.id">
                     <li class="text-xl">
                       <div class="flex items-center mr-2">
-                        <star :winner="true" />
+                        <star :is-winner="true" />
                         <p class="font-semibold">
-                          <movie-link
-                            :movie-id="movie.id"
-                            :movie-title="movie.title"
-                            >{{ movie.title }}</movie-link
-                          >
+                          <movie-link :movie-id="movie.id" :movie-title="movie.title">{{
+                            movie.title
+                          }}</movie-link>
                         </p>
                       </div>
                       <nomination-credits
@@ -65,6 +53,7 @@
                         :show-prize="false"
                         :display="prize.display"
                         class="indented"
+                        :award-type="awardType"
                       />
                     </li>
                   </ul>
@@ -82,11 +71,48 @@
 import gql from "graphql-tag";
 import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner.vue";
-import AwardListItem from "@/components/AwardListItem";
 import MoviePoster from "@/components/MoviePoster";
 import NominationCredits from "@/components/NominationCredits";
 import MovieLink from "@/components/MovieLink";
 import EditionLink from "@/components/EditionLink";
+
+// TODO: create books fragment
+const FRAGMENTS = {
+  moviesNominatedPersonPrize: gql`
+    fragment moviesNominatedPersonPrize_prizeView on MoviesNominatedPersonPrize {
+      id
+      nominatedPerson {
+        id
+        character
+        job {
+          id
+          name
+        }
+        person {
+          id
+          name
+        }
+        nomination {
+          id
+          edition {
+            id
+            date
+            name
+            award {
+              id
+              nameShort
+            }
+          }
+          movie {
+            id
+            tmdbId
+            title
+          }
+        }
+      }
+    }
+  `
+};
 
 export default {
   name: "PrizeView",
@@ -98,7 +124,9 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `${this.categoryName} winners and nominees in all editions of the ${this.nameShort}.`
+          content: `${this.categoryName} winners and nominees in all editions of the ${
+            this.nameShort
+          }.`
         }
       ]
     };
@@ -123,19 +151,23 @@ export default {
     prizeName: {
       type: String,
       required: true
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
       prevScreen: "",
-      prevScreenParams: undefined,
-      category: undefined,
-      award: undefined,
-      categoryId: undefined,
-      prizeId: undefined,
-      groupedByEdition: undefined,
-      prize: undefined,
-      allPrizeWinners: undefined
+      prevScreenParams: null,
+      category: null,
+      award: null,
+      categoryId: null,
+      prizeId: null,
+      groupedByEdition: null,
+      prize: null,
+      allPrizeWinners: null
     };
   },
   methods: {
@@ -145,9 +177,7 @@ export default {
         const { id, character, job, person } = nomination;
         const edition = group.find(n => n.edition.id === nomination.edition.id);
         if (edition) {
-          const movie = edition.movies.find(
-            m => m.movie.id === nomination.movie.id
-          );
+          const movie = edition.movies.find(m => m.movie.id === nomination.movie.id);
           if (movie) {
             movie.nominations.push({
               ...nomination
@@ -183,50 +213,25 @@ export default {
   },
   apollo: {
     prize: {
-      query: gql`
-        query prize($id: Int!, $awardId: Int!, $categoryId: Int!) {
-          prize(id: $id, awardId: $awardId, categoryId: $categoryId) {
-            id
-            name
-            description
-            display
-            nominatedPersonPrizes {
-              nodes {
-                id
-                nominatedPerson {
-                  id
-                  character
-                  job {
-                    id
-                    name
-                  }
-                  person {
-                    id
-                    name
-                  }
-                  nomination {
-                    id
-                    edition {
-                      id
-                      date
-                      name
-                      award {
-                        id
-                        nameShort
-                      }
-                    }
-                    movie {
-                      id
-                      tmdbId
-                      title
-                    }
-                  }
+      query() {
+        const nominatedPersonPrizeFragment = FRAGMENTS[`${this.awardType}NominatedPersonPrize`];
+        return gql`
+          query ${this.awardType}Prize($id: Int!) {
+            ${this.awardType}Prize(id: $id) {
+              id
+              name
+              description
+              display
+              ${this.awardType}NominatedPersonPrizes {
+                nodes {
+                  ...${this.awardType}NominatedPersonPrize_prizeView
                 }
               }
             }
           }
-        }
-      `,
+          ${nominatedPersonPrizeFragment}
+        `;
+      },
       variables() {
         return {
           id: this.prizeId,
@@ -236,7 +241,8 @@ export default {
       },
       skip: true,
       update(data) {
-        this.allPrizeWinners = data.prize.nominatedPersonPrizes.nodes.map(
+        this.prize = data[`${this.awardType}Prize`];
+        this.allPrizeWinners = this.prize[`${this.awardType}NominatedPersonPrizes`].nodes.map(
           ({
             nominatedPerson: {
               id,
@@ -257,30 +263,33 @@ export default {
           }
         );
         this.groupedByEdition = this.groupByEdition(this.allPrizeWinners);
-        return (this.prize = data.prize);
+        return this.prize;
       }
     },
     awardByNameShort: {
-      query: gql`
-        query awardByNameShort($nameShort: String!) {
-          awardByNameShort(nameShort: $nameShort) {
-            ...award
-            categories {
-              nodes {
-                id
-                name
-                prizes {
-                  nodes {
-                    id
-                    name
+      query() {
+        return gql`
+          query ${this.awardType}AwardByNameShort($nameShort: String!) {
+            ${this.awardType}AwardByNameShort(nameShort: $nameShort) {
+              id
+              isFestival
+              ${this.awardType}Categories {
+                nodes {
+                  id
+                  name
+                  ${this.awardType}Prizes {
+                    nodes {
+                      id
+                      name
+                    }
                   }
                 }
               }
             }
           }
-        }
-        ${AwardListItem.fragments.award}
-      `,
+        `;
+      },
+
       variables() {
         return {
           nameShort: this.nameShort
@@ -288,12 +297,12 @@ export default {
       },
       update(data) {
         //console.log(this.$apollo.queries);
-        this.award = { ...data.awardByNameShort };
-        const category = this.award.categories.nodes.find(
+        this.award = data[`${this.awardType}AwardByNameShort`];
+        const category = this.award[`${this.awardType}Categories`].nodes.find(
           category => category.name === this.categoryName
         );
         this.categoryId = category.id;
-        const prize = category.prizes.nodes.find(
+        const prize = category[`${this.awardType}Prizes`].nodes.find(
           prize => prize.name === this.prizeName
         );
         this.prizeId = prize.id;
@@ -301,10 +310,11 @@ export default {
       }
     }
   },
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.prevScreen = from.fullPath || "/";
-      vm.prevScreenParams = from.params || undefined;
+      vm.prevScreenParams = from.params || null;
     });
   }
 };

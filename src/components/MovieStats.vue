@@ -1,8 +1,5 @@
 <template>
-  <span
-    v-if="movieStats.nominations > 1"
-    class="block text-sm text-gray-700  md:ml-2 mb-1"
-  >
+  <span v-if="movieStats.nominations > 1" class="block text-sm text-gray-700  md:ml-2 mb-1">
     {{ movieStats.nominations }}
     {{ movieStats.nominations | pluralize("nomination") }}
     <span v-if="movieStats.wins">
@@ -27,7 +24,7 @@ export default {
       let wins = 0;
       let losses = 0;
       this.movieNominations.map(nomination => {
-        if (!nomination.winner) {
+        if (!nomination.isWinner) {
           return (losses += 1);
         }
         if (nomination.nominatedPeople.nodes.some(person => person.prize)) {

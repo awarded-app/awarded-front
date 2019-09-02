@@ -6,8 +6,8 @@
 import gql from "graphql-tag";
 export default {
   fragments: {
-    person: gql`
-      fragment person on Person {
+    moviesPerson: gql`
+      fragment moviesPerson on MoviesPerson {
         id
         tmdbId
         imdbId

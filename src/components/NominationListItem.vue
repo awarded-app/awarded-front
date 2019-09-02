@@ -1,7 +1,5 @@
 <template>
-  <div>
-
-  </div>
+  <div></div>
 </template>
 
 <script>
@@ -10,33 +8,31 @@ import gql from "graphql-tag";
 import MovieListItem from "./MovieListItem";
 import NominatedPerson from "./NominatedPerson";
 import CategoryListItem from "./CategoryListItem";
-  export default {
-    fragments: {
-    nomination: gql`
-      fragment nomination on Nomination {
+export default {
+  fragments: {
+    moviesNomination: gql`
+      fragment moviesNomination on MoviesNomination {
         id
         movie {
           ...movie
         }
-        nominatedPeople {
+        moviesNominatedPeople {
           totalCount
           nodes {
-            ...nominatedPerson
+            ...moviesNominatedPerson
           }
         }
         category {
-          ...category
+          ...moviesCategory
         }
-        winner
+        isWinner
       }
       ${MovieListItem.fragments.movie}
-      ${NominatedPerson.fragments.nominatedPerson}
-      ${CategoryListItem.fragments.category}
+      ${NominatedPerson.fragments.moviesNominatedPerson}
+      ${CategoryListItem.fragments.moviesCategory}
     `
   }
-  }
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

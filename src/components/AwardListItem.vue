@@ -14,12 +14,17 @@
     >
       {{ award.nameLong }}
     </p>
-    <edition-list v-if="showEditions" :award-id="award.id" class="-mt-2 mb-4 indented" />
+    <edition-list
+      v-if="showEditions"
+      :award-id="award.id"
+      :award-type="awardType"
+      class="-mt-2 mb-4 indented"
+    />
   </li>
 </template>
 
 <script>
-import gql from "graphql-tag";
+//import gql from "graphql-tag";
 import EditionList from "./EditionList";
 import AwardLink from "./AwardLink";
 
@@ -30,9 +35,14 @@ export default {
     award: {
       type: Object,
       required: true
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   },
-  fragments: {
+
+  /* fragments: {
     award: gql`
       fragment award on Award {
         id
@@ -49,7 +59,7 @@ export default {
         isFestival
       }
     `
-  },
+  }, */
   data() {
     return {
       showEditions: false,

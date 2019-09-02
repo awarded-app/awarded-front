@@ -8,35 +8,41 @@
       :prizes="nominatedPeople.prizes"
       :is-festival="true"
       :show-job="true"
+      :award-type="awardType"
     />
   </ul>
 </template>
 
 <script>
-import CategoryLink from "@/components/CategoryLink";
+//import CategoryLink from "@/components/CategoryLink";
 import NominationCredits from "@/components/NominationCredits";
 export default {
   components: {
-    CategoryLink,
+    //CategoryLink,
     NominationCredits
   },
   props: {
     nomination: {
       type: Object,
       required: true
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   },
 
   computed: {
     nominatedPeople() {
-      if (this.nomination.winner) {
-        const people = this.nomination.hasOwnProperty("nominatedPeople")
-          ? this.nomination.nominatedPeople.nodes.filter(
-              nominatedPerson => nominatedPerson.nominatedPersonPrizes.totalCount > 0
+      if (this.nomination.isWinner) {
+        const people = this.nomination.hasOwnProperty(`${this.awardType}NominatedPeople`)
+          ? this.nomination[`${this.awardType}NominatedPeople`].nodes.filter(
+              nominatedPerson =>
+                nominatedPerson[`${this.awardType}NominatedPersonPrizes`].totalCount > 0
             )
           : [];
         let prizes = people.length
-          ? people.map(person => person.nominatedPersonPrizes.nodes)
+          ? people.map(person => person[`${this.awardType}NominatedPersonPrizes`].nodes)
           : this.nomination.prizes.nodes;
 
         prizes = prizes.filter(
@@ -48,8 +54,8 @@ export default {
         };
       }
       return {
-        people: this.nominations.hasOwnProperty("nominatedPeople")
-          ? this.nomination.nominatedPeople.nodes
+        people: this.nomination.hasOwnProperty(`${this.awardType}NominatedPeople`)
+          ? this.nomination[`${this.awardType}NominatedPeople`].nodes
           : [],
         prizes: []
       };

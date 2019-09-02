@@ -5,7 +5,7 @@
         Keep track of the most important movie awards and festivals.<br />
         Find the next movie to watch.
       </p>
-      <award-list type="movies" />
+      <award-list :award-type="awardType" />
     </div>
   </layout>
 </template>
@@ -23,6 +23,11 @@ export default {
   components: {
     AwardList,
     Layout
+  },
+  data() {
+    return {
+      awardType: "movies"
+    };
   }
 };
 </script>

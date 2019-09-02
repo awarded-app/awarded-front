@@ -1,87 +1,86 @@
 <template>
-<layout name="MoviesLayout">
-  <div>
-    <breadcrumbs :prev-screen-params="prevScreenParams">{{
-      movie.title
-    }}</breadcrumbs>
-    <article>
-      <header class="mb-2 flex sm:items-center">
-        <h2 class="flex items-center flex-wrap">
-          <span class="mr-2">{{ movie.title }}</span>
-          <span class="text-gray-500 leading-none mr-2 font-mono">{{
-            movie.releaseDate | year
-          }}</span>
-          <sup
-            v-for="{ country } in movie.movieCountries.nodes"
-            :key="country.id"
-            class="text-gray-500 mr-1 a-uppercase-info"
-            >{{ country.code }}</sup
-          >
-        </h2>
-      </header>
-      <main>
-        <spinner v-if="$apollo.loading" />
-        <template v-else>
-          <section id="movie-details" class="sm:flex">
-            <div class="mb-2 sm:mr-4">
-              <movie-poster :tmdb-id="movie.tmdbId" w="200" />
-            </div>
-            <div class="sm:w-1/2">
-              <p class="text-gray-500 mb-2">
-                {{ movie.overview }}
-              </p>
-              <p v-if="movie.originalTitle !== movie.title">
-                <span class="mr-1">{{ movie.originalTitle }}</span
-                ><span class="text-gray-500">Original Title</span>
-              </p>
-              <p v-if="movie.movieGenres.totalCount > 0" class="text-gray-500">
-                <span
-                  v-for="({ genre }, index) in movie.movieGenres.nodes"
-                  :key="index"
-                  >{{ genre.name
-                  }}<span v-if="index < movie.movieGenres.totalCount - 1"
-                    >,
-                  </span></span
-                >
-              </p>
-              <p class="text-gray-500 mb-2">{{ movie.runtime }} minutes</p>
-              <movie-links-ratings
-                :imdb-id="movie.imdbId"
-                :tmdb-id="movie.tmdbId"
-                :title="movie.title"
-              />
-              <movie-links-shopping
-                v-if="movie.asin"
-                :imdb-id="movie.imdbId"
-                :movie-title="movie.title"
-                :asin="movie.asin"
-              />
-            </div>
-          </section>
-          <section id="movie-nominations" class="pt-4">
-            <div v-if="movieStats" class="text-gray-500 mb-4 a-uppercase-info">
-              {{ movieStats.nominations }}
-              {{ movieStats.nominations | pluralize("nomination") }}
-              <span v-if="movieStats.wins">
-                <span class="text-xs mx-1 text-gray-700">★</span>
-                {{ movieStats.wins }}
-                {{ movieStats.wins | pluralize("win") }}
-              </span>
-            </div>
-            <div>
-              <div
-                v-for="(awardNominations, index) in nominationsByAward"
-                :key="index"
-                class="mb-4"
+  <layout name="MoviesLayout">
+    <div>
+      <breadcrumbs :prev-screen-params="prevScreenParams">{{ movie.title }}</breadcrumbs>
+      <article>
+        <header class="mb-2 flex sm:items-center">
+          <h2 class="flex items-center flex-wrap">
+            <span class="mr-2">{{ movie.title }}</span>
+            <span class="text-gray-500 leading-none mr-2 font-mono">{{
+              movie.releaseDate | year
+            }}</span>
+            <template v-if="movie.moviesMovieCountries.totalCount > 0">
+              <sup
+                v-for="{ country } in movie.moviesMovieCountries.nodes"
+                :key="country.id"
+                class="text-gray-500 mr-1 a-uppercase-info"
+                >{{ country.code }}</sup
               >
-                <movie-nominations-by-award :nominations="awardNominations" />
+            </template>
+          </h2>
+        </header>
+        <main>
+          <spinner v-if="$apollo.loading" />
+          <template v-else>
+            <section id="movie-details" class="sm:flex">
+              <div class="mb-2 sm:mr-4">
+                <movie-poster :tmdb-id="movie.tmdbId" w="200" />
               </div>
-            </div>
-          </section>
-        </template>
-      </main>
-    </article>
-  </div>
+              <div class="sm:w-1/2">
+                <p class="text-gray-500 mb-2">
+                  {{ movie.overview }}
+                </p>
+                <p v-if="movie.originalTitle !== movie.title">
+                  <span class="mr-1">{{ movie.originalTitle }}</span
+                  ><span class="text-gray-500">Original Title</span>
+                </p>
+                <p v-if="movie.moviesMovieGenres.totalCount > 0" class="text-gray-500">
+                  <span v-for="({ genre }, index) in movie.moviesMovieGenres.nodes" :key="index"
+                    >{{ genre.name
+                    }}<span v-if="index < movie.moviesMovieGenres.totalCount - 1">, </span></span
+                  >
+                </p>
+                <p class="text-gray-500 mb-2">{{ movie.runtime }} minutes</p>
+                <movie-links-ratings
+                  :imdb-id="movie.imdbId"
+                  :tmdb-id="movie.tmdbId"
+                  :title="movie.title"
+                />
+                <movie-links-shopping
+                  v-if="movie.asin"
+                  :imdb-id="movie.imdbId"
+                  :movie-title="movie.title"
+                  :asin="movie.asin"
+                />
+              </div>
+            </section>
+            <section id="movie-nominations" class="pt-4">
+              <div v-if="movieStats" class="text-gray-500 mb-4 a-uppercase-info">
+                {{ movieStats.nominations }}
+                {{ movieStats.nominations | pluralize("nomination") }}
+                <span v-if="movieStats.wins">
+                  <span class="text-xs mx-1 text-gray-700">★</span>
+                  {{ movieStats.wins }}
+                  {{ movieStats.wins | pluralize("win") }}
+                </span>
+              </div>
+              <div>
+                <div
+                  v-for="(awardNominations, index) in nominationsByAward"
+                  :key="index"
+                  class="mb-4"
+                >
+                  <movie-nominations-by-award
+                    :nominations="awardNominations"
+                    :award-type="awardType"
+                  />
+                </div>
+              </div>
+            </section>
+          </template>
+        </main>
+      </article>
+    </div>
   </layout>
 </template>
 
@@ -95,7 +94,6 @@ import NominationListItem from "@/components/NominationListItem";
 import MoviePoster from "@/components/MoviePoster";
 import MovieLinksRatings from "@/components/MovieLinksRatings";
 import MovieLinksShopping from "@/components/MovieLinksShopping";
-import NominatedPerson from "../components/NominatedPerson";
 import MovieNominationsByAward from "../components/MovieNominationsByAward";
 
 export default {
@@ -134,15 +132,17 @@ export default {
   },
   data() {
     return {
+      awardType: `movies`,
       movie: {
         id: this.movie_id,
         title: this.title,
         releaseDate: null,
-        nominations: {
+        moviesNominations: {
           nodes: []
         },
-        movieCountries: {
-          nodes: []
+        moviesMovieCountries: {
+          nodes: [],
+          totalCount: 0
         },
         asin: null
       },
@@ -153,13 +153,13 @@ export default {
   apollo: {
     movie: {
       query: gql`
-        query movie($id: Int!) {
-          movie(id: $id) {
+        query moviesMovie($id: Int!) {
+          moviesMovie(id: $id) {
             ...movie
-            nominations {
+            moviesNominations {
               totalCount
               nodes {
-                ...nomination
+                ...moviesNomination
                 award {
                   id
                   nameLong
@@ -175,34 +175,34 @@ export default {
             }
           }
         }
-        ${NominatedPerson.fragments.nominatedPerson}
-        ${NominationListItem.fragments.nomination}
+        ${NominationListItem.fragments.moviesNomination}
         ${MovieListItem.fragments.movie}
       `,
       variables() {
         return {
           id: Number(this.movieId)
         };
+      },
+      update(data) {
+        return (this.movie = data.moviesMovie);
       }
     }
   },
   computed: {
     nominationsByAward() {
-      return this.groupByAward(this.movie.nominations.nodes);
+      return this.groupByAward(this.movie.moviesNominations.nodes);
     },
     movieStats() {
       if (this.$apollo.loading) return;
       let wins = 0;
-      this.movie.nominations.nodes.map(nomination => {
-        if (nomination.winner) {
+      this.movie.moviesNominations.nodes.map(nomination => {
+        if (nomination.isWinner) {
           return (wins += 1);
-        } else if (
-          nomination.nominatedPeople.nodes.some(person => person.prize)
-        ) {
+        } else if (nomination.moviesNominatedPeople.nodes.some(person => person.prize)) {
           return (wins += 1);
         }
       });
-      return { nominations: this.movie.nominations.totalCount, wins };
+      return { nominations: this.movie.moviesNominations.totalCount, wins };
     },
     movieYear() {
       if (this.movie.releaseDate) {

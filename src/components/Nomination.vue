@@ -1,7 +1,7 @@
 <template>
   <ul class="text-xl lg:flex lg:items-center lg:flex-wrap">
     <li class="mb-2 flex lg:items-center">
-      <star :winner="nomination.winner" />
+      <star :is-winner="nomination.isWinner" />
       <div
         class="flex flex-wrap"
         :class="
@@ -11,7 +11,7 @@
         "
       >
         <nominatedPeople
-          :nominated-people="nomination.nominatedPeople.nodes"
+          :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
           class="mr-2 lg:mb-0"
           :class="display === 'person' ? 'font-semibold' : 'text-gray-500'"
         />
@@ -20,9 +20,7 @@
             :movie-id="nomination.movie.id"
             :movie-title="nomination.movie.title"
             class="mr-2 lg:mb-0"
-            :class="
-              display === 'person' ? 'text-gray-500' : '-mb-2 font-semibold'
-            "
+            :class="display === 'person' ? 'text-gray-500' : '-mb-2 font-semibold'"
           />
         </p>
       </div>
@@ -44,6 +42,10 @@ export default {
     display: {
       type: String,
       default: null
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   }
 };

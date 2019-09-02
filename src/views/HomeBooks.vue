@@ -5,7 +5,7 @@
         Keep track of the most important book awards and festivals.<br />
         Find the next book to read.
       </p>
-      <award-list type="books"/>
+      <award-list award-type="books" />
     </div>
   </layout>
 </template>

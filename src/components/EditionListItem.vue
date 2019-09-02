@@ -21,14 +21,14 @@
         </p>
       </header>
       <section class="w-full">
-        <nomination-list v-if="showNominations" :edition="edition" />
+        <nomination-list v-if="showNominations" :edition="edition" :award-type="awardType"/>
       </section>
     </article>
   </li>
 </template>
 
 <script>
-import gql from "graphql-tag";
+//import gql from "graphql-tag";
 import NominationList from "./NominationList";
 import EditionLink from "@/components/EditionLink";
 
@@ -42,6 +42,10 @@ export default {
     edition: {
       type: Object,
       required: true
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -49,7 +53,7 @@ export default {
       showNominations: false
     };
   },
-  fragments: {
+  /* fragments: {
     edition: gql`
       fragment edition on Edition {
         id
@@ -62,7 +66,7 @@ export default {
         }
       }
     `
-  }
+  } */
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
-  <article class="flex" :class="nomination.winner ? 'mb-4' : 'mb-2'">
-    <figure v-if="nomination.winner" class="mt-1 mr-2 hidden sm:block flex-none">
+  <article class="flex" :class="nomination.isWinner ? 'mb-4' : 'mb-2'">
+    <figure v-if="nomination.isWinner" class="mt-1 mr-2 hidden sm:block flex-none">
       <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title">
         <movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" />
       </movie-link>
@@ -8,8 +8,8 @@
     <section>
       <header class="flex items-center">
         <star
-          v-if="!nomination.winner"
-          :winner="nomination.winner"
+          v-if="!nomination.isWinner"
+          :is-winner="nomination.isWinner"
           class="text-base mr-2 mb-1 md:mb-0"
         />
         <h4>
@@ -19,9 +19,10 @@
         </h4>
       </header>
       <nomination-credits
-        :nominated-people="nomination.nominatedPeople.nodes"
+        :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
         :has-star="true"
         :is-festival="true"
+        :award-type="awardType"
       />
     </section>
   </article>
@@ -38,12 +39,16 @@ export default {
     nomination: {
       type: Object,
       required: true
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   },
   computed: {
     nominatedPeople() {
-      if (this.nomination.winner) {
-        const people = this.nomination.nominatedPeople.nodes.filter(
+      if (this.nomination.isWinner) {
+        const people = this.nomination[`${this.awardType}NominatedPeople`].nodes.filter(
           nominatedPerson => nominatedPerson.prize
         );
         let prizes = people.map(person => person.prize);
@@ -56,7 +61,7 @@ export default {
         };
       }
       return {
-        people: this.nomination.nominatedPeople.nodes,
+        people: this.nomination[`${this.awardType}NominatedPeople`].nodes,
         prizes: []
       };
     }

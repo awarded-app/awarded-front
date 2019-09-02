@@ -9,18 +9,17 @@
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-          <award-link :award-name-short="prevScreenParams.nameShort">
-            {{ prevScreenParams.nameShort }}
-          </award-link>
+          <award-link :award-name-short="prevScreenParams.nameShort">{{
+            prevScreenParams.nameShort
+          }}</award-link>
         </li>
         <li v-if="prevScreenParams.hasOwnProperty('editionYear')">
           <edition-link
             :award-name-short="prevScreenParams.nameShort"
             :edition-date="prevScreenParams.editionYear"
             :edition-year="prevScreenParams.editionYear"
+            >{{ prevScreenParams.editionYear }}</edition-link
           >
-            {{ prevScreenParams.editionYear }}
-          </edition-link>
         </li>
         <li v-if="prevScreenParams.hasOwnProperty('categoryName')">
           <category-link

@@ -21,7 +21,8 @@
           v-for="nomination in movieGroup.nominations"
           :key="nomination.id"
           :has-star="true"
-          :nominated-people="nomination.nominatedPeople.nodes"
+          :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
+          :award-type="awardType"
         />
       </article>
     </li>
@@ -44,6 +45,10 @@ export default {
   props: {
     nominations: {
       type: Array,
+      required: true
+    },
+    awardType: {
+      type: String,
       required: true
     }
   },
@@ -71,14 +76,14 @@ export default {
       return winnerNominationsByMovie;
     },
     winnerNominations() {
-      return this.nominations.filter(nomination => nomination.winner);
+      return this.nominations.filter(nomination => nomination.isWinner);
     },
     allNominationsByMovie() {
       return this.groupByMovie(this.nominations);
     },
     allWinnerNominationsByMovie() {
       let winners = this.allNominationsByMovie
-        .map(movie => movie.filter(nomination => nomination.winner))
+        .map(movie => movie.filter(nomination => nomination.isWinner))
         .filter(movie => movie.length > 0);
 
       return this.sortMoviesByCategory(winners);
@@ -89,7 +94,10 @@ export default {
       return Object.values(groupBy(nominations, "movie.id"));
     },
     isWinner(nomination) {
-      return nomination.nominatedPeople.nodes.filter(person => person.prize).length > 0;
+      return (
+        nomination[`${this.awardType}NominatedPeople`].nodes.filter(person => person.prize).length >
+        0
+      );
     },
     sortMoviesByCategory(movies) {
       let moviesCategoriesSorted = movies.map(movie =>

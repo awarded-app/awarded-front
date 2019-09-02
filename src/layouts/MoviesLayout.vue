@@ -5,9 +5,7 @@
       :class="$route.name.includes('home') ? 'indented' : ''"
     >
       <router-link to="/">
-        <h1
-          class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2"
-        >
+        <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
           <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
           <span class="text-faded-color uppercase">MOVIES</span>
         </h1>
@@ -40,14 +38,14 @@ import BaseFooter from "@/components/BaseFooter";
 export default {
   name: "MoviesLayout",
   metaInfo: {
-    title: "Awarded",
-    titleTemplate: "%s - Awarded",
+    title: "Awarded Movies",
+    titleTemplate: "%s - Awarded Movies",
     meta: [
       {
         vmid: "description",
         name: "description",
         content:
-          "Keep track of the most important award and movie festivals. Find the next movie to watch."
+          "Keep track of the most important movie awards and festivals. Find the next movie to watch."
       }
     ]
   },
@@ -86,12 +84,7 @@ a.title-link:visited {
       var(--mainColor) 4px,
       transparent 4px
     ),
-    linear-gradient(
-      transparent 2px,
-      var(--darkGray) 2px,
-      var(--darkGray) 4px,
-      transparent 4px
-    );
+    linear-gradient(transparent 2px, var(--darkGray) 2px, var(--darkGray) 4px, transparent 4px);
 }
 
 @supports (-ms-ime-align: auto) {

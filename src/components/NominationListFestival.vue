@@ -15,7 +15,7 @@
       </figure>
       <article>
         <header class="flex items-center">
-          <!-- <star :winner="true" class="text-base mr-2 mb-1 md:mb-0" /> -->
+          <!-- <star :is-winner="true" class="text-base mr-2 mb-1 md:mb-0" /> -->
           <h4>
             <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title">{{
               nomination.movie.title
@@ -23,9 +23,10 @@
           </h4>
         </header>
         <nomination-credits
-          :nominated-people="nomination.nominatedPeople.nodes"
+          :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
           :has-star="true"
           :is-festival="true"
+          :award-type="awardType"
         />
       </article>
     </li>
@@ -61,12 +62,16 @@ export default {
     awardNameShort: {
       type: String,
       required: true
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   },
 
   computed: {
     winnerNominations() {
-      return this.nominations.filter(nomination => nomination.winner);
+      return this.nominations.filter(nomination => nomination.isWinner);
     },
     nominationsByCategory() {
       return Object.values(groupBy(this.winnerNominations, "category.id"));
@@ -78,8 +83,11 @@ export default {
     },
     nominationsMainCategorySorted() {
       for (let nomination of this.nominationsMainCategory) {
-        nomination.nominatedPeople.nodes = nomination.nominatedPeople.nodes.filter(
-          nominatedPerson => nominatedPerson.nominatedPersonPrizes.totalCount > 0
+        nomination[`${this.awardType}NominatedPeople`].nodes = nomination[
+          `${this.awardType}NominatedPeople`
+        ].nodes.filter(
+          nominatedPerson =>
+            nominatedPerson[`${this.awardType}NominatedPersonPrizes`].totalCount > 0
         );
       }
 
@@ -90,15 +98,15 @@ export default {
     orderByPrize(nominations) {
       let sorted = nominations.sort((a, b) => {
         const aPrizes = [];
-        a.nominatedPeople.nodes.map(nominatedPerson => {
-          for (const { prize } of nominatedPerson.nominatedPersonPrizes.nodes) {
+        a[`${this.awardType}NominatedPeople`].nodes.map(nominatedPerson => {
+          for (const { prize } of nominatedPerson[`${this.awardType}NominatedPersonPrizes`].nodes) {
             aPrizes.push(prize);
           }
         });
         const aPrize = aPrizes.sort((a, b) => a.order - b.order)[0];
         const bPrizes = [];
-        b.nominatedPeople.nodes.map(nominatedPerson => {
-          for (const { prize } of nominatedPerson.nominatedPersonPrizes.nodes) {
+        b[`${this.awardType}NominatedPeople`].nodes.map(nominatedPerson => {
+          for (const { prize } of nominatedPerson[`${this.awardType}NominatedPersonPrizes`].nodes) {
             bPrizes.push(prize);
           }
         });

@@ -7,7 +7,7 @@ import gql from "graphql-tag";
 export default {
   fragments: {
     movie: gql`
-      fragment movie on Movie {
+      fragment movie on MoviesMovie {
         id
         title
         homepage
@@ -23,7 +23,7 @@ export default {
           us
           de
         }
-        movieCountries {
+        moviesMovieCountries {
           totalCount
           nodes {
             country {
@@ -34,21 +34,21 @@ export default {
           }
         }
         posterPath
-        moviePosters {
+        moviesMoviePosters {
           totalCount
           nodes {
             id
             filename
           }
         }
-        movieBackdrops {
+        moviesMovieBackdrops {
           nodes {
             id
             filename
           }
           totalCount
         }
-        movieGenres {
+        moviesMovieGenres {
           nodes {
             id
             genre {

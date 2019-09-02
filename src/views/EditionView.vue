@@ -1,62 +1,49 @@
 <template>
-<layout name="MoviesLayout">
-  <div>
-    <breadcrumbs :prev-screen-params="{ nameShort }">{{
-      editionYear
-    }}</breadcrumbs>
-    <article>
-      <header class="flex sm:items-center mb-2">
-        <h2 class="flex items-center flex-wrap">
-          <span class="mr-2 font-mono">{{ editionYear }}</span>
-          <span class="text-gray-500 leading-none mt-0">{{
-            edition.name
-          }}</span>
-        </h2>
-      </header>
-      <spinner v-if="$apollo.loading" />
-      <section v-else>
-        <div
-          class="flex flex-col sm:flex-row sm:items-center sm:justify-between"
-        >
-          <p class="text-gray-500">
-            {{ edition.date | formatDate("MMMM Do") }}
-          </p>
-        </div>
-        <section class="pt-4">
-          <h4 class="text-gray-500 mb-2 a-uppercase-info">
-            <template v-if="award.isFestival"
-              >Main Sections</template
-            >
-            <template v-else
-              >All Categories</template
-            >
-          </h4>
-          <category
-            v-for="category in categories.nodes"
-            :key="category.id"
-            :category="category"
-            :is-festival="award.isFestival"
-          />
+  <layout name="MoviesLayout">
+    <div>
+      <breadcrumbs :prev-screen-params="{ nameShort }">{{ editionYear }}</breadcrumbs>
+      <article>
+        <header class="flex sm:items-center mb-2">
+          <h2 class="flex items-center flex-wrap">
+            <span class="mr-2 font-mono">{{ editionYear }}</span>
+            <span class="text-gray-500 leading-none mt-0">{{ edition.name }}</span>
+          </h2>
+        </header>
+        <spinner v-if="$apollo.loading" />
+        <section v-else>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-gray-500">
+              {{ edition.date | formatDate("MMMM Do") }}
+            </p>
+          </div>
+          <section class="pt-4">
+            <h4 class="text-gray-500 mb-2 a-uppercase-info">
+              <span v-if="award.isFestival">Main Sections</span>
+              <span v-else>All Categories</span>
+            </h4>
+            <category
+              v-for="category in completeCategories.nodes"
+              :key="category.id"
+              :category="category"
+              :is-festival="award.isFestival"
+              :award-type="awardType"
+            />
+          </section>
         </section>
-      </section>
-    </article>
-  </div>
+      </article>
+    </div>
   </layout>
 </template>
 
 <script>
 import gql from "graphql-tag";
-const groupBy = require("lodash.groupby");
 import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner.vue";
-import AwardListItem from "../components/AwardListItem";
-import EditionListItem from "../components/EditionListItem";
-import CategoryListItem from "../components/CategoryListItem";
 import NominationListItem from "../components/NominationListItem";
 import Category from "../components/Category";
 
 export default {
-  name: "EditionView",
+  name: "EditionView2",
   metaInfo() {
     const editionName = this.edition.name;
     return {
@@ -65,7 +52,9 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `Winners and nominees in all categories of the ${this.nameShort} ${this.editionYear} (${editionName})`
+          content: `Winners and nominees in all categories of the ${this.nameShort} ${
+            this.editionYear
+          } (${editionName})`
         }
       ]
     };
@@ -77,6 +66,10 @@ export default {
       required: true
     },
     editionYear: {
+      type: String,
+      required: true
+    },
+    awardType: {
       type: String,
       required: true
     }
@@ -93,46 +86,63 @@ export default {
       edition: {
         name: ""
       },
-      allNominations: null,
-      allNominationsByMovie: null,
-      categories: { nodes: [] }
+      categories: { nodes: [] },
+      AwardType: this.$options.filters.capitalize(this.awardType),
+      skipEditionQuery: true,
+      skipCategoriesQuery: true
     };
   },
   apollo: {
     categories: {
-      query: gql`
-        query categories(
-          $categoryCondition: CategoryCondition
-          $nominationCondition: NominationCondition
-          $editionCategoryCondition: EditionCategoryCondition
-        ) {
-          categories(condition: $categoryCondition, orderBy: [ORDER_ASC]) {
-            totalCount
-            nodes {
-              ...category
-              editionCategories(condition: $editionCategoryCondition) {
-                totalCount
-                nodes {
-                  id
-                  categoryId
-                  complete
+      query() {
+        const nominationFragment = NominationListItem.fragments[`${this.awardType}Nomination`];
+        return gql`
+          query ${this.awardType}Categories(
+            $categoryCondition: ${this.AwardType}CategoryCondition
+            $nominationCondition: ${this.AwardType}NominationCondition
+            $editionCategoryCondition: ${this.AwardType}EditionCategoryCondition
+          ) {
+            ${this.awardType}Categories(condition: $categoryCondition, orderBy: [ORDER_ASC]) {
+              totalCount
+              nodes {
+                id
+                name
+                display
+                order
+                moviesPrizes {
+                  nodes {
+                    id
+                    name
+                    order
+                    display
+                  }
                 }
-              }
-              nominations(
-                condition: $nominationCondition
-                orderBy: WINNER_DESC
-              ) {
-                totalCount
-                nodes {
-                  ...nomination
+                award {
+                  id
+                  nameShort
+                }
+                ${this.awardType}EditionCategories(condition: $editionCategoryCondition) {
+                  totalCount
+                  nodes {
+                    id
+                    categoryId
+                    complete
+                  }
+                }
+                ${
+                  this.awardType
+                }Nominations(condition: $nominationCondition, orderBy: IS_WINNER_DESC) {
+                  totalCount
+                  nodes {
+                    ...${this.awardType}Nomination
+                  }
                 }
               }
             }
           }
-        }
-        ${NominationListItem.fragments.nomination}
-        ${CategoryListItem.fragments.category}
-      `,
+          ${nominationFragment}
+        `;
+      },
       variables() {
         return {
           categoryCondition: {
@@ -146,30 +156,31 @@ export default {
           }
         };
       },
+      result({ data }) {
+        console.log("> CATEGORIES fetched");
+        console.dir(data[`${this.awardType}Categories`]);
+      },
       update(data) {
         // filter only complete
-        this.categories = data.categories;
-        this.categories.nodes = data.categories.nodes.filter(category => {
-          if (category.editionCategories.totalCount > 0) {
-            return category.editionCategories.nodes[0].complete;
-          }
-          return false;
-        });
-        return this.categories;
+        return (this.categories = data[`${this.awardType}Categories`]);
       },
       skip: true
     },
     editionByYear: {
-      query: gql`
-        query editionByYear($filter: EditionFilter, $year: Int) {
-          editionByYear(filter: $filter, year: $year) {
-            nodes {
-              ...edition
-            }
+      query() {
+        return gql`
+          query ${this.awardType}EditionByYear(
+            $filter: ${this.AwardType}EditionFilter, $year: Int) {
+              ${this.awardType}EditionByYear(filter: $filter, year: $year) {
+                nodes {
+                  id
+                  name
+                  date
+                }
+              }
           }
-        }
-        ${EditionListItem.fragments.edition}
-      `,
+        `;
+      },
       variables() {
         return {
           filter: {
@@ -180,57 +191,56 @@ export default {
           year: Number(this.editionYear)
         };
       },
+      result({ data }) {
+        console.log("> EDITION fetched");
+        console.dir(data[`${this.awardType}EditionByYear`].nodes[0]);
+      },
       update(data) {
-        this.edition = { ...data.editionByYear.nodes[0] };
         this.$apollo.queries.categories.skip = false;
-        //this.allNominations = this.edition.nominations.nodes;
-        //this.allNominationsByMovie = this.groupByMovie(this.allNominations);
+        return (this.edition = data[`${this.awardType}EditionByYear`].nodes[0]);
       },
       skip: true
     },
     awardByNameShort: {
-      query: gql`
-        query awardByNameShort($nameShort: String!) {
-          awardByNameShort(nameShort: $nameShort) {
-            ...award
+      query() {
+        return gql`
+          query ${this.awardType}AwardByNameShort($nameShort: String!) {
+            ${this.awardType}AwardByNameShort(nameShort: $nameShort) {
+              id
+              nameLong
+              nameShort
+              isFestival
+            }
           }
-        }
-        ${AwardListItem.fragments.award}
-      `,
+        `;
+      },
       variables() {
         return {
           nameShort: this.nameShort
         };
       },
+      result({ data }) {
+        console.log("> AWARD fetched");
+        console.dir(data[`${this.awardType}AwardByNameShort`]);
+      },
       update(data) {
-        //console.log(this.$apollo.queries);
-        this.award = { ...data.awardByNameShort };
+        this.award = data[`${this.awardType}AwardByNameShort`];
         this.$apollo.queries.editionByYear.skip = false;
       }
     }
   },
-  methods: {
-    groupByMovie(nominations) {
-      return Object.values(groupBy(nominations, "movie.id"));
-    },
-    movieStats(movie) {
-      let wins = 0;
-      let losses = 0;
-      movie.map(nomination => {
-        if (!nomination.winner) {
-          return (losses += 1);
+  computed: {
+    completeCategories() {
+      if (this.categories.nodes.length === 0) return [];
+      const completeCategories = { ...this.categories };
+      completeCategories.nodes = this.categories.nodes.filter(category => {
+        if (category[`${this.awardType}EditionCategories`].totalCount > 0) {
+          return category[`${this.awardType}EditionCategories`].nodes[0].complete;
         }
-        if (nomination.nominatedPeople.nodes.some(person => person.prize)) {
-          return (wins += 1);
-        }
+        return false;
       });
-      return { nominations: wins + losses, wins, losses };
-    },
-    isWinner(nomination) {
-      return (
-        nomination.nominatedPeople.nodes.filter(person => person.prize).length >
-        0
-      );
+
+      return completeCategories;
     }
   }
 };

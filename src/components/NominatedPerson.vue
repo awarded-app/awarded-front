@@ -26,8 +26,8 @@ export default {
     }
   },
   fragments: {
-    nominatedPerson: gql`
-      fragment nominatedPerson on NominatedPerson {
+    moviesNominatedPerson: gql`
+      fragment moviesNominatedPerson on MoviesNominatedPerson {
         id
         character
         job {
@@ -35,7 +35,7 @@ export default {
           name
         }
         person {
-          ...person
+          ...moviesPerson
         }
         prize {
           id
@@ -43,7 +43,7 @@ export default {
           order
           display
         }
-        nominatedPersonPrizes {
+        moviesNominatedPersonPrizes {
           totalCount
           nodes {
             prize {
@@ -63,7 +63,7 @@ export default {
           }
         }
       }
-      ${PersonListItem.fragments.person}
+      ${PersonListItem.fragments.moviesPerson}
     `
   }
 };

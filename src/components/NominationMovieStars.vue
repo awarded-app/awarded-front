@@ -1,11 +1,7 @@
 <template>
   <span class="h-full flex items-center ml-2">
-    <span
-      v-for="(win, index) in stars"
-      :key="index"
-      class="mr-1 flex items-center"
-    >
-      <star :winner="win" />
+    <span v-for="(win, index) in stars" :key="index" class="mr-1 flex items-center">
+      <star :is-winner="win" />
     </span>
   </span>
 </template>
@@ -29,7 +25,7 @@ export default {
       let winsLosses = [];
       movie.map(nomination => {
         let prizeId;
-        if (!nomination.winner) {
+        if (!nomination.isWinner) {
           return winsLosses.push(false);
         }
         nomination.nominatedPeople.nodes.map(person => {

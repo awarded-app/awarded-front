@@ -1,10 +1,15 @@
 <template>
   <spinner v-if="$apollo.loading" class="indented" />
   <ul v-else-if="awards">
-    <award-list-item v-for="award in awards.nodes" :key="award.id" s :award="award" />
+    <award-list-item
+      v-for="award in awards.nodes"
+      :key="award.id"
+      :award="award"
+      :award-type="awardType"
+    />
   </ul>
 
-  <p v-else>
+  <p v-else class="indented">
     Hmm, something went wrong! Try reloading?
   </p>
 </template>
@@ -18,36 +23,51 @@ export default {
   name: "AwardList",
   components: { AwardListItem, Spinner },
   props: {
-    type: {
+    awardType: {
       type: String,
       required: true
     }
   },
   data() {
     return {
-      awards: null
+      awards: null,
+      AwardType: this.$options.filters.capitalize(this.awardType)
     };
   },
   apollo: {
     awards: {
-      query: gql`
-        query awards($condition: AwardCondition) {
-          awards(condition: $condition, orderBy: NAME_SHORT_ASC) {
-            totalCount
-            nodes {
-              ...award
+      query() {
+        return gql`
+          query ${this.awardType}Awards($condition: ${this.AwardType}AwardCondition) {
+            ${this.awardType}Awards(condition: $condition, orderBy: NAME_SHORT_ASC) {
+              totalCount
+              nodes {
+                id
+                link
+                logo
+                nameLong
+                nameShort
+                description
+                country {
+                  id
+                  code
+                  name
+                }
+                isFestival
+              }
             }
           }
-        }
-        ${AwardListItem.fragments.award}
-      `,
+        `;
+      },
       variables() {
         return {
           condition: {
-            publish: true,
-            type: this.type
+            publish: true
           }
         };
+      },
+      update(data) {
+        return (this.awards = data[`${this.awardType}Awards`]);
       }
     }
   }

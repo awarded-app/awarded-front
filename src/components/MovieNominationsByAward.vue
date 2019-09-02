@@ -3,10 +3,7 @@
     <div class="flex items-center mb-1">
       <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" />
       <h4>
-        <edition-link
-          :award-name-short="awardNameShort"
-          :edition-date="editionDate"
-        >
+        <edition-link :award-name-short="awardNameShort" :edition-date="editionDate">
           {{ awardNameShort
           }}<span class="text-gray-500 font-mono">
             {{ editionDate | year }}
@@ -16,15 +13,11 @@
     </div>
     <section v-if="isOpen" class="indented mb-2">
       <ul class="text-xl">
-        <li
-          class="flex mb-2"
-          v-for="nomination in nominationsSorted"
-          :key="nomination.id"
-        >
-          <star class="mr-2 text-lg" :winner="nomination.winner" />
+        <li v-for="nomination in nominationsSorted" :key="nomination.id" class="flex mb-2">
+          <star class="mr-2 text-lg" :is-winner="nomination.isWinner" />
           <div class="lg:flex lg:flex-wrap">
             <template v-if="isFestival">
-              <nomination-by-award-festival :nomination="nomination" />
+              <nomination-by-award-festival :nomination="nomination" :award-type="awardType" />
             </template>
             <template v-else>
               <p class="mr-2">
@@ -35,8 +28,8 @@
                 >
               </p>
               <nominatedPeople
-                v-if="nominations.hasOwnProperty('nominatedPeople')"
-                :nominated-people="nomination.nominatedPeople.nodes"
+                v-if="nomination.hasOwnProperty('moviesNominatedPeople')"
+                :nominated-people="nomination.moviesNominatedPeople.nodes"
                 class="text-gray-500"
               />
             </template>
@@ -64,6 +57,10 @@ export default {
     nominations: {
       type: Array,
       required: true
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -76,7 +73,7 @@ export default {
   },
   computed: {
     nominationsSorted() {
-      return [...this.nominations].sort((a, b) => b.winner - a.winner);
+      return [...this.nominations].sort((a, b) => b.isWinner - a.isWinner);
     }
   },
   methods: {
@@ -85,14 +82,13 @@ export default {
       return d.getFullYear();
     },
     nominatedPeople(nomination) {
-      if (nomination.winner) {
-        const people = nomination.nominatedPeople.nodes.filter(
+      if (nomination.isWinner) {
+        const people = nomination.moviesNominatedPeople.nodes.filter(
           nominatedPerson => nominatedPerson.prize
         );
         let prizes = people.map(person => person.prize);
         prizes = prizes.filter(
-          (prize, index, self) =>
-            index === self.findIndex(p => prize.id === p.id)
+          (prize, index, self) => index === self.findIndex(p => prize.id === p.id)
         );
         return {
           people,
@@ -100,7 +96,7 @@ export default {
         };
       }
       return {
-        people: nomination.nominatedPeople.nodes,
+        people: nomination.moviesNominatedPeople.nodes,
         prizes: []
       };
     }

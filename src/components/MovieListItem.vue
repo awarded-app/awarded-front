@@ -33,21 +33,7 @@ export default {
             }
           }
         }
-        posterPath
-        moviesMoviePosters {
-          totalCount
-          nodes {
-            id
-            filename
-          }
-        }
-        moviesMovieBackdrops {
-          nodes {
-            id
-            filename
-          }
-          totalCount
-        }
+        backdropPath
         moviesMovieGenres {
           nodes {
             id

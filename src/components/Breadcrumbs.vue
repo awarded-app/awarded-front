@@ -5,7 +5,7 @@
   >
     <ul class="flex flex-wrap">
       <li>
-        <router-link to="/movies" tag="a" class="title-link">Awards</router-link>
+        <router-link :to="`/${$route.params.awardType}`" tag="a" class="title-link">Awards</router-link>
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">

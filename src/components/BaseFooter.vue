@@ -1,6 +1,6 @@
 <template functional>
   <footer
-    class="bottom-0 text-xs mb-4 w-auto text-faded-color"
+    class="bottom-0 text-xs mb-4 w-auto text-faded"
     :class="[data.class, data.staticClass]"
     :style="[data.style, data.staticStyle]"
     v-bind="data.attrs"
@@ -19,14 +19,14 @@
     </p>
     <ul>
       <li>
-        <router-link to="/about" class="title-link text-main-color">Learn more</router-link>
+        <router-link to="/about" class="title-link text-main">Learn more</router-link>
       </li>
       <li>
         <a
           href="http://eepurl.com/dnFggL"
           target="_blank"
           rel="noopener"
-          class="link-external title-link  text-main-color"
+          class="link-external title-link  text-main"
           >Subscribe to updates</a
         >
       </li>

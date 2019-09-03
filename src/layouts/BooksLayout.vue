@@ -9,10 +9,10 @@
           class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2"
         >
           <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
-          <span class="text-faded-color uppercase">BOOKS</span>
+          <span class="text-faded uppercase">BOOKS</span>
         </h1>
       </router-link>
-      <ul class="text-faded-color a-uppercase-info hidden sm:flex">
+      <ul class="text-faded a-uppercase-info hidden sm:flex">
         <!-- <li class="mr-4">Articles</li> -->
         <li class="mr-4 mb-2">
           <router-link to="/about" class="title-link">Learn more</router-link>

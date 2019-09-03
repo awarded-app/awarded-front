@@ -68,22 +68,6 @@ html {
   @apply bg-gray-100 text-gray-800;
 }
 
-h1 {
-  @apply text-6xl;
-}
-h2 {
-  @apply text-4xl font-semibold;
-}
-h3 {
-  @apply text-2xl font-semibold;
-}
-h4 {
-  @apply text-xl font-semibold;
-}
-h5 {
-  @apply text-lg;
-}
-
 .text-faded-color {
   @apply text-gray-600;
 }

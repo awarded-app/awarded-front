@@ -6,15 +6,15 @@
         <header class="flex sm:items-center">
           <h2 class="flex items-center flex-wrap">
             <span class="mr-2">{{ categoryName }}</span>
-            <span class="text-gray-500 leading-none mt-0">{{ nameShort }}</span>
+            <span class="text-faded leading-none mt-0">{{ nameShort }}</span>
           </h2>
         </header>
         <spinner v-if="$apollo.loading" />
         <section v-else>
-          <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
+          <p class="text-faded mb-4 md:w-2/3 lg:w-1/2">
             {{ category.description }}
           </p>
-          <p class="mb-4 md:w-2/3 lg:w-1/2 text-gray-500 a-uppercase-info">
+          <p class="mb-4 md:w-2/3 lg:w-1/2 text-faded a-uppercase-info">
             Winners and nominees from past editions
           </p>
           <ul>

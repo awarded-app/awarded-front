@@ -1,7 +1,7 @@
 <template>
   <layout name="MoviesLayout">
     <div>
-      <p class="-mt-4 mb-8 text-gray-500" :class="$route.name === 'homeMovies' ? 'indented' : ''">
+      <p class="-mt-4 mb-8 text-faded" :class="$route.name === 'homeMovies' ? 'indented' : ''">
         Keep track of the most important movie awards and festivals.<br />
         Find the next movie to watch.
       </p>

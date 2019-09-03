@@ -6,14 +6,14 @@
         <header class="mb-2 flex sm:items-center">
           <h2 class="flex items-center flex-wrap">
             <span class="mr-2">{{ movie.title }}</span>
-            <span class="text-gray-500 leading-none mr-2 font-mono">{{
+            <span class="text-faded leading-none mr-2 font-mono">{{
               movie.releaseDate | year
             }}</span>
             <template v-if="movie.moviesMovieCountries.totalCount > 0">
               <sup
                 v-for="{ country } in movie.moviesMovieCountries.nodes"
                 :key="country.id"
-                class="text-gray-500 mr-1 a-uppercase-info"
+                class="text-faded mr-1 a-uppercase-info"
                 >{{ country.code }}</sup
               >
             </template>
@@ -27,20 +27,20 @@
                 <movie-poster :tmdb-id="movie.tmdbId" w="200" />
               </div>
               <div class="sm:w-1/2">
-                <p class="text-gray-500 mb-2">
+                <p class="text-faded mb-2">
                   {{ movie.overview }}
                 </p>
                 <p v-if="movie.originalTitle !== movie.title">
                   <span class="mr-1">{{ movie.originalTitle }}</span
-                  ><span class="text-gray-500">Original Title</span>
+                  ><span class="text-faded">Original Title</span>
                 </p>
-                <p v-if="movie.moviesMovieGenres.totalCount > 0" class="text-gray-500">
+                <p v-if="movie.moviesMovieGenres.totalCount > 0" class="text-faded">
                   <span v-for="({ genre }, index) in movie.moviesMovieGenres.nodes" :key="index"
                     >{{ genre.name
                     }}<span v-if="index < movie.moviesMovieGenres.totalCount - 1">, </span></span
                   >
                 </p>
-                <p class="text-gray-500 mb-2">{{ movie.runtime }} minutes</p>
+                <p class="text-faded mb-2">{{ movie.runtime }} minutes</p>
                 <movie-links-ratings
                   :imdb-id="movie.imdbId"
                   :tmdb-id="movie.tmdbId"
@@ -55,7 +55,7 @@
               </div>
             </section>
             <section id="movie-nominations" class="pt-4">
-              <div v-if="movieStats" class="text-gray-500 mb-4 a-uppercase-info">
+              <div v-if="movieStats" class="text-faded mb-4 a-uppercase-info">
                 {{ movieStats.nominations }}
                 {{ movieStats.nominations | pluralize("nomination") }}
                 <span v-if="movieStats.wins">

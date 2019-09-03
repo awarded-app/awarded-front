@@ -68,15 +68,15 @@ html {
   @apply bg-gray-100 text-gray-800;
 }
 
-.text-faded-color {
+.text-faded {
   @apply text-gray-600;
 }
-.text-main-color {
+.text-main {
   @apply text-gray-800;
 }
 
 a.link-external::after {
-  @apply text-gray-500;
+  @apply text-faded;
 }
 
 a.title-link,

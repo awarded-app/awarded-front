@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="flex items-center flex-wrap text-gray-500 text-sm mb-2"
+    class="flex items-center flex-wrap text-faded text-sm mb-2"
     :class="$route.name === 'homeMovies' ? 'indented' : ''"
   >
     <ul class="flex flex-wrap">

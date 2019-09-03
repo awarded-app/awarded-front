@@ -6,18 +6,18 @@
         <header class="flex sm:items-center mb-2">
           <h2 class="flex items-center flex-wrap">
             <span class="mr-2 font-mono">{{ editionYear }}</span>
-            <span class="text-gray-500 leading-none mt-0">{{ edition.name }}</span>
+            <span class="text-faded leading-none mt-0">{{ edition.name }}</span>
           </h2>
         </header>
         <spinner v-if="$apollo.loading" />
         <section v-else>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <p class="text-gray-500">
+            <p class="text-faded">
               {{ edition.date | formatDate("MMMM Do") }}
             </p>
           </div>
           <section class="pt-4">
-            <h4 class="text-gray-500 mb-2 a-uppercase-info">
+            <h4 class="text-faded mb-2 a-uppercase-info">
               <span v-if="award.isFestival">Main Sections</span>
               <span v-else>All Categories</span>
             </h4>

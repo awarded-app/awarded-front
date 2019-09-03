@@ -6,14 +6,14 @@
         <header class="flex sm:items-center">
           <h2 class="flex items-center flex-wrap">
             <span class="mr-2">{{ prizeName }}</span>
-            <span class="text-gray-500 leading-none mt-0"
+            <span class="text-faded leading-none mt-0"
               >{{ categoryName }} ({{ nameShort }})</span
             >
           </h2>
         </header>
         <spinner v-if="!prize" />
         <section v-else>
-          <p class="text-gray-500 mb-4 md:w-2/3 lg:w-1/2">
+          <p class="text-faded mb-4 md:w-2/3 lg:w-1/2">
             {{ prize.description }}
           </p>
           <p class="mb-4 md:w-2/3 lg:w-1/2 a-uppercase-info">

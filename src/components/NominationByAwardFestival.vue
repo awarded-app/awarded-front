@@ -1,6 +1,6 @@
 <template>
   <ul class="text-xl mb-2">
-    <li class="mr-2 text-gray-500 font-semibold">
+    <li class="mr-2 text-faded font-semibold">
       {{ nomination.category.name }}
     </li>
     <nomination-credits

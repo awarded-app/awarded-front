@@ -7,7 +7,7 @@
     </figure>
 
     <div>
-      <h3 class="text-gray-500 font-mono">
+      <h3 class="text-faded font-mono">
         <edition-link :edition-date="edition.date" :award-name-short="nameShort">{{
           edition.date | year
         }}</edition-link>
@@ -16,7 +16,7 @@
         class="mb-2 flex"
         :class="display === 'movie' ? 'flex-col justify-start' : 'flex-col-reverse justify-end'"
       >
-        <p :class="display === 'movie' ? 'font-semibold' : 'pl-6 text-gray-500'">
+        <p :class="display === 'movie' ? 'font-semibold' : 'pl-6 text-faded'">
           <star v-if="display === 'movie'" :is-winner="true" />
           <movie-link
             :movie-id="winnerNomination.movie.id"
@@ -36,7 +36,7 @@
       <div class=" flex items-center mb-2" @click="showNominations = !showNominations">
         <plus-sign :is-open="showNominations" />
         <p>
-          <a class="text-gray-500 title-link cursor-pointer">
+          <a class="text-faded title-link cursor-pointer">
             Other Nominees
           </a>
         </p>
@@ -48,7 +48,7 @@
             class="flex flex-wrap"
             :class="display === 'movie' ? 'flex-row justify-start' : 'flex-row-reverse justify-end'"
           >
-            <span :class="display === 'movie' ? 'mr-2 font-semibold' : 'text-gray-500'">
+            <span :class="display === 'movie' ? 'mr-2 font-semibold' : 'text-faded'">
               <star :is-winner="nomination.isWinner" class="mr-2" />
               <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title" />
             </span>

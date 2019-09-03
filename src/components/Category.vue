@@ -21,7 +21,7 @@
             :award-type="awardType"
           />
         </list-transition>
-        <p class="text-gray-500 a-uppercase-info">Other movies in {{ category.name }}:</p>
+        <p class="text-faded a-uppercase-info">Other movies in {{ category.name }}:</p>
         <category-posters :nominations="losers" />
       </template>
       <template v-else>

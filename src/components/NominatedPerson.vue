@@ -4,7 +4,7 @@
       :person-id="nominatedPerson.person.id"
       :person-name="nominatedPerson.person.name"
       >{{ nominatedPerson.person.name }}</person-link
-    ><span v-if="nominatedPerson.character" class="ml-1 text-gray-500">
+    ><span v-if="nominatedPerson.character" class="ml-1 text-faded">
       (as {{ nominatedPerson.character }})</span
     ></span
   >

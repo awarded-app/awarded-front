@@ -14,7 +14,7 @@
 <style scoped>
 @import "../assets/loaders.min.css";
 .ball-pulse > div {
-  @apply bg-yellow-500;
+  background-color: var(--mainColor);
 }
 .loader-small .loader-inner {
   transform: scale(0.5, 0.5);

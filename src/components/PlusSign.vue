@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-full w-4 sm:w-6 inline-block cursor-pointer hover:text-yellow-500"
+    class="h-full w-4 sm:w-6 inline-block cursor-pointer"
     @click="toggleOpen"
   >
     <font-awesome-icon :icon="icon" />
@@ -30,4 +30,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+div:hover {
+  color: var(--mainColor);
+}
+</style>

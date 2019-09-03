@@ -6,10 +6,10 @@
         <header class="flex mb-2">
           <h2 class="flex items-center flex-wrap leading-none">
             <span class="mr-2 ">{{ nameShort }}</span>
-            <span v-if="award.nameLong !== nameShort" class="text-faded-color">
+            <span v-if="award.nameLong !== nameShort" class="text-faded">
               {{ award.nameLong }}
             </span>
-            <sup class="text-sm text-faded-color">{{ award.country.code }}</sup>
+            <sup class="text-sm text-faded">{{ award.country.code }}</sup>
           </h2>
         </header>
         <section>
@@ -17,13 +17,13 @@
             <spinner />
           </template>
           <template v-else>
-            <p class="text-faded-color mb-4 lg:w-2/3 xl:w-1/2">
+            <p class="text-faded mb-4 lg:w-2/3 xl:w-1/2">
               {{ award.description }}
             </p>
-            <p class="text-faded-color mb-4">
+            <p class="text-faded mb-4">
               <a
                 :href="award.link"
-                class="link-external hover:text-main-color"
+                class="link-external hover:text-main"
                 target="_blank"
                 rel="noopener"
                 >{{ award.link | formatUrl }}</a

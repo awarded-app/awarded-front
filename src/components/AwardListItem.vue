@@ -9,7 +9,7 @@
       </h2>
     </div>
     <p
-      class="text-2xl text-faded-color indented font-semibold"
+      class="text-2xl text-faded indented font-semibold"
       :class="showEditions ? 'mb-4' : 'mb-2'"
     >
       {{ award.nameLong }}

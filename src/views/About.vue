@@ -1,7 +1,7 @@
 <template functional>
   <article class="md:w-2/3 lg:w-1/3">
     <h2 class="mb-8">What is this?</h2>
-    <section>
+    <section class="text-faded">
       <p>
         I started <span class="text-white">Awarded</span> as a present for my dear
         <span class="text-white">mom</span>. Every year we would sit together through movie sessions
@@ -55,7 +55,7 @@ export default {
 </script>
 <style scoped>
 p {
-  @apply mb-4 text-faded;
+  @apply mb-4;
 }
 h3 {
   @apply mt-8;

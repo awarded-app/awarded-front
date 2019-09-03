@@ -1,31 +1,34 @@
 <template>
   <ul>
     <h4 class="text-gray-500 mb-2 a-uppercase-info">Winners</h4>
-    <li
-      v-for="movieGroup in winnerNominationsByMovie"
-      :key="movieGroup.movie.id"
-      class="mb-4 sm:flex"
-    >
-      <figure class="mt-1 mr-2 mb-2 flex-none">
-        <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title"
-          ><movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100"
-        /></movie-link>
-      </figure>
-      <article>
-        <h4 class="mb-1">
-          <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">{{
-            movieGroup.movie.title
-          }}</movie-link>
-        </h4>
-        <nomination-credits
-          v-for="nomination in movieGroup.nominations"
-          :key="nomination.id"
-          :has-star="true"
-          :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
-          :award-type="awardType"
-        />
-      </article>
-    </li>
+    <list-transition>
+      <li
+        v-for="(movieGroup, index) in winnerNominationsByMovie"
+        :key="movieGroup.movie.id"
+        :data-index="index"
+        class="mb-4 sm:flex"
+      >
+        <figure class="mt-1 mr-2 mb-2 flex-none">
+          <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title"
+            ><movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100"
+          /></movie-link>
+        </figure>
+        <article>
+          <h4 class="mb-1">
+            <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">{{
+              movieGroup.movie.title
+            }}</movie-link>
+          </h4>
+          <nomination-credits
+            v-for="nomination in movieGroup.nominations"
+            :key="nomination.id"
+            :has-star="true"
+            :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
+            :award-type="awardType"
+          />
+        </article>
+      </li>
+    </list-transition>
   </ul>
 </template>
 
@@ -34,13 +37,15 @@ const groupBy = require("lodash.groupby");
 import MovieLink from "@/components/MovieLink";
 import MoviePoster from "@/components/MoviePoster";
 import NominationCredits from "@/components/NominationCredits";
+import ListTransition from "@/components/ListTransition";
 
 export default {
   name: "NominationListAward",
   components: {
     MoviePoster,
     MovieLink,
-    NominationCredits
+    NominationCredits,
+    ListTransition
   },
   props: {
     nominations: {

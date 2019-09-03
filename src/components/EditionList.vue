@@ -2,12 +2,15 @@
   <spinner v-if="$apollo.loading" />
   <ul v-else-if="editions && editions.totalCount > 0">
     <p class="a-uppercase-info text-gray-500 mb-2">Editions</p>
-    <edition-list-item
-      v-for="edition in editions.nodes"
-      :key="edition.id"
-      :edition="edition"
-      :award-type="awardType"
-    />
+    <list-transition>
+      <edition-list-item
+        v-for="(edition, index) in editions.nodes"
+        :key="edition.id"
+        :data-index="index"
+        :edition="edition"
+        :award-type="awardType"
+      />
+    </list-transition>
   </ul>
   <p v-else class="indented">
     Hmm, something went wrong! Try reloading?
@@ -16,12 +19,13 @@
 
 <script>
 import gql from "graphql-tag";
+import ListTransition from "@/components/ListTransition";
 import Spinner from "@/components/Spinner.vue";
 import EditionListItem from "./EditionListItem";
 
 export default {
   name: "EditionsList",
-  components: { EditionListItem, Spinner },
+  components: { EditionListItem, Spinner, ListTransition },
   props: {
     awardId: {
       type: Number,
@@ -74,3 +78,5 @@ export default {
   }
 };
 </script>
+
+<style scoped></style>

@@ -18,19 +18,22 @@
             Winners and nominees from past editions
           </p>
           <ul>
-            <li
-              v-for="{ edition } in category[`${awardType}EditionCategories`].nodes"
-              :key="edition.id"
-              class="mb-8"
-            >
-              <category-edition-nomination-list
-                :edition="edition"
-                :name-short="nameShort"
-                :is-festival="award.isFestival"
-                :display="category.display"
-                :award-type="awardType"
-              />
-            </li>
+            <list-transition>
+              <li
+                v-for="({ edition }, index) in category[`${awardType}EditionCategories`].nodes"
+                :key="edition.id"
+                :data-index="index"
+                class="mb-8"
+              >
+                <category-edition-nomination-list
+                  :edition="edition"
+                  :name-short="nameShort"
+                  :is-festival="award.isFestival"
+                  :display="category.display"
+                  :award-type="awardType"
+                />
+              </li>
+            </list-transition>
           </ul>
         </section>
       </article>
@@ -46,6 +49,7 @@ import Spinner from "@/components/Spinner.vue";
 import CategoryEditionNominationList from "../components/CategoryEditionNominationList";
 import MovieListItem from "../components/MovieListItem";
 import NominatedPerson from "../components/NominatedPerson";
+import ListTransition from "../components/ListTransition";
 
 export default {
   name: "CategoryView",
@@ -66,7 +70,8 @@ export default {
   components: {
     Spinner,
     CategoryEditionNominationList,
-    Layout
+    Layout,
+    ListTransition
   },
   props: {
     categoryName: {

@@ -21,13 +21,16 @@
               <span v-if="award.isFestival">Main Sections</span>
               <span v-else>All Categories</span>
             </h4>
-            <category
-              v-for="category in completeCategories.nodes"
-              :key="category.id"
-              :category="category"
-              :is-festival="award.isFestival"
-              :award-type="awardType"
-            />
+            <list-transition>
+              <category
+                v-for="(category, index) in completeCategories.nodes"
+                :key="category.id"
+                :data-index="index"
+                :category="category"
+                :is-festival="award.isFestival"
+                :award-type="awardType"
+              />
+            </list-transition>
           </section>
         </section>
       </article>
@@ -39,11 +42,12 @@
 import gql from "graphql-tag";
 import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner.vue";
-import NominationListItem from "../components/NominationListItem";
-import Category from "../components/Category";
+import NominationListItem from "@/components/NominationListItem";
+import Category from "@/components/Category";
+import ListTransition from "@/components/ListTransition";
 
 export default {
-  name: "EditionView2",
+  name: "EditionView",
   metaInfo() {
     const editionName = this.edition.name;
     return {
@@ -59,7 +63,7 @@ export default {
       ]
     };
   },
-  components: { Category, Spinner, Layout },
+  components: { Category, Spinner, Layout, ListTransition },
   props: {
     nameShort: {
       type: String,

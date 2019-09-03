@@ -27,6 +27,10 @@ h5 {
   @apply text-lg;
 }
 
+.font-mono {
+  font-feature-settings: "tnum" 1;
+}
+
 .indented {
   @apply pl-4;
 }

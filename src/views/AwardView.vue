@@ -1,5 +1,5 @@
 <template>
-  <layout name="MoviesLayout">
+  <layout :name="`${AwardType}Layout`">
     <div>
       <breadcrumbs>{{ nameShort }}</breadcrumbs>
       <article>
@@ -80,7 +80,8 @@ export default {
           code: ""
         }
       },
-      editionYears: null
+      editionYears: null,
+      AwardType: this.$options.filters.capitalize(this.awardType)
     };
   },
   apollo: {

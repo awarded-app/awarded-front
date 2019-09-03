@@ -13,7 +13,7 @@
         :href="`https://www.imdb.com/title/${imdbId}/`"
         target="_blank" rel="noopener"
         class="link-external"
-        >IMDB<span v-if="imdbRating" class="pl-1 text-gray-500">{{
+        >IMDB<span v-if="imdbRating" class="pl-1 text-faded">{{
           imdbRating
         }}</span></a
       >
@@ -23,7 +23,7 @@
         :href="`https://www.rottentomatoes.com/search/?search=${title}`"
         target="_blank" rel="noopener"
         class="link-external"
-        >RT<span class="pl-1 text-gray-500">{{ rt }}</span></a
+        >RT<span class="pl-1 text-faded">{{ rt }}</span></a
       >
     </li>
     <li v-if="metacritic">
@@ -31,7 +31,7 @@
         :href="`https://www.metacritic.com/search/movie/${title}/results`"
         target="_blank" rel="noopener"
         class="link-external"
-        >Metacritic<span class="pl-1 text-gray-500">{{ metacritic }}</span></a
+        >Metacritic<span class="pl-1 text-faded">{{ metacritic }}</span></a
       >
     </li>
     <li>
@@ -39,7 +39,7 @@
         :href="`https://www.youtube.com/results?search_query=${title} trailer`"
         target="_blank" rel="noopener"
         class="link-external"
-        >YouTube<span class="pl-1 text-gray-500">Trailer</span></a
+        >YouTube<span class="pl-1 text-faded">Trailer</span></a
       >
     </li>
   </ul>

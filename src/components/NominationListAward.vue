@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <h4 class="text-gray-500 mb-2 a-uppercase-info">Winners</h4>
+    <h4 class="text-faded mb-2 a-uppercase-info">Winners</h4>
     <list-transition>
       <li
         v-for="(movieGroup, index) in winnerNominationsByMovie"

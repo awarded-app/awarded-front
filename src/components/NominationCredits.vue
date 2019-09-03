@@ -27,7 +27,7 @@
         v-bind="$attrs"
       >
         <li v-for="(credit, index) in prizeGroup.people" :key="credit.id">
-          <p :class="display === 'movie' ? 'text-gray-500' : 'text-white'">
+          <p :class="display === 'movie' ? 'text-faded' : 'text-white'">
             <person-link :person-name="credit.person.name" :person-id="credit.person.id">{{
               credit.person.name
             }}</person-link
@@ -42,7 +42,7 @@
     <ul class="flex flex-wrap" :class="hasStar && showPrize ? 'pl-6 md:pl-0' : ''" v-bind="$attrs">
       <template v-if="nominatedPeople.length">
         <li v-for="(credit, index) in nominatedPeople" :key="credit.id">
-          <p :class="display === 'movie' ? 'text-gray-500' : 'text-white'">
+          <p :class="display === 'movie' ? 'text-faded' : 'text-white'">
             <person-link :person-name="credit.person.name" :person-id="credit.person.id">{{
               credit.person.name
             }}</person-link

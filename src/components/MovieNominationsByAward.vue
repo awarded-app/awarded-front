@@ -5,7 +5,7 @@
       <h4>
         <edition-link :award-name-short="awardNameShort" :edition-date="editionDate">
           {{ awardNameShort
-          }}<span class="text-gray-500 font-mono">
+          }}<span class="text-faded font-mono">
             {{ editionDate | year }}
           </span>
         </edition-link>
@@ -30,7 +30,7 @@
               <nominatedPeople
                 v-if="nomination.hasOwnProperty('moviesNominatedPeople')"
                 :nominated-people="nomination.moviesNominatedPeople.nodes"
-                class="text-gray-500"
+                class="text-faded"
               />
             </template>
           </div>

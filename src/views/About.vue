@@ -55,7 +55,7 @@ export default {
 </script>
 <style scoped>
 p {
-  @apply mb-4 text-gray-500;
+  @apply mb-4 text-faded;
 }
 h3 {
   @apply mt-8;

@@ -16,7 +16,7 @@
             >
           </h3>
         </div>
-        <p class="text-2xl pl-4 sm:pl-0 text-gray-500">
+        <p class="text-2xl pl-4 sm:pl-0 text-faded">
           {{ edition.name }}
         </p>
       </header>

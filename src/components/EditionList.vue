@@ -1,7 +1,7 @@
 <template>
   <spinner v-if="$apollo.loading" />
   <ul v-else-if="editions && editions.totalCount > 0">
-    <p class="a-uppercase-info text-gray-500 mb-2">Editions</p>
+    <p class="a-uppercase-info text-faded mb-2">Editions</p>
     <list-transition>
       <edition-list-item
         v-for="(edition, index) in editions.nodes"

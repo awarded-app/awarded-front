@@ -13,14 +13,14 @@
         <nominatedPeople
           :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
           class="mr-2 lg:mb-0"
-          :class="display === 'person' ? 'font-semibold' : 'text-gray-500'"
+          :class="display === 'person' ? 'font-semibold' : 'text-faded'"
         />
         <p>
           <movie-link
             :movie-id="nomination.movie.id"
             :movie-title="nomination.movie.title"
             class="mr-2 lg:mb-0"
-            :class="display === 'person' ? 'text-gray-500' : '-mb-2 font-semibold'"
+            :class="display === 'person' ? 'text-faded' : '-mb-2 font-semibold'"
           />
         </p>
       </div>

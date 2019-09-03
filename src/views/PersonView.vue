@@ -19,7 +19,7 @@
                   w="200"
                   class="mb-2 sm:mr-4 sm:float-left"
                 />
-                <p v-if="person.biography" class="text-gray-500 mb-2">
+                <p v-if="person.biography" class="text-faded mb-2">
                   {{ person.biography }}
                 </p>
               </div>
@@ -28,10 +28,10 @@
                   &#10013; {{ person.deathday | formatDate("Do MMMM YY") }}
                 </p>
                 <p v-else-if="person.birthday">
-                  {{ person.birthday | age }}<span class="text-gray-500 "> years old</span>
+                  {{ person.birthday | age }}<span class="text-faded "> years old</span>
                 </p>
                 <p v-if="person.placeOfBirth" class="mb-2">
-                  <span class="text-gray-500">From</span>
+                  <span class="text-faded">From</span>
                   {{ person.placeOfBirth }}
                 </p>
                 <p>
@@ -41,7 +41,7 @@
             </section>
             <!-- NOMINATIONS -->
             <section id="movie-nominations" class="pt-4">
-              <p class="text-gray-500 mb-4 a-uppercase-info">
+              <p class="text-faded mb-4 a-uppercase-info">
                 {{ stats.nominations }} nominations<star-separator />{{ stats.wins }}
                 wins
               </p>

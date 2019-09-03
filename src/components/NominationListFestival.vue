@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <h4 class="text-gray-500 mb-2 a-uppercase-info">
+    <h4 class="text-faded mb-2 a-uppercase-info">
       Winners (Official Competition)
       <star-separator />
       <edition-link :award-name-short="awardNameShort" :edition-date="editionDate"

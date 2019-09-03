@@ -9,7 +9,7 @@
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-          <award-link :award-name-short="prevScreenParams.nameShort">{{
+          <award-link :award-name-short="prevScreenParams.nameShort" :award-type="awardType">{{
             prevScreenParams.nameShort
           }}</award-link>
         </li>

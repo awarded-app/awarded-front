@@ -3,7 +3,7 @@
     <div class="flex items-center">
       <plus-sign :is-open="showEditions" @click="showEditions = !showEditions" />
       <h2 class="mr-2 leading-tight">
-        <award-link :award-name-short="award.nameShort">
+        <award-link :award-name-short="award.nameShort" :award-type="awardType">
           {{ award.nameShort }}
         </award-link>
       </h2>

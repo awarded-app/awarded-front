@@ -12,23 +12,29 @@
     </header>
     <div v-if="isOpen" class="indented mb-4">
       <template v-if="isFestival">
-        <nomination-festival
-          v-for="nomination in nominationsByPrize"
-          :key="nomination.id"
-          :nomination="nomination"
-          :award-type="awardType"
-        />
+        <list-transition>
+          <nomination-festival
+            v-for="(nomination, index) in nominationsByPrize"
+            :key="nomination.id"
+            :data-index="index"
+            :nomination="nomination"
+            :award-type="awardType"
+          />
+        </list-transition>
         <p class="text-gray-500 a-uppercase-info">Other movies in {{ category.name }}:</p>
         <category-posters :nominations="losers" />
       </template>
       <template v-else>
-        <nomination
-          v-for="nomination in category[`${awardType}Nominations`].nodes"
-          :key="nomination.id"
-          :nomination="nomination"
-          :display="category.display"
-          :award-type="awardType"
-        />
+        <list-transition>
+          <nomination
+            v-for="(nomination, index) in category[`${awardType}Nominations`].nodes"
+            :key="nomination.id"
+            :data-index="index"
+            :nomination="nomination"
+            :display="category.display"
+            :award-type="awardType"
+          />
+        </list-transition>
         <category-posters :nominations="category[`${awardType}Nominations`].nodes" />
       </template>
     </div>
@@ -41,6 +47,7 @@ import Nomination from "../components/Nomination";
 import NominationFestival from "../components/NominationFestival";
 import CategoryPosters from "../components/CategoryPosters";
 import CategoryLink from "../components/CategoryLink";
+import ListTransition from "../components/ListTransition";
 
 export default {
   name: "Category",
@@ -48,7 +55,8 @@ export default {
     NominationFestival,
     Nomination,
     CategoryLink,
-    CategoryPosters
+    CategoryPosters,
+    ListTransition
   },
   props: {
     category: {

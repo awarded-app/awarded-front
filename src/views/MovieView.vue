@@ -65,16 +65,19 @@
                 </span>
               </div>
               <div>
-                <div
-                  v-for="(awardNominations, index) in nominationsByAward"
-                  :key="index"
-                  class="mb-4"
-                >
-                  <movie-nominations-by-award
-                    :nominations="awardNominations"
-                    :award-type="awardType"
-                  />
-                </div>
+                <list-transition>
+                  <div
+                    v-for="(awardNominations, index) in nominationsByAward"
+                    :key="index"
+                    :data-index="index"
+                    class="mb-4"
+                  >
+                    <movie-nominations-by-award
+                      :nominations="awardNominations"
+                      :award-type="awardType"
+                    />
+                  </div>
+                </list-transition>
               </div>
             </section>
           </template>
@@ -95,6 +98,7 @@ import MoviePoster from "@/components/MoviePoster";
 import MovieLinksRatings from "@/components/MovieLinksRatings";
 import MovieLinksShopping from "@/components/MovieLinksShopping";
 import MovieNominationsByAward from "../components/MovieNominationsByAward";
+import ListTransition from "../components/ListTransition";
 
 export default {
   name: "MovieView",
@@ -118,7 +122,8 @@ export default {
     MoviePoster,
     MovieLinksShopping,
     MovieLinksRatings,
-    Layout
+    Layout,
+    ListTransition
   },
   props: {
     title: {

@@ -1,12 +1,15 @@
 <template>
   <spinner v-if="$apollo.loading" class="indented" />
   <ul v-else-if="awards">
-    <award-list-item
-      v-for="award in awards.nodes"
-      :key="award.id"
-      :award="award"
-      :award-type="awardType"
-    />
+    <list-transition>
+      <award-list-item
+        v-for="(award, index) in awards.nodes"
+        :key="award.id"
+        :award="award"
+        :award-type="awardType"
+        :data-index="index"
+      />
+    </list-transition>
   </ul>
 
   <p v-else class="indented">
@@ -18,10 +21,11 @@
 import gql from "graphql-tag";
 import Spinner from "@/components/Spinner.vue";
 import AwardListItem from "./AwardListItem";
+import ListTransition from "./ListTransition";
 
 export default {
   name: "AwardList",
-  components: { AwardListItem, Spinner },
+  components: { AwardListItem, Spinner, ListTransition },
   props: {
     awardType: {
       type: String,

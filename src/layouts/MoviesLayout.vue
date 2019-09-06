@@ -66,11 +66,11 @@ html {
 }
 
 a.link-external::after {
-  @apply text-faded;
+  @apply text-gray-500;
 }
 
 .text-faded {
-  @apply text-faded;
+  @apply text-gray-500;
 }
 .text-main {
   @apply text-white;

@@ -58,7 +58,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "Person" */ "./views/PersonView.vue")
     },
     {
-      path: "/movies/movie/:movieId/:title",
+      path: "/:awardType/movie/:movieId/:title",
       name: "Movie",
       props: true,
       component: () => import(/* webpackChunkName: "Movie" */ "./views/MovieView.vue")

@@ -1,5 +1,5 @@
 <template>
-  <layout name="MoviesLayout">
+  <layout :name="`${AwardType}Layout`">
     <div>
       <breadcrumbs :prev-screen-params="{ nameShort }">{{ editionYear }}</breadcrumbs>
       <article>

@@ -113,17 +113,17 @@ export default {
                 name
                 display
                 order
-                moviesPrizes {
+                award {
+                  id
+                  nameShort
+                }
+                ${this.awardType}Prizes {
                   nodes {
                     id
                     name
                     order
                     display
                   }
-                }
-                award {
-                  id
-                  nameShort
                 }
                 ${this.awardType}EditionCategories(condition: $editionCategoryCondition) {
                   totalCount

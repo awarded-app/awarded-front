@@ -133,11 +133,14 @@ export default {
     movieId: {
       type: String,
       required: true
+    },
+    awardType: {
+      type: String,
+      required: true
     }
   },
   data() {
     return {
-      awardType: `movies`,
       movie: {
         id: this.movie_id,
         title: this.title,

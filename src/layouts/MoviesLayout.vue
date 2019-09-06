@@ -4,7 +4,7 @@
       class="mb-4 flex flex-shrink-0 justify-between items-center flex-wrap"
       :class="$route.name.includes('home') ? 'indented' : ''"
     >
-      <router-link to="/">
+      <router-link to="/movies">
         <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
           <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
           <span class="text-faded uppercase">MOVIES</span>

@@ -30,6 +30,22 @@ export default {
       ${MovieListItem.fragments.movie}
       ${NominatedPerson.fragments.moviesNominatedPerson}
       ${CategoryListItem.fragments.moviesCategory}
+    `,
+    booksNomination: gql`
+      fragment booksNomination on BooksNomination {
+        id
+        isWinner
+        book {
+          id
+          title
+        }
+
+        category {
+          id
+          name
+          order
+        }
+      }
     `
   }
 };

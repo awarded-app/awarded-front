@@ -1,7 +1,7 @@
 <template>
   <nav
     class="flex items-center flex-wrap text-faded text-sm mb-2"
-    :class="$route.name === 'homeMovies' ? 'indented' : ''"
+    :class="$route.name.includes('home') ? 'indented' : ''"
   >
     <ul class="flex flex-wrap">
       <li>
@@ -9,7 +9,7 @@
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-          <award-link :award-name-short="prevScreenParams.nameShort" :award-type="awardType">{{
+          <award-link :award-name-short="prevScreenParams.nameShort" :award-type="$route.params.awardType">{{
             prevScreenParams.nameShort
           }}</award-link>
         </li>

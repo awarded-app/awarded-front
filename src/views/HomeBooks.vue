@@ -13,8 +13,9 @@
 <script>
 import AwardList from "@/components/AwardList";
 import Layout from "@/layouts/Layout";
+
 export default {
-  name: "HomeMovies",
+  name: "HomeBooks",
   metaInfo: {
     title: `Awarded Books - Keep track of the most important book awards and festivals`,
     titleTemplate: ""

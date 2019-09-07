@@ -17,7 +17,7 @@ import AwardList from "@/components/AwardList";
 export default {
   name: "HomeMovies",
   metaInfo: {
-    title: `Awarded - Keep track of the most important film awards and festivals`,
+    title: `Awarded Movies - Keep track of the most important film awards and festivals`,
     titleTemplate: ""
   },
   components: {

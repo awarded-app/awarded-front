@@ -15,6 +15,9 @@
       <ul class="text-faded a-uppercase-info hidden sm:flex">
         <!-- <li class="mr-4">Articles</li> -->
         <li class="mr-4 mb-2">
+          <a href="/movies" class="title-link font-bold">MOVIES</a>
+        </li>
+        <li class="mr-4 mb-2">
           <router-link to="/about" class="title-link">Learn more</router-link>
         </li>
         <li>

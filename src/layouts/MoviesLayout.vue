@@ -32,7 +32,7 @@
     <main class="flex-1 flex-shrink-0 mb-8">
       <slot />
     </main>
-    <base-footer :class="$route.name === 'homeMovies' ? 'indented' : ''" />
+    <base-footer :class="$route.name.includes('home') ? 'indented' : ''" />
   </div>
 </template>
 <script>

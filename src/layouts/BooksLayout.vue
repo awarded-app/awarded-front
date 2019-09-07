@@ -5,9 +5,7 @@
       :class="$route.name.includes('home') ? 'indented' : ''"
     >
       <router-link to="/books">
-        <h1
-          class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2"
-        >
+        <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
           <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
           <span class="text-faded uppercase">BOOKS</span>
         </h1>
@@ -49,8 +47,7 @@ export default {
       {
         vmid: "description",
         name: "description",
-        content:
-          "Keep track of the most important books awards. Find the next books to read."
+        content: "Keep track of the most important books awards. Find the next books to read."
       }
     ]
   },
@@ -90,12 +87,7 @@ a.title-link:visited {
       var(--mainColor) 4px,
       transparent 4px
     ),
-    linear-gradient(
-      transparent 2px,
-      var(--darkGray) 2px,
-      var(--darkGray) 4px,
-      transparent 4px
-    );
+    linear-gradient(transparent 2px, var(--darkGray) 2px, var(--darkGray) 4px, transparent 4px);
 }
 
 @supports (-ms-ime-align: auto) {

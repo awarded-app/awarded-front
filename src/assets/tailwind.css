@@ -1,14 +1,14 @@
 @tailwind base;
 
 @import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif; }
-@supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; }
-}
+
+@import url('https://fonts.googleapis.com/css?family=Asap:400,600,700&display=swap');
+
+/* @import url('https://fonts.googleapis.com/css?family=Asap:400,600,700|Lato:400,700,900|Oswald:300,600,700|Raleway:400,600,700&display=swap'); */
 
 body,
 html {
-  @apply w-full h-full p-2;
+  @apply font-sans w-full h-full p-2;
 }
 
 h1 {

@@ -3,13 +3,12 @@
     <div>
       <breadcrumbs>{{ nameShort }}</breadcrumbs>
       <article>
-        <header class="flex mb-2">
-          <h2 class="flex items-center flex-wrap leading-none">
+        <header class="flex mb-2 flex-wrap">
+          <h2 class="leading-none">
             <span class="mr-2 ">{{ nameShort }}</span>
             <span v-if="award.nameLong !== nameShort" class="text-faded">
-              {{ award.nameLong }}
-            </span>
-            <sup class="text-sm text-faded">{{ award.country.code }}</sup>
+              {{ award.nameLong }} </span
+            ><sup class="text-sm text-faded">{{ award.country.code }}</sup>
           </h2>
         </header>
         <section>

@@ -23,7 +23,7 @@ import NominationListAward from "./NominationListAward";
 import NominationListItem from "./NominationListItem";
 
 export default {
-  name: "NominationList",
+  name: "MoviesNominationList",
   components: {
     NominationListAward,
     NominationListFestival,
@@ -52,7 +52,9 @@ export default {
         const fragment = NominationListItem.fragments[`${this.awardType}Nomination`];
         return gql`
           query ${this.awardType}Nominations($condition: ${this.AwardType}NominationCondition) {
-            ${this.awardType}Nominations(condition: $condition, orderBy: CATEGORY_ORDER_DESC) {
+            ${this.awardType}Nominations(condition: $condition, orderBy:  ${
+          this.AWARDTYPE
+        }_CATEGORY_BY_CATEGORY_ID__ORDER_DESC) {
               totalCount
               nodes {
                 ...${this.awardType}Nomination

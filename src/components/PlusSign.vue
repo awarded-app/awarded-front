@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="h-full w-4 sm:w-6 inline-block cursor-pointer"
-    @click="toggleOpen"
-  >
+  <div class="w-4 sm:w-6 inline-block cursor-pointer" @click="toggleOpen">
     <font-awesome-icon :icon="icon" />
   </div>
 </template>

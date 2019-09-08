@@ -1,18 +1,21 @@
 <template>
   <li>
-    <div class="flex items-center">
+    <div class="flex flex-no-wrap items-center justify-start">
       <plus-sign :is-open="showEditions" @click="showEditions = !showEditions" />
-      <h2 class="mr-2 leading-tight">
-        <award-link :award-name-short="award.nameShort" :award-type="awardType">
-          {{ award.nameShort }}
-        </award-link>
+      <h2 class="mr-2 self-start flex-1 leading-tight">
+        <award-link :award-name-short="award.nameShort" :award-type="awardType">{{
+          award.nameShort
+        }}</award-link>
       </h2>
     </div>
-    <p
+    <!-- <p
       class="text-2xl text-faded indented font-semibold"
       :class="showEditions ? 'mb-4' : 'mb-2'"
     >
       {{ award.nameLong }}
+    </p> -->
+    <p class="indented text-faded mb-4 mt-2 lg:w-2/3 xl:w-1/2">
+      {{ award.summary }}
     </p>
     <edition-list
       v-if="showEditions"
@@ -41,25 +44,6 @@ export default {
       required: true
     }
   },
-
-  /* fragments: {
-    award: gql`
-      fragment award on Award {
-        id
-        link
-        logo
-        nameLong
-        nameShort
-        description
-        country {
-          id
-          code
-          name
-        }
-        isFestival
-      }
-    `
-  }, */
   data() {
     return {
       showEditions: false,

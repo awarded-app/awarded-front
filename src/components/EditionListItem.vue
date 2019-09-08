@@ -12,30 +12,41 @@
             <edition-link
               :award-name-short="edition.award.nameShort"
               :edition-date="edition.date"
+              :award-type="awardType"
               >{{ edition.date | year }}</edition-link
             >
           </h3>
         </div>
-        <p class="text-2xl pl-4 sm:pl-0 text-faded">
-          {{ edition.name }}
-        </p>
+        <component :is="`${AwardType}EditionListItemDetails`" :edition="edition" />
       </header>
       <section class="w-full">
-        <nomination-list v-if="showNominations" :edition="edition" :award-type="awardType" />
+        <component
+          :is="`${AwardType}NominationList`"
+          v-if="showNominations"
+          :edition="edition"
+          :award-type="awardType"
+        />
+        <!-- <nomination-list v-if="showNominations" :edition="edition" :award-type="awardType" /> -->
       </section>
     </article>
   </li>
 </template>
 
 <script>
-import NominationList from "./NominationList";
+import MoviesNominationList from "./MoviesNominationList";
+import BooksNominationList from "./BooksNominationList";
 import EditionLink from "@/components/EditionLink";
+import MoviesEditionListItemDetails from "@/components/MoviesEditionListItemDetails";
+import BooksEditionListItemDetails from "@/components/BooksEditionListItemDetails";
 
 export default {
   name: "EditionListItem",
   components: {
-    NominationList,
-    EditionLink
+    BooksNominationList,
+    MoviesNominationList,
+    EditionLink,
+    BooksEditionListItemDetails,
+    MoviesEditionListItemDetails
   },
   props: {
     edition: {
@@ -45,11 +56,15 @@ export default {
     awardType: {
       type: String,
       required: true
+    },
+    dataIndex: {
+      type: Number,
+      required: true
     }
   },
   data() {
     return {
-      showNominations: false,
+      showNominations: this.dataIndex === 0,
       AwardType: this.$options.filters.capitalize(this.awardType)
     };
   }

@@ -1,16 +1,10 @@
 <template>
   <div class="min-h-full flex flex-col items-stretch antialiased">
     <nav
-      class="mb-4 flex flex-shrink-0 justify-between items-center flex-wrap"
+      class="mb-4 flex flex-shrink-0 justify-between items-center flex-wrap sm:flex-row-reverse"
       :class="$route.name.includes('home') ? 'indented' : ''"
     >
-      <router-link to="/movies">
-        <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
-          <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
-          <span class="text-faded uppercase">MOVIES</span>
-        </h1>
-      </router-link>
-      <ul class="text-faded a-uppercase-info hidden sm:flex">
+      <ul class="text-faded a-uppercase-info flex">
         <!-- <li class="mr-4">Articles</li> -->
         <li class="mr-4 mb-2">
           <a href="/books" class="title-link font-bold">BOOKS</a>
@@ -28,6 +22,12 @@
           >
         </li>
       </ul>
+      <router-link to="/movies">
+        <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
+          <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
+          <span class="text-faded uppercase">MOVIES</span>
+        </h1>
+      </router-link>
     </nav>
     <main class="flex-1 flex-shrink-0 mb-8">
       <slot />

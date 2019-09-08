@@ -47,16 +47,9 @@ export default {
               totalCount
               nodes {
                 id
-                link
-                logo
                 nameLong
                 nameShort
-                description
-                country {
-                  id
-                  code
-                  name
-                }
+                summary
                 isFestival
               }
             }

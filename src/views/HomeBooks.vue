@@ -1,9 +1,11 @@
 <template>
   <layout name="BooksLayout">
     <div>
-      <p class="-mt-4 mb-8 text-faded" :class="$route.name === 'homeBooks' ? 'indented' : ''">
-        Keep track of the most important book awards and festivals.<br />
-        Find the next book to read.
+      <p
+        class="-mt-4 mb-4 pb-4 text-faded font-semibold border-b border-gray-300"
+        :class="$route.name === 'homeBooks' ? 'indented' : ''"
+      >
+        Keep track of the most important book awards and festivals. Find the next book to read.
       </p>
       <award-list award-type="books" />
     </div>

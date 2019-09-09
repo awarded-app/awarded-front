@@ -6,6 +6,7 @@
         <category-link
           :award-name-short="category.award.nameShort"
           :category-name="category.name"
+          :award-type="awardType"
           >{{ category.name }}</category-link
         >
       </h3>

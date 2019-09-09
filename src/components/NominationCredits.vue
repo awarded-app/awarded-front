@@ -16,6 +16,7 @@
               v-else
               :category-name="prizeGroup.prize.category.name"
               :award-name-short="prizeGroup.prize.award.nameShort"
+              :award-type="awardType"
               >{{ prizeGroup.prize.name }}</category-link
             >
           </p>

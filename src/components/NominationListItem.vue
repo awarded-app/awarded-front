@@ -35,11 +35,34 @@ export default {
       fragment booksNomination on BooksNomination {
         id
         isWinner
+        isShortlisted
         book {
           id
           title
+          imageUrl
+          isbn10
+          isbn13
+          booksBookAuthors {
+            totalCount
+            nodes {
+              id
+              author {
+                id
+                name
+              }
+            }
+          }
         }
-
+        booksNominationPrizes {
+          totalCount
+          nodes {
+            id
+            prize {
+              id
+              name
+            }
+          }
+        }
         category {
           id
           name

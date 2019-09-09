@@ -3,7 +3,10 @@
     <h4 class="text-faded mb-2 a-uppercase-info">
       Winners (Official Competition)
       <star-separator />
-      <edition-link :award-name-short="awardNameShort" :edition-date="editionDate"
+      <edition-link
+        :award-name-short="awardNameShort"
+        :edition-date="editionDate"
+        :award-type="awardType"
         >Full Edition</edition-link
       >
     </h4>

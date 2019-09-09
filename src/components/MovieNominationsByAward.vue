@@ -3,7 +3,11 @@
     <div class="flex items-center mb-1">
       <plus-sign :is-open="isOpen" @click="isOpen = !isOpen" />
       <h4>
-        <edition-link :award-name-short="awardNameShort" :edition-date="editionDate">
+        <edition-link
+          :award-name-short="awardNameShort"
+          :edition-date="editionDate"
+          :award-type="awardType"
+        >
           {{ awardNameShort
           }}<span class="text-faded font-mono">
             {{ editionDate | year }}
@@ -24,6 +28,7 @@
                 <category-link
                   :category-name="nomination.category.name"
                   :award-name-short="awardNameShort"
+                  :award-type="awardType"
                   >{{ nomination.category.name }}</category-link
                 >
               </p>

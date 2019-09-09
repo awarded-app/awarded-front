@@ -6,7 +6,9 @@
         <header class="flex sm:items-center mb-2">
           <h2 class="flex items-center flex-wrap">
             <span class="mr-2 font-mono">{{ editionYear }}</span>
-            <span class="text-faded leading-none mt-0">{{ edition.name }}</span>
+            <span class="text-faded">{{
+              edition.name.includes(editionYear) ? nameShort : edition.name
+            }}</span>
           </h2>
         </header>
         <spinner v-if="$apollo.loading" />
@@ -22,13 +24,15 @@
               <span v-else>All Categories</span>
             </h4>
             <list-transition>
-              <category
+              <component
+                :is="`${AwardType}Category`"
                 v-for="(category, index) in completeCategories.nodes"
                 :key="category.id"
                 :data-index="index"
                 :category="category"
                 :is-festival="award.isFestival"
                 :award-type="awardType"
+                class="mb-8"
               />
             </list-transition>
           </section>
@@ -43,7 +47,8 @@ import gql from "graphql-tag";
 import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner.vue";
 import NominationListItem from "@/components/NominationListItem";
-import Category from "@/components/Category";
+import MoviesCategory from "@/components/MoviesCategory";
+import BooksCategory from "@/components/BooksCategory";
 import ListTransition from "@/components/ListTransition";
 
 export default {
@@ -63,7 +68,13 @@ export default {
       ]
     };
   },
-  components: { Category, Spinner, Layout, ListTransition },
+  components: {
+    BooksCategory,
+    MoviesCategory,
+    Spinner,
+    Layout,
+    ListTransition
+  },
   props: {
     nameShort: {
       type: String,

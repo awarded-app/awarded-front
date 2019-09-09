@@ -18,6 +18,7 @@
           :data-index="index"
           class="mb-4"
           tag="li"
+
           />
       </list-transition>
     </ul>
@@ -72,6 +73,8 @@ export default {
             totalCount
             nodes {
               id
+              isWinner
+              isShortlisted
               book {
                 id
                 title

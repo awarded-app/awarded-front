@@ -8,9 +8,12 @@
 
     <div>
       <h3 class="text-faded font-mono">
-        <edition-link :edition-date="edition.date" :award-name-short="nameShort">{{
-          edition.date | year
-        }}</edition-link>
+        <edition-link
+          :edition-date="edition.date"
+          :award-name-short="nameShort"
+          :award-type="awardType"
+          >{{ edition.date | year }}</edition-link
+        >
       </h3>
       <div
         class="mb-2 flex"

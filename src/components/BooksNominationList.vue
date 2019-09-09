@@ -6,41 +6,19 @@
       ><star-separator class="text-gray-300" /><edition-link
               :award-name-short="edition.award.nameShort"
               :edition-date="edition.date"
+              :award-type="awardType"
               >All Nominations</edition-link></a>
     </h4>
     <ul>
       <list-transition>
-        <li
+        <books-nomination-item
           v-for="(nomination, index) in nominations.nodes"
           :key="nomination.id"
+          :nomination="nomination"
           :data-index="index"
-          class="mb-4 sm:flex"
-        >
-          <figure class="mt-1 mr-2 mb-2 flex-none">
-            <book-link :book-id="nomination.book.id" :book-title="nomination.book.title"><book-cover :url="nomination.book.imageUrl"/></book-link>
-          </figure>
-          <article>
-            <h4>
-              <book-link :book-id="nomination.book.id" :book-title="nomination.book.title">{{ nomination.book.title }}</book-link>
-            </h4>
-            <p class="author-list">
-              by
-              <span
-                v-for="{ author } in nomination.book.booksBookAuthors.nodes"
-                :key="author.id"
-                class="font-semibold"
-                >{{ author.name }}</span
-              >
-            </p>
-            <p
-              v-for="{ prize } in nomination.booksNominationPrizes.nodes"
-              :key="prize.id"
-              class="flex items-center"
-            >
-              <star class="mr-2" />{{ prize.name }}
-            </p>
-          </article>
-        </li>
+          class="mb-4"
+          tag="li"
+          />
       </list-transition>
     </ul>
   </div>
@@ -57,8 +35,7 @@ import Spinner from "@/components/Spinner.vue";
 import ListTransition from "./ListTransition";
 import StarSeparator from "@/components/StarSeparator";
 import EditionLink from "@/components/EditionLink";
-import BookCover from "@/components/BookCover";
-import BookLink from "@/components/BookLink";
+import BooksNominationItem from "@/components/BooksNominationItem";
 
 export default {
   name: "BooksNominationList",
@@ -67,8 +44,7 @@ export default {
     ListTransition,
     StarSeparator,
     EditionLink,
-    BookCover,
-    BookLink
+    BooksNominationItem
   },
   props: {
     edition: {

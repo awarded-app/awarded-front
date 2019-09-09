@@ -6,9 +6,7 @@
         <header class="flex sm:items-center">
           <h2 class="flex items-center flex-wrap">
             <span class="mr-2">{{ prizeName }}</span>
-            <span class="text-faded leading-none mt-0"
-              >{{ categoryName }} ({{ nameShort }})</span
-            >
+            <span class="text-faded leading-none mt-0">{{ categoryName }} ({{ nameShort }})</span>
           </h2>
         </header>
         <spinner v-if="!prize" />
@@ -34,6 +32,7 @@
                     <edition-link
                       :edition-date="edition.date"
                       :award-name-short="edition.award.nameShort"
+                      :award-type="awardType"
                       >{{ edition.date | year }}</edition-link
                     >
                   </h3>

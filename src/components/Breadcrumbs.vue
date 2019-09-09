@@ -5,19 +5,24 @@
   >
     <ul class="flex flex-wrap">
       <li>
-        <router-link :to="`/${$route.params.awardType}`" tag="a" class="title-link">Awards</router-link>
+        <router-link :to="`/${$route.params.awardType}`" tag="a" class="title-link"
+          >Awards</router-link
+        >
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-          <award-link :award-name-short="prevScreenParams.nameShort" :award-type="$route.params.awardType">{{
-            prevScreenParams.nameShort
-          }}</award-link>
+          <award-link
+            :award-name-short="prevScreenParams.nameShort"
+            :award-type="$route.params.awardType"
+            >{{ prevScreenParams.nameShort }}</award-link
+          >
         </li>
         <li v-if="prevScreenParams.hasOwnProperty('editionYear')">
           <edition-link
             :award-name-short="prevScreenParams.nameShort"
             :edition-date="prevScreenParams.editionYear"
             :edition-year="prevScreenParams.editionYear"
+            :award-type="awardType"
             >{{ prevScreenParams.editionYear }}</edition-link
           >
         </li>
@@ -25,6 +30,7 @@
           <category-link
             :category-name="prevScreenParams.categoryName"
             :award-name-short="prevScreenParams.nameShort"
+            :award-type="$route.params.awardType"
             >{{ prevScreenParams.categoryName }}</category-link
           >
         </li>

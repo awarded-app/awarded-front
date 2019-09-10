@@ -21,7 +21,7 @@ export default {
   },
   async created() {
     this.loading = true;
-    const url = `http://cors-anywhere.herokuapp.com/https://www.goodreads.com/author/show.xml?id=${
+    const url = `https://cors-anywhere.herokuapp.com/https://www.goodreads.com/author/show.xml?id=${
       this.goodreadsId
     }&key=${process.env.VUE_APP_GOODREADS_KEY}`;
     try {

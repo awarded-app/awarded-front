@@ -1,6 +1,6 @@
 <template functional>
   <router-link
-    :to="`/books/book/${props.bookId}/${props.bookTitle}`"
+    :to="`/books/${encodeURIComponent(props.bookTitle)}/${props.bookId}`"
     tag="a"
     class="title-link"
     :title="bookTitle"

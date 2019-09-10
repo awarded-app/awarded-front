@@ -5,17 +5,13 @@
   >
     <ul class="flex flex-wrap">
       <li>
-        <router-link :to="`/${$route.params.awardType}`" tag="a" class="title-link"
-          >Awards</router-link
-        >
+        <router-link :to="`/${theAwardType}`" tag="a" class="title-link">Awards</router-link>
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-          <award-link
-            :award-name-short="prevScreenParams.nameShort"
-            :award-type="$route.params.awardType"
-            >{{ prevScreenParams.nameShort }}</award-link
-          >
+          <award-link :award-name-short="prevScreenParams.nameShort" :award-type="theAwardType">{{
+            prevScreenParams.nameShort
+          }}</award-link>
         </li>
         <li v-if="prevScreenParams.hasOwnProperty('editionYear')">
           <edition-link
@@ -30,7 +26,7 @@
           <category-link
             :category-name="prevScreenParams.categoryName"
             :award-name-short="prevScreenParams.nameShort"
-            :award-type="$route.params.awardType"
+            :award-type="theAwardType"
             >{{ prevScreenParams.categoryName }}</category-link
           >
         </li>
@@ -57,7 +53,16 @@ export default {
     prevScreenParams: {
       type: Object,
       default: null
+    },
+    awardType: {
+      type: String,
+      default: null
     }
+  },
+  data() {
+    return {
+      theAwardType: this.$route.params.awardType || this.awardType
+    };
   }
 };
 </script>

@@ -7,16 +7,11 @@
       <article>
         <header class="mb-2 flex sm:items-center">
           <h2 class="flex items-center flex-wrap inline-block">
-            <span
-              >{{ book.title }}
-              <span
-                v-for="({ author }, index) in book.booksBookAuthors.nodes"
-                :key="author.id"
-                class="text-faded leading-none mr-2"
-                >{{ author.name
-                }}<span v-if="index < book.booksBookAuthors.totalCount - 1">, </span></span
-              ></span
-            >
+            {{ book.title }}&nbsp;
+            <book-authors
+              :authors="book.booksBookAuthors.nodes"
+              class="text-faded leading-none mr-2"
+            />
           </h2>
         </header>
         <main>
@@ -24,7 +19,16 @@
           <template v-else>
             <section id="book-details" class="sm:flex">
               <div class="mb-2 sm:mr-4">
-                <book-cover :image-url="book.imageUrl" w="150" :isbn="book.isbn10 || book.isbn13" />
+                <book-cover
+                  :image-url="book.imageUrl"
+                  w="150"
+                  :isbn="book.isbn10 || book.isbn13"
+                  class="mb-2"
+                />
+                <book-links-shopping
+                  :isbn="book.isbn10 || book.isbn13"
+                  :kindle-asin="book.kindleAsin"
+                />
               </div>
               <div class="sm:w-1/2">
                 <truncate
@@ -43,13 +47,7 @@
                   :imdb-id="book.imdbId"
                   :tmdb-id="book.tmdbId"
                   :title="book.title"
-                />
-                <book-links-shopping
-                  v-if="book.asin"
-                  :imdb-id="book.imdbId"
-                  :book-title="book.title"
-                  :asin="book.asin"
-                /> -->
+                />-->
               </div>
             </section>
             <section id="book-nominations" class="pt-4">
@@ -92,10 +90,9 @@ import BookCover from "@/components/BookCover";
 import Truncate from "@/components/Truncate";
 import BookNominationsByAward from "../components/BookNominationsByAward";
 import ListTransition from "../components/ListTransition";
-/* import BookListItem from "@/components/BookListItem";
-import BookLinksRatings from "@/components/BookLinksRatings";
 import BookLinksShopping from "@/components/BookLinksShopping";
- */
+import BookAuthors from "@/components/BookAuthors";
+
 export default {
   name: "BookView",
   metaInfo() {
@@ -116,8 +113,8 @@ export default {
     Spinner,
     Truncate,
     BookCover,
-    //BookLinksShopping,
-    //BookLinksRatings,
+    BookAuthors,
+    BookLinksShopping,
     Layout,
     ListTransition
   },
@@ -166,6 +163,7 @@ export default {
             goodreadsId
             description
             numPages
+            kindleAsin
             booksBookAuthors {
               totalCount
               nodes {
@@ -202,7 +200,12 @@ export default {
         };
       },
       update(data) {
-        return (this.book = data.booksBook);
+        this.book = data.booksBook;
+        if (this.book.description) {
+          this.book.description = this.book.description.replace(/<b>/g, "");
+          this.book.description = this.book.description.replace(/<\/b>/g, "");
+        }
+        return this.book;
       }
     }
   },

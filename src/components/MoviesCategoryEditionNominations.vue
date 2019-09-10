@@ -79,6 +79,7 @@ import EditionLink from "@/components/EditionLink";
 import MovieLink from "@/components/MovieLink";
 
 export default {
+  name: "MoviesCategoryEditionNominations",
   components: {
     MovieLink,
     EditionLink,

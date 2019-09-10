@@ -8,7 +8,9 @@
     :style="[data.style, data.staticStyle]"
     v-bind="data.attrs"
     v-on="listeners"
-    ><slot>{{ props.bookTitle }}</slot></router-link
+    ><span
+      ><slot>{{ props.bookTitle }}</slot></span
+    ></router-link
   >
 </template>
 <script>

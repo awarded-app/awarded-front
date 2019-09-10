@@ -29,9 +29,11 @@
       >
         <li v-for="(credit, index) in prizeGroup.people" :key="credit.id">
           <p :class="display === 'movie' ? 'text-faded' : 'text-white'">
-            <person-link :person-name="credit.person.name" :person-id="credit.person.id">{{
-              credit.person.name
-            }}</person-link
+            <person-link
+              :person-name="credit.person.name"
+              :person-id="credit.person.id"
+              award-type="movies"
+              >{{ credit.person.name }}</person-link
             ><span v-if="credit.character"> (as {{ credit.character }})</span
             ><span v-if="index < prizeGroup.people.length - 1">,&nbsp;</span>
           </p>
@@ -44,9 +46,11 @@
       <template v-if="nominatedPeople.length">
         <li v-for="(credit, index) in nominatedPeople" :key="credit.id">
           <p :class="display === 'movie' ? 'text-faded' : 'text-white'">
-            <person-link :person-name="credit.person.name" :person-id="credit.person.id">{{
-              credit.person.name
-            }}</person-link
+            <person-link
+              :person-name="credit.person.name"
+              :person-id="credit.person.id"
+              award-type="movies"
+              >{{ credit.person.name }}</person-link
             ><span v-if="credit.character"> (as {{ credit.character }})</span
             ><span v-else-if="credit.job && showJob"> ({{ credit.job.name }})</span
             ><span v-if="index < nominatedPeople.length - 1">,&nbsp;</span>

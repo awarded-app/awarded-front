@@ -1,28 +1,32 @@
-<template functional>
-  <div
-    class="shadow"
-    :class="[data.class, data.staticClass]"
-    v-bind="data.attrs"
-    v-on="listeners"
-  >
-    <img :src="`https://image.tmdb.org/t/p/w${props.w}/${props.profilePath}`" />
+<template>
+  <div class="shadow flex-none">
+    <img :src="url" :width="w" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    tmdbId: {
-      type: Number,
-      required: true
+    imageUrl: {
+      type: String,
+      default: ""
     },
     profilePath: {
       type: String,
-      required: true
+      default: ""
     },
     w: {
       type: String,
       default: "100"
+    }
+  },
+  computed: {
+    url() {
+      if (this.imageUrl) return this.imageUrl;
+      if (!this.profilePath) {
+        return `https://awarded.imgix.net/placeholder-person.png?w=${this.w}`;
+      }
+      return `https://image.tmdb.org/t/p/w${this.w}/${this.profilePath}`;
     }
   }
 };

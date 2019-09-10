@@ -21,6 +21,7 @@ export default new Router({
       name: "homeBooks",
       component: () => import(/* webpackChunkName: "homeBooks" */ "./views/HomeBooks.vue")
     },
+
     {
       path: "/movies",
       name: "homeMovies",
@@ -62,6 +63,12 @@ export default new Router({
       name: "Movie",
       props: true,
       component: () => import(/* webpackChunkName: "Movie" */ "./views/MovieView.vue")
-    }
+    },
+    {
+      path: "/books/:bookTitle/:bookId",
+      name: "bookView",
+      props: route => ({ awardType: "books", ...route.params }),
+      component: () => import(/* webpackChunkName: "bookView" */ "./views/BookView.vue")
+    },
   ]
 });

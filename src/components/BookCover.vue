@@ -14,6 +14,10 @@ export default {
       type: String,
       default: ""
     },
+    size: {
+      type: String,
+      default: "small"
+    },
     w: {
       type: String,
       default: "100"

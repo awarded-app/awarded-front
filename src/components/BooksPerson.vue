@@ -4,11 +4,11 @@
     <goodreads-author-query :goodreads-id="goodreadsId">
       <template v-slot="{ author, loading }">
         <spinner v-if="loading" />
-        <section v-else-if="author" class="flex mb-4">
+        <section v-else-if="author" class="sm:flex mb-4">
           <div class="mb-2 sm:mr-4 flex-none">
             <person-headshot :image-url="author.image_url" w="200" />
           </div>
-          <div>
+          <div class="md:w-2/3 lg:w-1/2">
             <truncate
               v-if="author.about"
               :text="author.about"

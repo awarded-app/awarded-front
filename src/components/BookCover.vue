@@ -8,7 +8,7 @@ export default {
   props: {
     imageUrl: {
       type: String,
-      required: true
+      default: ""
     },
     isbn: {
       type: String,
@@ -25,6 +25,10 @@ export default {
     h: {
       type: String,
       default: "150"
+    },
+    placeholder: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -33,11 +37,13 @@ export default {
     };
   },
   async created() {
-    if (this.imageUrl.includes("nophoto") && this.isbn) {
-      this.url = await this.getGoogleCover(this.isbn);
-    } else {
-      this.url = this.imageUrl;
+    if (this.imageUrl && !this.placeholder) {
+      if (this.imageUrl.includes("nophoto") && this.isbn) {
+        return (this.url = await this.getGoogleCover(this.isbn));
+      }
+      return (this.url = this.imageUrl);
     }
+    return (this.url = `https://awarded.imgix.net/placeholder-book-cover.png?w=${this.w}`);
   },
   methods: {
     async getGoogleCover(isbn) {

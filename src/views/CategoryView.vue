@@ -1,5 +1,5 @@
 <template>
-  <layout name="MoviesLayout">
+  <layout :name="`${AwardType}Layout`">
     <div>
       <breadcrumbs :prev-screen-params="{ nameShort }">{{ categoryName }}</breadcrumbs>
       <article>
@@ -10,46 +10,20 @@
           </h2>
         </header>
         <spinner v-if="$apollo.loading" />
-        <section v-else>
-          <p class="text-faded mb-4 md:w-2/3 lg:w-1/2">
-            {{ category.description }}
-          </p>
-          <p class="mb-4 md:w-2/3 lg:w-1/2 text-faded a-uppercase-info">
-            Winners and nominees from past editions
-          </p>
-          <ul>
-            <list-transition>
-              <li
-                v-for="({ edition }, index) in category[`${awardType}EditionCategories`].nodes"
-                :key="edition.id"
-                :data-index="index"
-                class="mb-8"
-              >
-                <category-edition-nomination-list
-                  :edition="edition"
-                  :name-short="nameShort"
-                  :is-festival="award.isFestival"
-                  :display="category.display"
-                  :award-type="awardType"
-                />
-              </li>
-            </list-transition>
-          </ul>
-        </section>
+        <component :is="`${AwardType}CategoryNominations`" v-else :category-id="categoryId" />
       </article>
     </div>
   </layout>
 </template>
 
 <script>
-const groupBy = require("lodash.groupby");
 import gql from "graphql-tag";
 import Layout from "@/layouts/Layout";
-import Spinner from "@/components/Spinner.vue";
-import CategoryEditionNominationList from "../components/CategoryEditionNominationList";
-import MovieListItem from "../components/MovieListItem";
-import NominatedPerson from "../components/NominatedPerson";
-import ListTransition from "../components/ListTransition";
+import Spinner from "@/components/Spinner";
+import MoviesCategoryNominations from "@/components/MoviesCategoryNominations";
+import BooksCategoryNominations from "@/components/BooksCategoryNominations";
+
+import ListTransition from "@/components/ListTransition";
 
 export default {
   name: "CategoryView",
@@ -69,7 +43,8 @@ export default {
   },
   components: {
     Spinner,
-    CategoryEditionNominationList,
+    BooksCategoryNominations,
+    MoviesCategoryNominations,
     Layout,
     ListTransition
   },
@@ -91,86 +66,12 @@ export default {
     return {
       prevScreen: "",
       prevScreenParams: null,
-      category: null,
-      award: null,
       categoryId: null,
-      AwardType: this.$options.filters.capitalize(this.awardType),
-      AWARDTYPE: this.awardType.toUpperCase()
+      AwardType: this.$options.filters.capitalize(this.awardType)
     };
   },
-  methods: {
-    getWinner(nominations) {
-      return nominations.find(nomination => nomination.isWinner);
-    },
-    groupByMovie(nominations) {
-      return Object.values(groupBy(nominations, "movie.id"));
-    }
-  },
+
   apollo: {
-    category: {
-      query() {
-        const fragmentNominatedPerson =
-          NominatedPerson.fragments[`${this.awardType}NominatedPerson`];
-        return gql`
-          query ${this.awardType}Category($id: Int!, $nCondition: ${
-          this.AwardType
-        }NominationCondition) {
-            ${this.awardType}Category(id: $id) {
-              id
-              description
-              display
-              ${this.awardType}EditionCategories(
-                condition: { complete: true }
-                orderBy: ${this.AWARDTYPE}_EDITION_BY_EDITION_ID__DATE_DESC
-              ) {
-                nodes {
-                  edition {
-                    id
-                    date
-                    name
-                    publish
-                    ${this.awardType}Nominations(condition: $nCondition) {
-                      totalCount
-                      nodes {
-                        id
-                        isWinner
-                        movie {
-                          ...movie
-                        }
-                        ${this.awardType}NominatedPeople {
-                          nodes {
-                            ...${this.awardType}NominatedPerson
-                            nomination {
-                              id
-                              category {
-                                id
-                                display
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-          ${MovieListItem.fragments.movie}
-          ${fragmentNominatedPerson}
-        `;
-      },
-      variables() {
-        return {
-          id: this.categoryId,
-          nCondition: { categoryId: this.categoryId }
-        };
-      },
-      update(data) {
-        return (this.category = data[`${this.awardType}Category`]);
-      },
-      skip: true
-    },
     awardByNameShort: {
       query() {
         return gql`
@@ -198,13 +99,12 @@ export default {
         console.dir(data[`${this.awardType}AwardByNameShort`]);
       },
       update(data) {
-        this.award = data[`${this.awardType}AwardByNameShort`];
-        const { id } = this.award[`${this.awardType}Categories`].nodes.find(
+        const award = data[`${this.awardType}AwardByNameShort`];
+        const { id } = award[`${this.awardType}Categories`].nodes.find(
           category => category.name === this.categoryName
         );
         this.categoryId = id;
-        this.$apollo.queries.category.skip = false;
-        return this.award;
+        return award;
       }
     }
   },

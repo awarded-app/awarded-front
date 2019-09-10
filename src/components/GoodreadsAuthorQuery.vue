@@ -21,11 +21,9 @@ export default {
   },
   async created() {
     this.loading = true;
-    const cors =
-      process.env.NODE_ENV === "development" ? "http://cors-anywhere.herokuapp.com/" : "";
-    const url = `${cors}https://www.goodreads.com/author/show.xml?id=${this.goodreadsId}&key=${
-      process.env.VUE_APP_GOODREADS_KEY
-    }`;
+    const url = `http://cors-anywhere.herokuapp.com/https://www.goodreads.com/author/show.xml?id=${
+      this.goodreadsId
+    }&key=${process.env.VUE_APP_GOODREADS_KEY}`;
     try {
       const { data } = await axios.get(url);
       let authorDetails;

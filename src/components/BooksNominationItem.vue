@@ -14,14 +14,9 @@
             nomination.book.title
           }}</book-link>
         </h4>
-        <p class="author-list">
-          by
-          <span
-            v-for="{ author } in nomination.book.booksBookAuthors.nodes"
-            :key="author.id"
-            class="font-semibold"
-            >{{ author.name }}</span
-          >
+        <p class="flex flex-wrap">
+          by&nbsp;
+          <book-authors :authors="nomination.book.booksBookAuthors.nodes" class="font-semibold" />
         </p>
         <ul v-if="isWinner">
           <li
@@ -41,11 +36,13 @@
 <script>
 import BookCover from "@/components/BookCover";
 import BookLink from "@/components/BookLink";
+import BookAuthors from "@/components/BookAuthors";
 
 export default {
   name: "BooksNominationItem",
   components: {
     BookCover,
+    BookAuthors,
     BookLink
   },
   props: {

@@ -1,5 +1,7 @@
 <template>
-  <img class="shadow flex-none" :src="url" :width="w" :height="h" />
+  <div class="overflow-hidden">
+    <img class="shadow flex-none" :src="url" :width="w" :height="h" />
+  </div>
 </template>
 
 <script>

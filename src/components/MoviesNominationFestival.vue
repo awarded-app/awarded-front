@@ -18,11 +18,10 @@
           }}</movie-link>
         </h4>
       </header>
-      <nomination-credits
-        :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
+      <movies-nomination-credits
+        :nominated-people="nomination.moviesNominatedPeople.nodes"
         :has-star="true"
         :is-festival="true"
-        :award-type="awardType"
       />
     </section>
   </article>
@@ -31,24 +30,21 @@
 <script>
 import MovieLink from "@/components/MovieLink";
 import MoviePoster from "@/components/MoviePoster";
-import NominationCredits from "@/components/NominationCredits";
+import MoviesNominationCredits from "@/components/MoviesNominationCredits";
 export default {
-  name: "NominationFestival",
-  components: { MovieLink, MoviePoster, NominationCredits },
+  name: "MoviesNominationFestival",
+  components: { MovieLink, MoviePoster, MoviesNominationCredits },
   props: {
     nomination: {
       type: Object,
       required: true
     },
-    awardType: {
-      type: String,
-      required: true
-    }
+
   },
   computed: {
     nominatedPeople() {
       if (this.nomination.isWinner) {
-        const people = this.nomination[`${this.awardType}NominatedPeople`].nodes.filter(
+        const people = this.nomination.moviesNominatedPeople.nodes.filter(
           nominatedPerson => nominatedPerson.prize
         );
         let prizes = people.map(person => person.prize);
@@ -61,7 +57,7 @@ export default {
         };
       }
       return {
-        people: this.nomination[`${this.awardType}NominatedPeople`].nodes,
+        people: this.nomination.moviesNominatedPeople.nodes,
         prizes: []
       };
     }

@@ -26,7 +26,7 @@
             :movie-title="winnerNomination.movie.title"
           />
         </p>
-        <nomination-credits
+        <movies-nomination-credits
           :nominated-people="winnerNomination[`${this.awardType}NominatedPeople`].nodes"
           :has-star="display !== 'movie'"
           :show-prize="isFestival"
@@ -56,7 +56,7 @@
               <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title" />
             </span>
           </p>
-          <nomination-credits
+          <movies-nomination-credits
             :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
             :has-star="false"
             :show-prize="isFestival"
@@ -74,7 +74,7 @@
 
 <script>
 import MoviePoster from "@/components/MoviePoster";
-import NominationCredits from "@/components/NominationCredits";
+import MoviesNominationCredits from "@/components/MoviesNominationCredits";
 import EditionLink from "@/components/EditionLink";
 import MovieLink from "@/components/MovieLink";
 
@@ -83,7 +83,7 @@ export default {
   components: {
     MovieLink,
     EditionLink,
-    NominationCredits,
+    MoviesNominationCredits,
     MoviePoster
   },
   props: {

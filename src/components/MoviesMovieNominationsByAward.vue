@@ -6,7 +6,7 @@
         <edition-link
           :award-name-short="awardNameShort"
           :edition-date="editionDate"
-          :award-type="awardType"
+          award-type="movies"
         >
           {{ awardNameShort
           }}<span class="text-faded font-mono">
@@ -21,18 +21,18 @@
           <star class="mr-2 text-lg" :is-winner="nomination.isWinner" />
           <div class="lg:flex lg:flex-wrap">
             <template v-if="isFestival">
-              <nomination-by-award-festival :nomination="nomination" :award-type="awardType" />
+              <movies-nomination-by-award-festival :nomination="nomination" />
             </template>
             <template v-else>
               <p class="mr-2">
                 <category-link
                   :category-name="nomination.category.name"
                   :award-name-short="awardNameShort"
-                  :award-type="awardType"
+                  award-type="movies"
                   >{{ nomination.category.name }}</category-link
                 >
               </p>
-              <nominatedPeople
+              <movies-nominated-people
                 v-if="nomination.hasOwnProperty('moviesNominatedPeople')"
                 :nominated-people="nomination.moviesNominatedPeople.nodes"
                 class="text-faded"
@@ -46,27 +46,24 @@
 </template>
 
 <script>
-import NominatedPeople from "@/components/NominatedPeople";
+import MoviesNominatedPeople from "@/components/MoviesNominatedPeople";
 import CategoryLink from "@/components/CategoryLink";
 import EditionLink from "@/components/EditionLink";
-import NominationByAwardFestival from "@/components/NominationByAwardFestival";
+import MoviesNominationByAwardFestival from "@/components/MoviesNominationByAwardFestival";
 export default {
-  name: "MovieNominationsByAward",
+  name: "MoviesMovieNominationsByAward",
   components: {
     EditionLink,
     CategoryLink,
-    NominatedPeople,
-    NominationByAwardFestival
+    MoviesNominatedPeople,
+    MoviesNominationByAwardFestival
   },
   props: {
     nominations: {
       type: Array,
       required: true
     },
-    awardType: {
-      type: String,
-      required: true
-    }
+
   },
   data() {
     return {
@@ -109,4 +106,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>

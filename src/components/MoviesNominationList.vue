@@ -1,14 +1,13 @@
 <template>
   <spinner v-if="$apollo.loading" class="indented" />
   <div v-else-if="nominations" class="mb-8 indented">
-    <nomination-list-festival
+    <movies-nomination-list-festival
       v-if="edition.award.isFestival"
       :nominations="nominations.nodes"
       :edition-date="edition.date"
       :award-name-short="edition.award.nameShort"
-      :award-type="awardType"
     />
-    <nomination-list-award v-else :nominations="nominations.nodes" :award-type="awardType" />
+    <movies-nomination-list-award v-else :nominations="nominations.nodes" :edition-date="edition.date" :award-name-short="edition.award.nameShort"/>
   </div>
   <p v-else class="indented">
     Hmm, something went wrong! Try reloading?
@@ -18,50 +17,44 @@
 <script>
 import gql from "graphql-tag";
 import Spinner from "@/components/Spinner.vue";
-import NominationListFestival from "./NominationListFestival";
-import NominationListAward from "./NominationListAward";
+import MoviesNominationListFestival from "./MoviesNominationListFestival";
+import MoviesNominationListAward from "./MoviesNominationListAward";
 import NominationListItem from "./NominationListItem";
 
 export default {
   name: "MoviesNominationList",
   components: {
-    NominationListAward,
-    NominationListFestival,
+    MoviesNominationListAward,
+    MoviesNominationListFestival,
     Spinner
   },
   props: {
     edition: {
       type: Object,
       required: true
-    },
-    awardType: {
-      type: String,
-      required: true
     }
   },
   data() {
     return {
-      nominations: null,
-      AwardType: this.$options.filters.capitalize(this.awardType),
-      AWARDTYPE: this.awardType.toUpperCase()
+      nominations: null
     };
   },
   apollo: {
     nominations: {
       query() {
-        const fragment = NominationListItem.fragments[`${this.awardType}Nomination`];
         return gql`
-          query ${this.awardType}Nominations($condition: ${this.AwardType}NominationCondition) {
-            ${this.awardType}Nominations(condition: $condition, orderBy:  ${
-          this.AWARDTYPE
-        }_CATEGORY_BY_CATEGORY_ID__ORDER_DESC) {
+          query moviesNominations($condition: MoviesNominationCondition) {
+            moviesNominations(
+              condition: $condition
+              orderBy: MOVIES_CATEGORY_BY_CATEGORY_ID__ORDER_DESC
+            ) {
               totalCount
               nodes {
-                ...${this.awardType}Nomination
+                ...moviesNomination
               }
             }
           }
-          ${fragment}
+          ${NominationListItem.fragments.moviesNomination}
         `;
       },
       variables() {
@@ -72,7 +65,7 @@ export default {
         };
       },
       update(data) {
-        return (this.nominations = data[`${this.awardType}Nominations`]);
+        return (this.nominations = data.moviesNominations);
       }
     }
   }

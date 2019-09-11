@@ -5,10 +5,15 @@
       <template v-slot="{ author, loading }">
         <spinner v-if="loading" />
         <section v-else-if="author" class="sm:flex mb-4">
-          <div class="mb-2 sm:mr-4 flex-none">
+          <figure class="mb-2 mt-2 sm:mr-4 flex-none">
             <person-headshot :image-url="author.image_url" w="200" />
-          </div>
+          </figure>
           <div class="md:w-2/3 lg:w-1/2">
+          <header class="mb-2 flex sm:items-center">
+          <h2 class="flex items-center flex-wrap leading-tight">
+            <span class="mr-2">{{ personName }}</span>
+          </h2>
+        </header>
             <truncate
               v-if="author.about"
               :text="author.about"
@@ -104,6 +109,10 @@ export default {
   },
   props: {
     personId: {
+      type: String,
+      required: true
+    },
+    personName: {
       type: String,
       required: true
     }

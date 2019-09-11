@@ -35,7 +35,7 @@ import Spinner from "@/components/Spinner";
 import ListTransition from "@/components/ListTransition";
 import MoviesCategoryEditionNominations from "@/components/MoviesCategoryEditionNominations";
 import MovieListItem from "../components/MovieListItem";
-import NominatedPerson from "../components/NominatedPerson";
+import MoviesNominatedPerson from "../components/MoviesNominatedPerson";
 
 export default {
   name: "MoviesCategoryNominations",
@@ -115,7 +115,7 @@ export default {
           }
         }
         ${MovieListItem.fragments.movie}
-        ${NominatedPerson.fragments.moviesNominatedPerson}
+        ${MoviesNominatedPerson.fragments.moviesNominatedPerson}
       `,
       variables() {
         return {

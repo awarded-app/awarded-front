@@ -9,7 +9,8 @@ export default new Router({
   routes: [
     {
       path: "/",
-      redirect: "/movies"
+      name: "Home",
+      component: () => import(/* webpackChunkName: "Home" */ "./views/Home.vue")
     },
     {
       path: "/about",
@@ -69,6 +70,6 @@ export default new Router({
       name: "bookView",
       props: route => ({ awardType: "books", ...route.params }),
       component: () => import(/* webpackChunkName: "bookView" */ "./views/BookView.vue")
-    },
+    }
   ]
 });

@@ -10,8 +10,8 @@
             : 'flex-col-reverse items-start lg:flex-row lg:flex-row-reverse'
         "
       >
-        <nominatedPeople
-          :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
+        <movies-nominated-people
+          :nominated-people="nomination.moviesNominatedPeople.nodes"
           class="mr-2 lg:mb-0"
           :class="display === 'person' ? 'font-semibold' : 'text-faded'"
         />
@@ -30,10 +30,10 @@
 
 <script>
 import MovieLink from "./MovieLink";
-import NominatedPeople from "./NominatedPeople";
+import MoviesNominatedPeople from "./MoviesNominatedPeople";
 export default {
-  name: "Nomination",
-  components: { NominatedPeople, MovieLink },
+  name: "MoviesMovieNomination",
+  components: { MoviesNominatedPeople, MovieLink },
   props: {
     nomination: {
       type: Object,
@@ -42,10 +42,6 @@ export default {
     display: {
       type: String,
       default: null
-    },
-    awardType: {
-      type: String,
-      required: true
     }
   }
 };

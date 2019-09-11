@@ -1,30 +1,35 @@
 <template>
   <ul>
-    <h4 class="text-faded mb-2 a-uppercase-info">Winners</h4>
+    <h4 class="text-faded mb-2 a-uppercase-info">
+      Winners<star-separator class="text-gray-300" /><edition-link
+              :award-name-short="awardNameShort"
+              :edition-date="editionDate"
+              award-type="movies"
+              >All Nominations</edition-link></a>
+    </h4>
     <list-transition>
       <li
-        v-for="(movieGroup, index) in winnerNominationsByMovie"
-        :key="movieGroup.movie.id"
+        v-for="(nominationGroup, index) in winnerNominationByMovie"
+        :key="nominationGroup[0].movie.id"
         :data-index="index"
         class="mb-4 sm:flex"
       >
         <figure class="mt-1 mr-2 mb-2 flex-none">
-          <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title"
-            ><movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100"
+          <movie-link :movie-id="nominationGroup[0].movie.id" :movie-title="nominationGroup[0].movie.title"
+            ><movie-poster :tmdb-id="nominationGroup[0].movie.tmdbId" w="100"
           /></movie-link>
         </figure>
         <article>
           <h4 class="mb-1">
-            <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">{{
-              movieGroup.movie.title
+            <movie-link :movie-id="nominationGroup[0].movie.id" :movie-title="nominationGroup[0].movie.title">{{
+              nominationGroup[0].movie.title
             }}</movie-link>
           </h4>
-          <nomination-credits
-            v-for="nomination in movieGroup.nominations"
+          <movies-nomination-credits
+            v-for="nomination in nominationGroup"
             :key="nomination.id"
             :has-star="true"
-            :nominated-people="nomination[`${awardType}NominatedPeople`].nodes"
-            :award-type="awardType"
+            :nominated-people="nomination.moviesNominatedPeople.nodes"
           />
         </article>
       </li>
@@ -36,29 +41,43 @@
 const groupBy = require("lodash.groupby");
 import MovieLink from "@/components/MovieLink";
 import MoviePoster from "@/components/MoviePoster";
-import NominationCredits from "@/components/NominationCredits";
+import MoviesNominationCredits from "@/components/MoviesNominationCredits";
 import ListTransition from "@/components/ListTransition";
+import EditionLink from "@/components/EditionLink";
+import StarSeparator from "@/components/StarSeparator";
 
 export default {
-  name: "NominationListAward",
+  name: "MoviesNominationListAward",
   components: {
     MoviePoster,
     MovieLink,
-    NominationCredits,
-    ListTransition
+    MoviesNominationCredits,
+    StarSeparator,
+    EditionLink,
+    ListTransition,
   },
   props: {
     nominations: {
       type: Array,
       required: true
     },
-    awardType: {
+    editionDate: {
+      type: String,
+      required: true
+    },
+    awardNameShort: {
       type: String,
       required: true
     }
   },
+
   computed: {
-    movies() {
+    winnerNominationByMovie() {
+      const nominationsByMovie = this.groupByMovie(this.nominations);
+      let winnersByMovie = this.getWinnerMovies(nominationsByMovie)
+      return this.sortMoviesByCategory(winnersByMovie);
+    }
+    /* winnerMovies() {
       const movies = [];
       this.winnerNominations.map(nomination => {
         if (movies.findIndex(movie => nomination.movie.id === movie.id) < 0) {
@@ -79,22 +98,19 @@ export default {
         });
       }
       return winnerNominationsByMovie;
-    },
-    winnerNominations() {
-      return this.nominations.filter(nomination => nomination.isWinner);
-    },
-    allNominationsByMovie() {
+    }, */
+/*     allNominationsByMovie() {
       return this.groupByMovie(this.nominations);
-    },
-    allWinnerNominationsByMovie() {
-      let winners = this.allNominationsByMovie
+    }, */
+
+  },
+  methods: {
+    getWinnerMovies(nominations) {
+      return nominations
         .map(movie => movie.filter(nomination => nomination.isWinner))
         .filter(movie => movie.length > 0);
 
-      return this.sortMoviesByCategory(winners);
-    }
-  },
-  methods: {
+    },
     groupByMovie(nominations) {
       return Object.values(groupBy(nominations, "movie.id"));
     },

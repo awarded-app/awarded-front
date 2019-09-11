@@ -16,7 +16,7 @@
               v-else
               :category-name="prizeGroup.prize.category.name"
               :award-name-short="prizeGroup.prize.award.nameShort"
-              :award-type="awardType"
+              award-type="movies"
               >{{ prizeGroup.prize.name }}</category-link
             >
           </p>
@@ -72,6 +72,7 @@ import PrizeLink from "./PrizeLink";
 import CategoryLink from "./CategoryLink";
 
 export default {
+  name: 'MoviesNominationCredits',
   components: {
     PersonLink,
     CategoryLink,
@@ -106,18 +107,14 @@ export default {
       type: Boolean,
       default: false
     },
-    awardType: {
-      type: String,
-      required: true
-    }
   },
   computed: {
     allPrizes() {
       if (!this.nominatedPeople.length) return this.prizes;
       const prizes = [];
       for (const nominatedPerson of this.nominatedPeople) {
-        if (!nominatedPerson.hasOwnProperty(`${this.awardType}NominatedPersonPrizes`)) break;
-        for (const { prize } of nominatedPerson[`${this.awardType}NominatedPersonPrizes`].nodes) {
+        if (!nominatedPerson.hasOwnProperty('moviesNominatedPersonPrizes')) break;
+        for (const { prize } of nominatedPerson.moviesNominatedPersonPrizes.nodes) {
           if (prizes.findIndex(p => p.id === prize.id) < 0) {
             prizes.push(prize);
           }
@@ -130,7 +127,7 @@ export default {
       const people = this.allPrizes.map(p => {
         const nominees = this.nominatedPeople.filter(
           nominatedPerson =>
-            nominatedPerson[`${this.awardType}NominatedPersonPrizes`].nodes.findIndex(
+            nominatedPerson.moviesNominatedPersonPrizes.nodes.findIndex(
               ({ prize }) => p.id === prize.id
             ) >= 0
         );

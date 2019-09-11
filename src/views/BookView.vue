@@ -4,21 +4,12 @@
       <breadcrumbs :prev-screen-params="prevScreenParams" award-type="books">{{
         book.title
       }}</breadcrumbs>
-      <article>
-        <header class="mb-2 flex sm:items-center">
-          <h2 class="flex items-center flex-wrap inline-block">
-            {{ book.title }}&nbsp;
-            <book-authors
-              :authors="book.booksBookAuthors.nodes"
-              class="text-faded leading-none mr-2"
-            />
-          </h2>
-        </header>
+      <div>
         <main>
           <spinner v-if="$apollo.loading" />
           <template v-else>
             <section id="book-details" class="sm:flex">
-              <div class="mb-2 sm:mr-4">
+              <div class="mb-2 mt-2 sm:mr-4">
                 <book-cover
                   :image-url="book.imageUrl"
                   w="150"
@@ -30,7 +21,18 @@
                   :kindle-asin="book.kindleAsin"
                 />
               </div>
-              <div class="sm:w-1/2">
+              <div class="md:w-2/3 lg:w-1/2">
+                <header class="mb-8">
+                  <h2 class="leading-tight">
+                    {{ book.title }}
+                  </h2>
+                  <p class="flex text-2xl items-center text-faded">
+                    by&nbsp;<book-authors
+                      :authors="book.booksBookAuthors.nodes"
+                      class="font-semibold"
+                    />
+                  </p>
+                </header>
                 <truncate
                   :text="book.description"
                   type="html"
@@ -42,40 +44,47 @@
                   class="mb-4"
                 />
 
-                <p v-if="book.numPages" class="text-faded mb-2">{{ book.numPages }} pages</p>
+                <p v-if="book.numPages" class="text-faded mb-2">
+                  {{ book.numPages }} pages
+                </p>
                 <!-- <book-links-ratings
                   :imdb-id="book.imdbId"
                   :tmdb-id="book.tmdbId"
                   :title="book.title"
                 />-->
-              </div>
-            </section>
-            <section id="book-nominations" class="pt-4">
-              <div v-if="bookStats" class="text-faded mb-4 a-uppercase-info">
-                {{ bookStats.nominations }}
-                {{ bookStats.nominations | pluralize("nomination") }}
-                <span v-if="bookStats.wins">
-                  <span class="text-xs mx-1 text-gray-700">★</span>
-                  {{ bookStats.wins }}
-                  {{ bookStats.wins | pluralize("win") }}
-                </span>
-              </div>
-              <div>
-                <list-transition>
+                <section id="book-nominations" class="border-t border-gray-300 pt-8 mt-8">
                   <div
-                    v-for="(awardNominations, index) in nominationsByAward"
-                    :key="index"
-                    :data-index="index"
-                    class="mb-4"
+                    v-if="bookStats"
+                    class="text-faded mb-4 a-uppercase-info"
                   >
-                    <book-nominations-by-award :nominations="awardNominations" />
+                    {{ bookStats.nominations }}
+                    {{ bookStats.nominations | pluralize("nomination") }}
+                    <span v-if="bookStats.wins">
+                      <span class="text-xs mx-1 text-gray-700">★</span>
+                      {{ bookStats.wins }}
+                      {{ bookStats.wins | pluralize("win") }}
+                    </span>
                   </div>
-                </list-transition>
+                  <div>
+                    <list-transition>
+                      <div
+                        v-for="(awardNominations, index) in nominationsByAward"
+                        :key="index"
+                        :data-index="index"
+                        class="mb-4"
+                      >
+                        <book-nominations-by-award
+                          :nominations="awardNominations"
+                        />
+                      </div>
+                    </list-transition>
+                  </div>
+                </section>
               </div>
             </section>
           </template>
         </main>
-      </article>
+      </div>
     </div>
   </layout>
 </template>

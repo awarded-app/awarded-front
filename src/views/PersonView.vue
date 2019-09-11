@@ -1,19 +1,18 @@
 <template>
   <layout :name="`${AwardType}Layout`">
     <div>
-      <breadcrumbs :prev-screen-params="prevScreenParams" :award-type="awardType">{{
-        personName
-      }}</breadcrumbs>
-      <article>
-        <header class="mb-2 flex sm:items-center">
-          <h2 class="flex items-center flex-wrap leading-tight">
-            <span class="mr-2">{{ personName }}</span>
-          </h2>
-        </header>
-        <main>
-          <component :is="`${AwardType}Person`" :person-id="personId" />
-        </main>
-      </article>
+      <breadcrumbs
+        :prev-screen-params="prevScreenParams"
+        :award-type="awardType"
+        >{{ personName }}</breadcrumbs
+      >
+      <div>
+        <component
+          :is="`${AwardType}Person`"
+          :person-id="personId"
+          :person-name="personName"
+        />
+      </div>
     </div>
   </layout>
 </template>

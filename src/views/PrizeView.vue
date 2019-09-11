@@ -46,7 +46,7 @@
                           }}</movie-link>
                         </p>
                       </div>
-                      <nomination-credits
+                      <movies-nomination-credits
                         :nominated-people="nominations"
                         :has-star="false"
                         :show-prize="false"
@@ -71,7 +71,7 @@ import gql from "graphql-tag";
 import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner.vue";
 import MoviePoster from "@/components/MoviePoster";
-import NominationCredits from "@/components/NominationCredits";
+import MoviesNominationCredits from "@/components/MoviesNominationCredits";
 import MovieLink from "@/components/MovieLink";
 import EditionLink from "@/components/EditionLink";
 
@@ -133,7 +133,7 @@ export default {
   components: {
     Spinner,
     MoviePoster,
-    NominationCredits,
+    MoviesNominationCredits,
     MovieLink,
     EditionLink,
     Layout

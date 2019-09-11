@@ -1,19 +1,24 @@
 <template>
   <spinner v-if="$apollo.loading" class="mt-4" />
   <div v-else>
-    <section id="person">
-      <div class="lg:w-2/3">
-        <person-headshot
-          :profile-path="person.profilePath"
-          w="200"
-          class="mb-2 sm:mr-4 sm:float-left"
-        />
+    <section id="person" class="sm:flex">
+      <figure class="mb-2 mt-2 sm:mr-4 flex-none">
+        <person-headshot :profile-path="person.profilePath" w="200" />
+      </figure>
+      <section class="lg:w-2/3">
+        <header class="mb-2 flex sm:items-center">
+          <h2 class="flex items-center flex-wrap leading-tight">
+            <span class="mr-2">{{ personName }}</span>
+          </h2>
+        </header>
+
         <p v-if="person.biography" class="text-faded mb-2">
           {{ person.biography }}
         </p>
-      </div>
-      <div class="clearfix">
-        <p v-if="person.deathday">&#10013; {{ person.deathday | formatDate("Do MMMM YY") }}</p>
+
+        <p v-if="person.deathday">
+          &#10013; {{ person.deathday | formatDate("Do MMMM YY") }}
+        </p>
         <p v-else-if="person.birthday">
           {{ person.birthday | age }}<span class="text-faded "> years old</span>
         </p>
@@ -22,36 +27,55 @@
           {{ person.placeOfBirth }}
         </p>
         <p>
-          <person-social-links :tmdb-id="person.tmdbId" :imdb-id="person.imdbId" />
+          <person-social-links
+            :tmdb-id="person.tmdbId"
+            :imdb-id="person.imdbId"
+          />
         </p>
-      </div>
+      </section>
     </section>
     <!-- NOMINATIONS -->
     <section id="movie-nominations" class="pt-4">
       <p class="text-faded mb-4 a-uppercase-info">
-        {{ stats.nominations | pluralize("nomination", { includeNumber: true }) }}
-        <star-separator />{{ stats.wins | pluralize("win", { includeNumber: true }) }}
+        {{
+          stats.nominations | pluralize("nomination", { includeNumber: true })
+        }}
+        <star-separator />{{
+          stats.wins | pluralize("win", { includeNumber: true })
+        }}
       </p>
-      <div class="xl:flex xl:flex-wrap">
+      <div class="lg:flex lg:flex-wrap">
         <div
           v-for="(movieGroup, index) in nominationsByMovie"
           :key="index"
-          class="md:flex w-full xl:w-1/3 xl:mr-4"
+          class="w-50% lg:mr-4 mb-4"
         >
           <div class="md:flex">
             <div class="mr-2 flex-none">
-              <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">
+              <movie-link
+                :movie-id="movieGroup.movie.id"
+                :movie-title="movieGroup.movie.title"
+              >
                 <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
               </movie-link>
             </div>
             <div>
               <h3 class="mb-1">
-                <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">
+                <movie-link
+                  :movie-id="movieGroup.movie.id"
+                  :movie-title="movieGroup.movie.title"
+                >
                   {{ movieGroup.movie.title }}
                 </movie-link>
               </h3>
-              <div v-for="({ nominations }, i) in movieGroup.nominations" :key="i">
-                <movie-nominations-by-award :nominations="nominations" award-type="movies" />
+              <div
+                v-for="({ nominations }, i) in movieGroup.nominations"
+                :key="i"
+              >
+                <movies-movie-nominations-by-award
+                  :nominations="nominations"
+                  award-type="movies"
+                />
               </div>
             </div>
           </div>
@@ -70,10 +94,8 @@ import PersonSocialLinks from "@/components/PersonSocialLinks";
 import PersonHeadshot from "@/components/PersonHeadshot";
 import MoviePoster from "@/components/MoviePoster";
 import MovieLink from "@/components/MovieLink";
-import CategoryLink from "@/components/CategoryLink";
-import EditionLink from "@/components/EditionLink";
 import StarSeparator from "@/components/StarSeparator";
-import MovieNominationsByAward from "@/components/MovieNominationsByAward";
+import MoviesMovieNominationsByAward from "@/components/MoviesMovieNominationsByAward";
 
 export default {
   name: "MoviesPerson",
@@ -81,15 +103,17 @@ export default {
     Spinner,
     PersonHeadshot,
     PersonSocialLinks,
-    MovieNominationsByAward,
+    MoviesMovieNominationsByAward,
     StarSeparator,
-    EditionLink,
-    CategoryLink,
     MovieLink,
     MoviePoster
   },
   props: {
     personId: {
+      type: String,
+      required: true
+    },
+    personName: {
       type: String,
       required: true
     }
@@ -140,7 +164,9 @@ export default {
     nominatedPeople: {
       query() {
         return gql`
-          query moviesNominatedPeople($condition: MoviesNominatedPersonCondition) {
+          query moviesNominatedPeople(
+            $condition: MoviesNominatedPersonCondition
+          ) {
             moviesNominatedPeople(condition: $condition) {
               totalCount
               nodes {
@@ -191,19 +217,23 @@ export default {
         };
       },
       update(data) {
-        return (this.nominations = data.moviesNominatedPeople.nodes.map(node => {
-          return {
-            ...node.nomination,
-            prizes: { ...node.moviesNominatedPersonPrizes }
-          };
-        }));
+        return (this.nominations = data.moviesNominatedPeople.nodes.map(
+          node => {
+            return {
+              ...node.nomination,
+              prizes: { ...node.moviesNominatedPersonPrizes }
+            };
+          }
+        ));
       }
     }
   },
   computed: {
     nominationsByMovie() {
       if (!this.nominations) return null;
-      let sortedNominations = Object.values(groupBy(this.nominations, "movie.id"));
+      let sortedNominations = Object.values(
+        groupBy(this.nominations, "movie.id")
+      );
       sortedNominations = sortedNominations.map(nomination => {
         return {
           movie: { ...nomination[0].movie },
@@ -223,7 +253,11 @@ export default {
         movie.nominations = nomByAward;
       }
 
-      sortedNominations = orderBy(sortedNominations, "nominations[0].edition.date", "desc");
+      sortedNominations = orderBy(
+        sortedNominations,
+        "nominations[0].edition.date",
+        "desc"
+      );
       return sortedNominations;
     },
 

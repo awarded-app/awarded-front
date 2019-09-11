@@ -6,7 +6,7 @@
         <category-link
           :award-name-short="category.award.nameShort"
           :category-name="category.name"
-          :award-type="awardType"
+          award-type="books"
           >{{ category.name }}</category-link
         >
       </h3>
@@ -80,10 +80,6 @@ export default {
       type: Object,
       required: true
     },
-    awardType: {
-      type: String,
-      required: true
-    }
   },
   data() {
     return {

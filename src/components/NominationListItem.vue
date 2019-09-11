@@ -6,7 +6,7 @@
 import gql from "graphql-tag";
 
 import MovieListItem from "./MovieListItem";
-import NominatedPerson from "./NominatedPerson";
+import MoviesNominatedPerson from "./MoviesNominatedPerson";
 import CategoryListItem from "./CategoryListItem";
 export default {
   fragments: {
@@ -28,7 +28,7 @@ export default {
         isWinner
       }
       ${MovieListItem.fragments.movie}
-      ${NominatedPerson.fragments.moviesNominatedPerson}
+      ${MoviesNominatedPerson.fragments.moviesNominatedPerson}
       ${CategoryListItem.fragments.moviesCategory}
     `,
     booksNomination: gql`

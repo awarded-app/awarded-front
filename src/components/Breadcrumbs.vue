@@ -61,7 +61,7 @@ export default {
   },
   data() {
     return {
-      theAwardType: this.$route.params.awardType || this.awardType
+      theAwardType: this.$route.params.awardType || this.prevScreenParams.awardType || this.awardType
     };
   }
 };

@@ -20,13 +20,7 @@
         <component :is="`${AwardType}EditionListItemDetails`" :edition="edition" />
       </header>
       <section class="w-full">
-        <component
-          :is="`${AwardType}NominationList`"
-          v-if="showNominations"
-          :edition="edition"
-          :award-type="awardType"
-        />
-        <!-- <nomination-list v-if="showNominations" :edition="edition" :award-type="awardType" /> -->
+        <component :is="`${AwardType}NominationList`" v-if="showNominations" :edition="edition" />
       </section>
     </article>
   </li>

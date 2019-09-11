@@ -1,7 +1,7 @@
 <template>
   <layout :name="`${AwardType}Layout`">
     <div>
-      <breadcrumbs :prev-screen-params="{ nameShort }">{{ editionYear }}</breadcrumbs>
+      <breadcrumbs :prev-screen-params="{ nameShort }" :award-type="awardType">{{ editionYear }}</breadcrumbs>
       <article>
         <header class="flex sm:items-center mb-2">
           <h2 class="flex items-center flex-wrap">
@@ -31,7 +31,6 @@
                 :data-index="index"
                 :category="category"
                 :is-festival="award.isFestival"
-                :award-type="awardType"
                 class="mb-8"
               />
             </list-transition>

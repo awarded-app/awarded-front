@@ -1,34 +1,6 @@
 <template>
   <div class="min-h-full flex flex-col items-stretch antialiased">
-    <nav
-      class="mb-4 flex flex-shrink-0 justify-between items-center flex-wrap sm:flex-row-reverse"
-      :class="$route.name.includes('home') ? 'indented' : ''"
-    >
-      <ul class="text-faded a-uppercase-info flex">
-        <!-- <li class="mr-4">Articles</li> -->
-        <li class="mr-4 mb-2">
-          <a href="/books" class="title-link font-bold">BOOKS</a>
-        </li>
-        <li class="mr-4 mb-2">
-          <router-link to="/about" class="title-link">Learn more</router-link>
-        </li>
-        <li>
-          <a
-            href="http://eepurl.com/dnFggL"
-            target="_blank"
-            rel="noopener"
-            class="link-external title-link"
-            >Subscribe</a
-          >
-        </li>
-      </ul>
-      <router-link to="/movies">
-        <h1 class="font-bold text-4xl flex flex-col md:flex-row leading-tight mb-2">
-          <span class="mr-2 -mb-2 md:mb-0">AWARDED</span>
-          <span class="text-faded uppercase">MOVIES</span>
-        </h1>
-      </router-link>
-    </nav>
+    <base-nav award-type="movies"/>
     <main class="flex-1 flex-shrink-0 mb-8">
       <slot />
     </main>
@@ -37,6 +9,7 @@
 </template>
 <script>
 import BaseFooter from "@/components/BaseFooter";
+import BaseNav from "@/components/BaseNav";
 
 export default {
   name: "MoviesLayout",
@@ -53,7 +26,8 @@ export default {
     ]
   },
   components: {
-    BaseFooter
+    BaseNav,
+    BaseFooter,
   }
 };
 </script>

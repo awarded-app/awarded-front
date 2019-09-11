@@ -10,7 +10,7 @@
         class="text-white mr-2"
         >{{ nominatedPerson.prize.name }}</span
       >
-      <nominated-person :nominated-person="nominatedPerson" /><span
+      <movies-nominated-person :nominated-person="nominatedPerson" /><span
         v-if="index != nominatedPeople.length - 1"
         >,&nbsp;</span
       >
@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import NominatedPerson from "./NominatedPerson";
+import MoviesNominatedPerson from "./MoviesNominatedPerson";
 export default {
-  name: "NominatedPeople",
-  components: { NominatedPerson },
+  name: "MoviesNominatedPeople",
+  components: { MoviesNominatedPerson },
   props: {
     nominatedPeople: {
       type: Array,

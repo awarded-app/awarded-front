@@ -6,7 +6,7 @@
     v-bind="data.attrs"
     v-on="listeners"
   >
-    <p class="pt-8 mb-2 border-t border-gray-800">
+    <p class="pt-8 mb-2 border-t border-gray-500">
       Made with &#9829; by
       <a
         href="https://twitter.com/danrocc"

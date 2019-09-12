@@ -44,19 +44,14 @@
                   class="mb-4"
                 />
 
-                <p v-if="book.numPages" class="text-faded mb-2">
-                  {{ book.numPages }} pages
-                </p>
+                <p v-if="book.numPages" class="text-faded mb-2">{{ book.numPages }} pages</p>
                 <!-- <book-links-ratings
                   :imdb-id="book.imdbId"
                   :tmdb-id="book.tmdbId"
                   :title="book.title"
                 />-->
                 <section id="book-nominations" class="border-t border-gray-300 pt-8 mt-8">
-                  <div
-                    v-if="bookStats"
-                    class="text-faded mb-4 a-uppercase-info"
-                  >
+                  <div v-if="bookStats" class="text-faded mb-4 a-uppercase-info">
                     {{ bookStats.nominations }}
                     {{ bookStats.nominations | pluralize("nomination") }}
                     <span v-if="bookStats.wins">
@@ -73,9 +68,7 @@
                         :data-index="index"
                         class="mb-4"
                       >
-                        <book-nominations-by-award
-                          :nominations="awardNominations"
-                        />
+                        <book-nominations-by-award :nominations="awardNominations" />
                       </div>
                     </list-transition>
                   </div>
@@ -112,7 +105,7 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `${bookTitle}: nominations and wins in all Awards and Festivals.`
+          content: `${bookTitle}: nominations and wins in all awards`
         }
       ]
     };

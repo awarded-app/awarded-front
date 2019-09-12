@@ -54,7 +54,7 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `Explore all past editions of the ${nameShort}.`
+          content: `${nameShort}: Explore all past editions`
         }
       ]
     };

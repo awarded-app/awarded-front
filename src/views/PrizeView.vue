@@ -125,7 +125,7 @@ export default {
           name: "description",
           content: `${this.categoryName} winners and nominees in all editions of the ${
             this.nameShort
-          }.`
+          }`
         }
       ]
     };

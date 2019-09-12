@@ -1,7 +1,9 @@
 <template>
   <layout :name="`${AwardType}Layout`">
     <div>
-      <breadcrumbs :prev-screen-params="{ nameShort }" :award-type="awardType">{{ editionYear }}</breadcrumbs>
+      <breadcrumbs :prev-screen-params="{ nameShort }" :award-type="awardType">{{
+        editionYear
+      }}</breadcrumbs>
       <article>
         <header class="flex sm:items-center mb-2">
           <h2 class="flex items-center flex-wrap leading-tight">
@@ -60,9 +62,9 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `Winners and nominees in all categories of the ${this.nameShort} ${
+          content: `${this.nameShort} ${
             this.editionYear
-          } (${editionName})`
+          } (${editionName}): winners and nominees in all categories`
         }
       ]
     };

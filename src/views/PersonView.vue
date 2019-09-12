@@ -31,7 +31,7 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `${this.personName}: nominations and wins in all Awards and Festivals.`
+          content: `${this.personName}: nominations and wins in all Awards and Festivals`
         }
       ]
     };

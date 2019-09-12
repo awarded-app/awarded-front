@@ -49,7 +49,7 @@ export default {
       {
         vmid: "description",
         name: "description",
-        content: "Keep track of the most important awards and festival."
+        content: "Keep track of the most important film and book awards and festivals"
       }
     ]
   },

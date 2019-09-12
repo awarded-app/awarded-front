@@ -35,17 +35,10 @@
                 <span class="mr-1">{{ movie.originalTitle }}</span
                 ><span class="text-faded">Original Title</span>
               </p>
-              <p
-                v-if="movie.moviesMovieGenres.totalCount > 0"
-                class="text-faded"
-              >
-                <span
-                  v-for="({ genre }, index) in movie.moviesMovieGenres.nodes"
-                  :key="index"
+              <p v-if="movie.moviesMovieGenres.totalCount > 0" class="text-faded">
+                <span v-for="({ genre }, index) in movie.moviesMovieGenres.nodes" :key="index"
                   >{{ genre.name
-                  }}<span v-if="index < movie.moviesMovieGenres.totalCount - 1"
-                    >,
-                  </span></span
+                  }}<span v-if="index < movie.moviesMovieGenres.totalCount - 1">, </span></span
                 >
               </p>
               <p class="text-faded mb-2">{{ movie.runtime }} minutes</p>
@@ -62,7 +55,7 @@
               />
             </main>
 
-          <spinner v-if="$apollo.loading" />
+            <spinner v-if="$apollo.loading" />
 
             <section v-else id="movie-nominations" class="pt-8 mt-8 border-t border-gray-700">
               <div v-if="movieStats" class="text-faded mb-4 a-uppercase-info">
@@ -82,15 +75,11 @@
                     :data-index="index"
                     class="mb-4"
                   >
-                    <movies-movie-nominations-by-award
-                      :nominations="awardNominations"
-                    />
+                    <movies-movie-nominations-by-award :nominations="awardNominations" />
                   </div>
                 </list-transition>
               </div>
             </section>
-
-
           </section>
         </section>
       </div>
@@ -122,7 +111,7 @@ export default {
         {
           vmid: "description",
           name: "description",
-          content: `${movieTitle} (${movieYear}): nominations and wins in all Awards and Festivals.`
+          content: `${movieTitle} (${movieYear}): nominations and wins in all Awards and Festivals`
         }
       ]
     };
@@ -217,9 +206,7 @@ export default {
       this.movie.moviesNominations.nodes.map(nomination => {
         if (nomination.isWinner) {
           return (wins += 1);
-        } else if (
-          nomination.moviesNominatedPeople.nodes.some(person => person.prize)
-        ) {
+        } else if (nomination.moviesNominatedPeople.nodes.some(person => person.prize)) {
           return (wins += 1);
         }
       });

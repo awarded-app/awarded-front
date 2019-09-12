@@ -32,7 +32,7 @@
 import MovieLink from "./MovieLink";
 import MoviesNominatedPeople from "./MoviesNominatedPeople";
 export default {
-  name: "MoviesMovieNomination",
+  name: "MoviesNominationAward",
   components: { MoviesNominatedPeople, MovieLink },
   props: {
     nomination: {

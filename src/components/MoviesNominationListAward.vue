@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <h4 class="text-faded mb-2 a-uppercase-info">
+    <h4 class="text-faded mb-4 a-uppercase-info">
       Winners<star-separator class="text-gray-300" /><edition-link
               :award-name-short="awardNameShort"
               :edition-date="editionDate"
@@ -12,7 +12,7 @@
         v-for="(nominationGroup, index) in winnerNominationByMovie"
         :key="nominationGroup[0].movie.id"
         :data-index="index"
-        class="mb-4 sm:flex"
+        class="mb-4 flex"
       >
         <figure class="mt-1 mr-2 mb-2 flex-none">
           <movie-link :movie-id="nominationGroup[0].movie.id" :movie-title="nominationGroup[0].movie.title"
@@ -29,6 +29,7 @@
             v-for="nomination in nominationGroup"
             :key="nomination.id"
             :has-star="true"
+            :show-people="nomination.category.display === 'person'"
             :nominated-people="nomination.moviesNominatedPeople.nodes"
           />
         </article>

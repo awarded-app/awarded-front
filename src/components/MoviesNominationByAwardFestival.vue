@@ -1,16 +1,20 @@
 <template>
-  <ul class="text-xl mb-2">
-    <li class="mr-2 text-faded font-semibold">
+  <div class="text-xl mb-2">
+    <p class="mr-2 text-faded font-semibold">
       {{ nomination.category.name }}
-    </li>
+    </p>
+
+
     <movies-nomination-credits
       :nominated-people="nominatedPeople.people"
       :prizes="nominatedPeople.prizes"
       :is-festival="true"
       :show-job="true"
 
+
     />
-  </ul>
+
+  </div>
 </template>
 
 <script>

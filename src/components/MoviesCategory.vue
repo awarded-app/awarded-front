@@ -28,7 +28,7 @@
       </template>
       <template v-else>
         <list-transition>
-          <movies-movie-nomination
+          <movies-nomination-award
             v-for="(nomination, index) in category.moviesNominations.nodes"
             :key="nomination.id"
             :data-index="index"
@@ -44,7 +44,7 @@
 
 <script>
 const orderBy = require("lodash.orderby");
-import MoviesMovieNomination from "../components/MoviesMovieNomination";
+import MoviesNominationAward from "../components/MoviesNominationAward";
 import MoviesNominationFestival from "../components/MoviesNominationFestival";
 import CategoryPosters from "../components/CategoryPosters";
 import CategoryLink from "../components/CategoryLink";
@@ -54,7 +54,7 @@ export default {
   name: "Category",
   components: {
     MoviesNominationFestival,
-    MoviesMovieNomination,
+    MoviesNominationAward,
     CategoryLink,
     CategoryPosters,
     ListTransition

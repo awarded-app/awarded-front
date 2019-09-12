@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <h4 class="text-faded mb-2 a-uppercase-info">
+    <h4 class="text-faded mb-4 a-uppercase-info">
       Winners (Official Competition)
       <star-separator />
       <edition-link
@@ -17,27 +17,26 @@
         :data-index="index"
         class="mb-4 flex"
       >
-        <figure class="mt-1 mr-2 hidden sm:block flex-none">
+        <figure class="mt-1 mr-2 mb-2 flex-none">
           <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title"
             ><movie-poster :tmdb-id="nomination.movie.tmdbId" w="100" h="150"
           /></movie-link>
         </figure>
-        <article>
-          <header class="flex items-center">
-            <!-- <star :is-winner="true" class="text-base mr-2 mb-1 md:mb-0" /> -->
+        <div >
+
             <h4>
               <movie-link :movie-id="nomination.movie.id" :movie-title="nomination.movie.title">{{
                 nomination.movie.title
               }}</movie-link>
             </h4>
-          </header>
+
           <movies-nomination-credits
             :nominated-people="nomination.moviesNominatedPeople.nodes"
             :has-star="true"
             :is-festival="true"
 
           />
-        </article>
+        </div>
       </li>
     </list-transition>
   </ul>

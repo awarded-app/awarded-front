@@ -4,7 +4,7 @@
       <breadcrumbs :prev-screen-params="{ nameShort }" :award-type="awardType">{{ editionYear }}</breadcrumbs>
       <article>
         <header class="flex sm:items-center mb-2">
-          <h2 class="flex items-center flex-wrap">
+          <h2 class="flex items-center flex-wrap leading-tight">
             <span class="mr-2 font-mono">{{ editionYear }}</span>
             <span class="text-faded">{{
               edition.name.includes(editionYear) ? nameShort : edition.name

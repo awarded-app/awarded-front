@@ -1,6 +1,6 @@
 <template>
   <ul v-if="peopleByPrize.length > 0">
-    <li v-for="prizeGroup in peopleByPrize" :key="prizeGroup.prize.id" class="flex flex-wrap">
+    <li v-for="prizeGroup in peopleByPrize" :key="prizeGroup.prize.id" class="flex">
       <div class="flex">
         <star v-if="hasStar" />
         <div class="flex items-center">
@@ -22,9 +22,8 @@
           </p>
         </div>
       </div>
-      <ul
+      <ul v-if="showPeople"
         class="flex flex-wrap"
-        :class="hasStar && showPrize ? 'pl-6 md:pl-0' : ''"
         v-bind="$attrs"
       >
         <li v-for="(credit, index) in prizeGroup.people" :key="credit.id">
@@ -43,7 +42,7 @@
   </ul>
   <ul v-else>
     <ul class="flex flex-wrap" :class="hasStar && showPrize ? 'pl-6 md:pl-0' : ''" v-bind="$attrs">
-      <template v-if="nominatedPeople.length">
+      <template v-if="nominatedPeople.length && showPeople">
         <li v-for="(credit, index) in nominatedPeople" :key="credit.id">
           <p :class="display === 'movie' ? 'text-faded' : 'text-white'">
             <person-link
@@ -102,6 +101,10 @@ export default {
     display: {
       type: String,
       default: "movie"
+    },
+    showPeople: {
+      type: Boolean,
+      default: true
     },
     showJob: {
       type: Boolean,

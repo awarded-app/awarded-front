@@ -9,9 +9,6 @@ import "./plugins/Filters";
 
 import "./assets/tailwind.css";
 
-import VuePageTransition from "vue-page-transition";
-Vue.use(VuePageTransition);
-
 Vue.use(VueMeta);
 //GLOBAL COMPONENTS
 Vue.component("font-awesome-icon", FontAwesomeIcon);

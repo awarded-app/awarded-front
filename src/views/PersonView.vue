@@ -1,17 +1,11 @@
 <template>
   <layout :name="`${AwardType}Layout`">
     <div>
-      <breadcrumbs
-        :prev-screen-params="prevScreenParams"
-        :award-type="awardType"
-        >{{ personName }}</breadcrumbs
-      >
+      <breadcrumbs :prev-screen-params="prevScreenParams" :award-type="awardType">{{
+        personName
+      }}</breadcrumbs>
       <div>
-        <component
-          :is="`${AwardType}Person`"
-          :person-id="personId"
-          :person-name="personName"
-        />
+        <component :is="`${AwardType}Person`" :person-id="personId" :person-name="personName" />
       </div>
     </div>
   </layout>

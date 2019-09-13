@@ -29,7 +29,7 @@
           @click.stop="$router.push(`/${awardType}`)"
         >
           <span class="mr-2">{{cta}}</span
-          ><font-awesome-icon icon="arrow-circle-right" />
+          ><font-awesome-icon :icon="arrowCircleRightIcon"></font-awesome-icon>
         </button>
       </p>
       <ul v-if="!$apollo.queries.items.loading" class="image-grid mx-auto mb-4 md:mb-0 md:mr-8">
@@ -63,6 +63,8 @@ import MoviePoster from "@/components/MoviePoster";
 import AwardLink from "@/components/AwardLink";
 import BookLink from "@/components/BookLink";
 import MovieLink from "@/components/MovieLink";
+import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default {
   name: 'HomeCta',
   props: {
@@ -77,12 +79,14 @@ export default {
     MovieLink,
     BookLink,
     AwardLink
+    FontAwesomeIcon
   },
   data() {
     return {
       AwardType: this.$options.filters.capitalize(this.awardType),
       amount: 24,
       cta: this.awardType === 'movies' ? 'Find the next movie to watch' : 'Find the next book to read'
+      arrowCircleRightIcon: faArrowCircleRight
     }
   },
   apollo: {

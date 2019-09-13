@@ -1,4 +1,6 @@
 //const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const ContextReplacementPlugin = require("webpack").ContextReplacementPlugin;
+const supportedLocales = ["en"];
 
 module.exports = {
   devServer: {
@@ -16,8 +18,13 @@ module.exports = {
       }
     }
   },
-  /* configureWebpack: {
-    plugins: [new BundleAnalyzerPlugin()],
-  }, */
-
+  configureWebpack: {
+    plugins: [
+      new ContextReplacementPlugin(
+        /date\-fns[\/\\]/,
+        new RegExp(`[/\\\\\](${supportedLocales.join("|")})[/\\\\\]`)
+      )
+      //new BundleAnalyzerPlugin()
+    ]
+  }
 };

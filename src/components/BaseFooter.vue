@@ -19,7 +19,7 @@
     </p>
     <ul>
       <li>
-        <router-link to="/about" class="title-link text-main">Learn more</router-link>
+        <router-link to="/about" class="title-link text-main">About</router-link>
       </li>
       <li>
         <a

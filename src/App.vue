@@ -1,14 +1,18 @@
 <template>
   <component :is="layout">
-    <vue-page-transition name="fade-in-right">
+    <page-transition name="fade-in-right">
       <router-view :layout.sync="layout" />
-    </vue-page-transition>
+    </page-transition>
   </component>
 </template>
 
 <script>
+import PageTransition from "@/components/PageTransition";
 export default {
   name: "App",
+  components: {
+    PageTransition
+  },
   data() {
     return {
       layout: "div"

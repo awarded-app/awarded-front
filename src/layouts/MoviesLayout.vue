@@ -21,7 +21,7 @@ export default {
         vmid: "description",
         name: "description",
         content:
-          "Keep track of the most important movie awards and festivals. Find the next movie to watch."
+          "Keep track of award winning movies. Find the next movie to watch."
       }
     ]
   },

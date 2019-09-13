@@ -11,7 +11,7 @@
         }}</a>
       </li>
       <li class="mr-4 mb-2">
-        <router-link to="/about" class="title-link">Learn more</router-link>
+        <router-link to="/about" class="title-link">About</router-link>
       </li>
       <li>
         <a

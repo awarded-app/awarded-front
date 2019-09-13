@@ -52,7 +52,6 @@
                         :show-prize="false"
                         :display="prize.display"
                         class="indented"
-                        :award-type="awardType"
                       />
                     </li>
                   </ul>

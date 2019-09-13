@@ -1,12 +1,12 @@
 <template>
 
-  <div class="card flex-grow rounded shadow  p-8 mr-4 mb-8 border justify-between flex flex-col"
+  <div class="rounded shadow py-8 px-4  border justify-between flex flex-col"
   :class="awardType === 'movies' ? 'bg-gray-900 text-white border-gray-900 hover:border-yellow-500' : 'bg-gray-100 text-gray-800 border-gray-100 hover:border-red-600'"
   >
-    <section class="card-inside flex flex-col justify-between mb-6">
+    <section class="mx-auto flex flex-col justify-between mb-6">
       <h2 class="-mt-2"><a :href="`/${awardType}`" class="title-link" :class="`${awardType}-link`">{{awardType.toUpperCase()}}</a></h2>
       <p class="mb-4">
-        Keep track of the most important <span v-if="awardType === 'movies'">film awards and festivals.</span><span v-else-if="awardType === 'books'">book awards.</span>
+        Keep track of award winning <span v-if="awardType === 'movies'">movies.</span><span v-else-if="awardType === 'books'">books.</span>
       </p>
       <ul v-if="!$apollo.queries.awards.loading" class="mb-4">
         <li v-for="award in awards.nodes" :key="award.id">
@@ -19,7 +19,7 @@
         </li>
       </ul>
     </section>
-    <section class="card-inside">
+    <section>
       <p class="mb-6">
         <button
           class="p-2 rounded shadow w-full h-12 font-semibold hover:shadow-lg"
@@ -32,7 +32,7 @@
           ><font-awesome-icon :icon="arrowCircleRightIcon"></font-awesome-icon>
         </button>
       </p>
-      <ul v-if="!$apollo.queries.items.loading" class="image-grid mx-auto mb-4 md:mb-0 md:mr-8">
+      <ul v-if="!$apollo.queries.items.loading" class="image-grid ">
         <li v-for="item in items.nodes.slice(0, 6)" :key="item.id">
           <template v-if="awardType === 'movies'">
             <movie-link :movie-id="item.id" :movie-title="item.title">
@@ -67,25 +67,25 @@ import { faArrowCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default {
   name: 'HomeCta',
+  components: {
+    MoviePoster,
+    BookCover,
+    MovieLink,
+    BookLink,
+    AwardLink,
+    FontAwesomeIcon
+  },
   props: {
     awardType: {
       type: String,
       required: true
     },
   },
-  components: {
-    MoviePoster,
-    BookCover,
-    MovieLink,
-    BookLink,
-    AwardLink
-    FontAwesomeIcon
-  },
   data() {
     return {
       AwardType: this.$options.filters.capitalize(this.awardType),
       amount: 24,
-      cta: this.awardType === 'movies' ? 'Find the next movie to watch' : 'Find the next book to read'
+      cta: this.awardType === 'movies' ? 'Find the next movie to watch' : 'Find the next book to read',
       arrowCircleRightIcon: faArrowCircleRight
     }
   },
@@ -151,20 +151,16 @@ export default {
 </script>
 
 <style scoped>
-.card-inside, .image-grid {
-  width: 310px;
-  @apply mx-auto;
-}
+
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(auto-fit, 100px);
   grid-gap: 5px;
+  justify-content: center;
 }
 .image {
   width: 100px;
   height: 150px;
 }
-.card {
-  max-width: 410px;
-}
+
 </style>

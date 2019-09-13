@@ -1,8 +1,11 @@
 <template>
   <layout name="HomeLayout">
-    <div class="flex flex-wrap justify-around">
+    <div class="mx-auto">
+
+    <div class="home-cta-cards">
       <home-cta award-type="movies"/>
       <home-cta award-type="books"/>
+    </div>
     </div>
   </layout>
 </template>
@@ -25,4 +28,11 @@ export default {
 };
 </script>
 
-
+<style>
+.home-cta-cards {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+  justify-content: center;
+}
+</style>

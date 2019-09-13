@@ -10,7 +10,7 @@
           <a href="/books" class="title-link home-link font-bold">BOOKS</a>
         </li>
         <li class="mr-4 mb-2">
-          <router-link to="/about" class="title-link home-link">Learn more</router-link>
+          <router-link to="/about" class="title-link home-link">About</router-link>
         </li>
         <li>
           <a
@@ -27,8 +27,8 @@
           AWARDED
         </h1>
       </router-link>
-      <p class="text-lg font-semibold">
-        Discover your next movie or book, awarded by experts.
+      <p class="text-lg font-semibold text-center">
+        Discover your next award winning book or movie.
       </p>
     </nav>
     <main class="flex-1 flex-shrink-0 mb-8">
@@ -49,7 +49,7 @@ export default {
       {
         vmid: "description",
         name: "description",
-        content: "Keep track of the most important film and book awards and festivals"
+        content: "Keep track of award winning books and movies from the most important awards and festivals"
       }
     ]
   },

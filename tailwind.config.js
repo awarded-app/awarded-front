@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Asap", "Inter", ...defaultTheme.fontFamily.sans]
+        sans: ["Asap", ...defaultTheme.fontFamily.sans]
       }
     }
   },

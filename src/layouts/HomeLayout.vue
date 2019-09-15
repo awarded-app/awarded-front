@@ -49,7 +49,8 @@ export default {
       {
         vmid: "description",
         name: "description",
-        content: "Keep track of award winning books and movies from the most important awards and festivals"
+        content:
+          "Keep track of award winning books and movies from the most important awards and festivals"
       }
     ]
   },
@@ -60,42 +61,35 @@ export default {
 </script>
 
 <style>
-:root {
-  --homeMainColor: #e2e8f0;
-  --homeDarkGray: #718096;
-  --moviesMainColor: #ecc94b;
-  --moviesDarkGray: #2d3748;
-  --booksMainColor: #c53030;
-  --booksDarkGray: #e2e8f0;
-}
 body,
 html {
-  @apply bg-gray-800 text-white;
+  color: var(--homeTextColor);
+  background-color: var(--homeBgColor);
 }
 
 a.link-external::after {
-  @apply text-gray-500;
+  color: var(--homeFadedColor);
 }
 
 .text-faded {
-  @apply text-gray-500;
+  color: var(--homeFadedColor);
 }
 .text-main {
-  @apply text-white;
+  color: var(--homeTextColor);
 }
 
 a.movies-link,
 a.movies-link:visited {
   background-image: linear-gradient(
       transparent 2px,
-      var(--moviesMainColor) 2px,
-      var(--moviesMainColor) 4px,
+      var(--moviesAccentColor) 2px,
+      var(--moviesAccentColor) 4px,
       transparent 4px
     ),
     linear-gradient(
       transparent 2px,
-      var(--moviesDarkGray) 2px,
-      var(--moviesDarkGray) 4px,
+      var(--moviesExtraFadedColor) 2px,
+      var(--moviesExtraFadedColor) 4px,
       transparent 4px
     );
 }
@@ -103,14 +97,14 @@ a.home-link,
 a.home-link:visited {
   background-image: linear-gradient(
       transparent 2px,
-      var(--homeMainColor) 2px,
-      var(--homeMainColor) 4px,
+      var(--homeAccentColor) 2px,
+      var(--homeAccentColor) 4px,
       transparent 4px
     ),
     linear-gradient(
       transparent 2px,
-      var(--homeDarkGray) 2px,
-      var(--homeDarkGray) 4px,
+      var(--homeExtraFadedColor) 2px,
+      var(--homeExtraFadedColor) 4px,
       transparent 4px
     );
 }
@@ -118,14 +112,14 @@ a.books-link,
 a.books-link:visited {
   background-image: linear-gradient(
       transparent 2px,
-      var(--booksMainColor) 2px,
-      var(--booksMainColor) 4px,
+      var(--booksAccentColor) 2px,
+      var(--booksAccentColor) 4px,
       transparent 4px
     ),
     linear-gradient(
       transparent 2px,
-      var(--booksDarkGray) 2px,
-      var(--booksDarkGray) 4px,
+      var(--booksExtraFadedColor) 2px,
+      var(--booksExtraFadedColor) 4px,
       transparent 4px
     );
 }

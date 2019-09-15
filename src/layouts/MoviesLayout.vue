@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-full flex flex-col items-stretch antialiased">
-    <base-nav award-type="movies"/>
+    <base-nav award-type="movies" />
     <main class="flex-1 flex-shrink-0 mb-8">
       <slot />
     </main>
@@ -20,48 +20,52 @@ export default {
       {
         vmid: "description",
         name: "description",
-        content:
-          "Keep track of award winning movies. Find the next movie to watch."
+        content: "Keep track of award winning movies. Find the next movie to watch."
       }
     ]
   },
   components: {
     BaseNav,
-    BaseFooter,
+    BaseFooter
   }
 };
 </script>
 
 <style>
-:root {
-  --mainColor: #ecc94b;
-  --darkGray: #2d3748;
-}
 body,
 html {
-  @apply bg-gray-900 text-white;
+  /* @apply bg-gray-900 text-white; */
+  color: var(--moviesTextColor);
+  background-color: var(--moviesBgColor);
 }
 
 a.link-external::after {
-  @apply text-gray-500;
+  /* @apply text-gray-500; */
+  color: var(--moviesFadedColor);
 }
 
 .text-faded {
-  @apply text-gray-500;
+  /* @apply text-gray-500; */
+  color: var(--moviesFadedColor);
 }
 .text-main {
-  @apply text-white;
+  color: var(--moviesTextColor);
 }
 
 a.title-link,
 a.title-link:visited {
   background-image: linear-gradient(
       transparent 2px,
-      var(--mainColor) 2px,
-      var(--mainColor) 4px,
+      var(--moviesAccentColor) 2px,
+      var(--moviesAccentColor) 4px,
       transparent 4px
     ),
-    linear-gradient(transparent 2px, var(--darkGray) 2px, var(--darkGray) 4px, transparent 4px);
+    linear-gradient(
+      transparent 2px,
+      var(--moviesExtraFadedColor) 2px,
+      var(--moviesExtraFadedColor) 4px,
+      transparent 4px
+    );
 }
 
 @supports (-ms-ime-align: auto) {

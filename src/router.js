@@ -15,6 +15,7 @@ export default new Router({
     {
       path: "/about",
       name: "about",
+      props: true,
       component: () => import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
@@ -27,6 +28,12 @@ export default new Router({
       path: "/movies",
       name: "homeMovies",
       component: () => import(/* webpackChunkName: "homeMovies" */ "./views/HomeMovies.vue")
+    },
+    {
+      path: "/:awardType/about",
+      name: "Award about",
+      props: true,
+      component: () => import(/* webpackChunkName: "awardAbout" */ "./views/About.vue")
     },
     {
       path: "/:awardType/award/:nameShort",

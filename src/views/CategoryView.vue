@@ -1,7 +1,9 @@
 <template>
   <layout :name="`${AwardType}Layout`">
     <div>
-      <breadcrumbs :prev-screen-params="{ nameShort }">{{ categoryName }}</breadcrumbs>
+      <breadcrumbs :prev-screen-params="{ nameShort }" :award-type="awardType">{{
+        categoryName
+      }}</breadcrumbs>
       <article>
         <header class="flex sm:items-center">
           <h2 class="flex items-center flex-wrap">

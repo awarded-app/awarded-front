@@ -4,12 +4,15 @@
     :class="$route.name.includes('home') ? 'indented' : ''"
   >
     <ul class="flex flex-wrap">
-      <li>
-        <router-link :to="`/${theAwardType}`" tag="a" class="title-link">Awards</router-link>
+      <li v-if="awardType">
+        <router-link :to="`/${awardType}`" tag="a" class="title-link">Awards</router-link>
+      </li>
+      <li v-else>
+        <router-link to="/" tag="a" class="title-link">Home</router-link>
       </li>
       <template v-if="prevScreenParams">
         <li v-if="prevScreenParams.hasOwnProperty('nameShort')">
-          <award-link :award-name-short="prevScreenParams.nameShort" :award-type="theAwardType">{{
+          <award-link :award-name-short="prevScreenParams.nameShort" :award-type="awardType">{{
             prevScreenParams.nameShort
           }}</award-link>
         </li>
@@ -26,7 +29,7 @@
           <category-link
             :category-name="prevScreenParams.categoryName"
             :award-name-short="prevScreenParams.nameShort"
-            :award-type="theAwardType"
+            :award-type="awardType"
             >{{ prevScreenParams.categoryName }}</category-link
           >
         </li>
@@ -58,11 +61,6 @@ export default {
       type: String,
       default: null
     }
-  },
-  data() {
-    return {
-      theAwardType: this.$route.params.awardType || this.prevScreenParams.awardType || this.awardType
-    };
   }
 };
 </script>
@@ -74,7 +72,8 @@ ul {
 
 ul li:after {
   content: "★";
-  @apply mx-2 text-xs text-gray-800;
+  @apply mx-2 text-xs;
+  color: var(--darkGray);
 }
 ul li:last-child:after {
   content: none;

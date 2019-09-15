@@ -1,7 +1,7 @@
 <template>
   <layout :name="`${AwardType}Layout`">
     <div>
-      <breadcrumbs>{{ nameShort }}</breadcrumbs>
+      <breadcrumbs :award-type="awardType">{{ nameShort }}</breadcrumbs>
       <article>
         <header class="flex mb-2 flex-wrap">
           <h2 class="leading-none">

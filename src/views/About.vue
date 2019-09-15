@@ -1,7 +1,7 @@
 <template>
-  <layout name="GenericLayout">
+  <layout :name="awardType ? `${AwardType}Layout` : 'GenericLayout'">
     <div>
-      <breadcrumbs :prev-screen-params="prevScreenParams">About</breadcrumbs>
+      <breadcrumbs :award-type="awardType">About</breadcrumbs>
 
       <article class="md:w-2/3 lg:w-1/3">
         <h2 class="mb-8">What is this?</h2>
@@ -56,6 +56,16 @@
 <script>
 import Layout from "@/layouts/Layout";
 export default {
+  name: "About",
+  components: {
+    Layout
+  },
+  props: {
+    awardType: {
+      type: String,
+      default: null
+    }
+  },
   metaInfo: {
     title: `About`,
     meta: [
@@ -66,13 +76,11 @@ export default {
       }
     ]
   },
-  components: {
-    Layout
-  },
   data() {
     return {
       prevScreenParams: null,
-      prevScreen: ""
+      prevScreen: "",
+      AwardType: this.$options.filters.capitalize(this.awardType)
     };
   },
   beforeRouteEnter(to, from, next) {

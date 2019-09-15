@@ -1,7 +1,9 @@
 <template>
   <layout name="MoviesLayout">
     <div>
-      <breadcrumbs :prev-screen-params="{ nameShort, categoryName }">{{ prizeName }}</breadcrumbs>
+      <breadcrumbs :prev-screen-params="{ nameShort, categoryName }" award-type="movies">{{
+        prizeName
+      }}</breadcrumbs>
       <article>
         <header class="flex sm:items-center">
           <h2 class="flex items-center flex-wrap">

@@ -6,7 +6,7 @@
       ><star-separator class="text-gray-300" /><edition-link
               :award-name-short="edition.award.nameShort"
               :edition-date="edition.date"
-              :award-type="awardType"
+              award-type="books"
               >All Nominations</edition-link></a>
     </h4>
     <ul>

@@ -14,10 +14,15 @@
     <div v-if="isOpen" class="indented mb-4">
       <!-- WINNERS -->
       <div class="mb-4">
-        <h4 class="a-uppercase-info">
-          <span v-if="winners.length > 0">WINNER<span v-if="winners.length > 1">s</span></span>
-          <span v-else>NO WINNERS</span>
-        </h4>
+        <p v-if="winners.length > 0" class="a-uppercase-info">
+          WINNER<span v-if="winners.length > 1">s</span>
+        </p>
+        <p v-else-if="isFutureEdition">
+          No winners yet. Results on <strong>{{ editionDate | formatDate("MMMM do") }}</strong
+          >.
+        </p>
+        <p v-else>NO WINNERS</p>
+
         <ul v-if="winners.length > 0">
           <list-transition>
             <books-nomination-item
@@ -80,6 +85,14 @@ export default {
       type: Object,
       required: true
     },
+    isFutureEdition: {
+      type: Boolean,
+      default: false
+    },
+    editionDate: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {

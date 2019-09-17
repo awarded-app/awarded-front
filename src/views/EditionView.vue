@@ -33,6 +33,8 @@
                 :data-index="index"
                 :category="category"
                 :is-festival="award.isFestival"
+                :is-future-edition="isFutureEdition"
+                :edition-date="edition.date"
                 class="mb-8"
               />
             </list-transition>
@@ -45,6 +47,8 @@
 
 <script>
 import gql from "graphql-tag";
+import isAfter from "date-fns/isAfter";
+
 import Layout from "@/layouts/Layout";
 import Spinner from "@/components/Spinner.vue";
 import NominationListItem from "@/components/NominationListItem";
@@ -100,12 +104,14 @@ export default {
         }
       },
       edition: {
-        name: ""
+        name: "",
+        date: ""
       },
       categories: { nodes: [] },
       AwardType: this.$options.filters.capitalize(this.awardType),
       skipEditionQuery: true,
-      skipCategoriesQuery: true
+      skipCategoriesQuery: true,
+      isFutureEdition: false
     };
   },
   apollo: {
@@ -172,10 +178,10 @@ export default {
           }
         };
       },
-      result({ data }) {
+      /* result({ data }) {
         console.log("> CATEGORIES fetched");
         console.dir(data[`${this.awardType}Categories`]);
-      },
+      }, */
       update(data) {
         // filter only complete
         return (this.categories = data[`${this.awardType}Categories`]);
@@ -207,12 +213,13 @@ export default {
           year: Number(this.editionYear)
         };
       },
-      result({ data }) {
+      /* result({ data }) {
         console.log("> EDITION fetched");
         console.dir(data[`${this.awardType}EditionByYear`].nodes[0]);
-      },
+      }, */
       update(data) {
         this.$apollo.queries.categories.skip = false;
+        this.isFutureEdition = isAfter(new Date(this.edition.date), new Date());
         return (this.edition = data[`${this.awardType}EditionByYear`].nodes[0]);
       },
       skip: true
@@ -235,10 +242,10 @@ export default {
           nameShort: this.nameShort
         };
       },
-      result({ data }) {
+      /* result({ data }) {
         console.log("> AWARD fetched");
         console.dir(data[`${this.awardType}AwardByNameShort`]);
-      },
+      }, */
       update(data) {
         this.award = data[`${this.awardType}AwardByNameShort`];
         this.$apollo.queries.editionByYear.skip = false;

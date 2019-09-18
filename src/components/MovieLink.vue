@@ -1,6 +1,6 @@
 <template functional>
   <router-link
-    :to="`/movies/movie/${props.movieId}/${props.movieTitle}`"
+    :to="`/movies/movie/${props.movieId}/${$options.methods.cleanTitle(props.movieTitle)}`"
     tag="a"
     class="title-link"
     :title="movieTitle"
@@ -21,6 +21,19 @@ export default {
     movieTitle: {
       type: String,
       required: true
+    }
+  },
+  methods: {
+    cleanTitle(title) {
+      //remove everything after a colon
+      if (title.indexOf(":") > 1) {
+        title = title.slice(0, title.indexOf(":"));
+      }
+      //remove spaces and punctuation, making everything lowercase and split by dashes
+      return title
+        .toLowerCase()
+        .replace(/[^\w ]+/g, "")
+        .replace(/ +/g, "-");
     }
   }
 };

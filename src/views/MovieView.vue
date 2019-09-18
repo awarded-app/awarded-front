@@ -103,7 +103,7 @@ import ListTransition from "../components/ListTransition";
 export default {
   name: "MovieView",
   metaInfo() {
-    const movieTitle = this.title;
+    const movieTitle = this.movie.title;
     const movieYear = this.movieYear;
     return {
       title: `${movieTitle} (${movieYear}) - Nominations and Wins`,
@@ -143,7 +143,7 @@ export default {
     return {
       movie: {
         id: this.movie_id,
-        title: this.title,
+        title: "",
         releaseDate: null,
         moviesNominations: {
           nodes: []

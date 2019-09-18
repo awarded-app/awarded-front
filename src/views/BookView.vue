@@ -9,12 +9,12 @@
           <spinner v-if="$apollo.loading" />
           <template v-else>
             <section id="book-details" class="sm:flex">
-              <div class="mb-2 mt-2 sm:mr-4">
+              <div class="mb-2 mt-2 sm:mr-4 flex flex-col">
                 <book-cover
                   :image-url="book.imageUrl"
                   w="150"
                   :isbn="book.isbn10 || book.isbn13"
-                  class="mb-2"
+                  class="mb-4"
                 />
                 <book-links-shopping
                   :isbn="book.isbn10 || book.isbn13"

@@ -1,21 +1,12 @@
 <template>
-  <ul class="text-sm flex">
-    <li>
-      <a :href="amazonUrl" target="_blank" rel="noopener" class="link-external">
-        Buy on Amazon
-      </a>
-    </li>
-  </ul>
+  <a :href="amazonUrl" target="_blank" rel="noopener" class="amazon-link">Buy on Amazon</a>
 </template>
 
 <script>
 import axios from "axios";
+import affiliates from "@/data/affiliates.json";
 export default {
   props: {
-    imdbId: {
-      type: String,
-      required: true
-    },
     movieTitle: {
       type: String,
       required: true
@@ -25,43 +16,38 @@ export default {
       required: true
     }
   },
-  created() {
-    this.assembleAmazonUrl();
-    const AmazonAff = require("../plugins/Affiliate");
-    AmazonAff.attach();
-  },
+
   data() {
     return {
       amazonUrl: "",
-      countryCode: "",
-      urlBase: {
-        us: "https://www.amazon.com/dp",
-        de: "https://www.amazon.de/dp"
-      }
+      countryCode: "us",
+      affiliates
     };
   },
-  methods: {
-    async getCountry() {
+  async mounted() {
+    //console.log(this.affiliates);
+    try {
       const ipUrl = "http://ip-api.com/json/?fields=status,message,countryCode";
-      try {
-        const { data } = await axios.get(ipUrl);
-        console.log(data);
-        return data.countryCode;
-      } catch (error) {
-        console.error(error);
+      const { data } = await axios.get(ipUrl);
+      if (data.hasOwnProperty("countryCode")) {
+        this.countryCode = data.countryCode.toLowerCase();
+        //console.log(this.countryCode);
       }
-    },
+    } catch (e) {
+      console.error(e);
+    }
+    this.assembleAmazonUrl();
+  },
+  methods: {
     async assembleAmazonUrl() {
-      this.countryCode = await this.getCountry();
-      this.countryCode = this.countryCode.toLowerCase();
-      console.log(this.countryCode);
-      if (this.asin.hasOwnProperty(this.countryCode)) {
-        this.amazonUrl = `${this.urlBase[this.countryCode]}/${
-          this.asin[this.countryCode]
-        }`;
-      } else {
-        this.amazonUrl = `${this.urlBase.us}/${this.asin.us}`;
+      if (this.affiliates.hasOwnProperty(this.countryCode)) {
+        return (this.amazonUrl = `https://${this.affiliates[this.countryCode].url}/dp/${
+          this.asin
+        }?tag=${this.affiliates[this.countryCode].tag}`);
       }
+      return (this.amazonUrl = `https://${this.affiliates.us.url}/dp/${this.asin}?tag=${
+        this.affiliates.us.tag
+      }`);
     }
   }
 };

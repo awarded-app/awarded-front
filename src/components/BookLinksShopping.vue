@@ -1,15 +1,10 @@
 <template>
-  <ul class="text-sm flex">
-    <li>
-      <a :href="amazonUrl" target="_blank" rel="noopener" class="link-external">
-        Buy on Amazon
-      </a>
-    </li>
-  </ul>
+  <a :href="amazonUrl" target="_blank" rel="noopener" class="amazon-link">Buy on Amazon</a>
 </template>
 
 <script>
 import axios from "axios";
+import affiliates from "@/data/affiliates.json";
 export default {
   props: {
     isbn: {
@@ -18,53 +13,58 @@ export default {
     },
     kindleAsin: {
       type: String,
-      required: true
+      default: ""
     }
   },
   data() {
     return {
       amazonUrl: "",
-      countryCode: "",
-      urlBase: {
-        us: "com",
-        de: "de",
-        es: "es",
-        br: "com.br",
-        fr: "fr",
-        uk: "co.uk",
-        it: "it"
-      }
+      countryCode: "us",
+      affiliates
     };
   },
-  created() {
+  async mounted() {
+    //console.log(this.affiliates);
+    try {
+      const ipUrl = "http://ip-api.com/json/?fields=status,message,countryCode";
+      const { data } = await axios.get(ipUrl);
+      if (data.hasOwnProperty("countryCode")) {
+        this.countryCode = data.countryCode.toLowerCase();
+        //console.log(this.countryCode);
+      }
+    } catch (e) {
+      console.error(e);
+    }
     this.assembleAmazonUrl();
-    const AmazonAff = require("../plugins/Affiliate");
-    AmazonAff.attach();
   },
   methods: {
-    async getCountry() {
-      const ipUrl = "http://ip-api.com/json/?fields=status,message,countryCode";
-      try {
-        const { data } = await axios.get(ipUrl);
-        console.log(data);
-        return data.countryCode;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async assembleAmazonUrl() {
-      this.countryCode = await this.getCountry();
-      this.countryCode = this.countryCode.toLowerCase();
-      console.log(this.countryCode);
-      if (this.urlBase.hasOwnProperty(this.countryCode)) {
-        return (this.amazonUrl = `https://www.amazon.${this.urlBase[this.countryCode]}/dp/${
+    assembleAmazonUrl() {
+      if (this.affiliates.hasOwnProperty(this.countryCode)) {
+        return (this.amazonUrl = `https://${this.affiliates[this.countryCode].url}/dp/${
           this.isbn
-        }`);
+        }?tag=${this.affiliates[this.countryCode].tag}`);
       }
-      return (this.amazonUrl = `https://www.amazon.${this.urlBase.us}/dp/${this.isbn}`);
+      return (this.amazonUrl = `https://${this.affiliates.us.url}/dp/${this.isbn}?tag=${
+        this.affiliates.us.tag
+      }`);
     }
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+a.amazon-link {
+  text-decoration: none;
+  background-image: none;
+  background-size: auto auto;
+  background-position: 0 0;
+  transition: none;
+  background-repeat: repeat;
+  padding: 0;
+  border: 0;
+  @apply p-2 text-center border-yellow-500 border rounded shadow bg-yellow-400 text-sm font-semibold text-yellow-800;
+}
+a.amazon-link:hover {
+  @apply shadow-lg bg-yellow-300;
+}
+</style>

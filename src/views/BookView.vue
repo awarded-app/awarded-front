@@ -98,7 +98,7 @@ import BookAuthors from "@/components/BookAuthors";
 export default {
   name: "BookView",
   metaInfo() {
-    const bookTitle = this.bookTitle;
+    const bookTitle = this.book.title;
     return {
       title: `${bookTitle} - Nominations and Wins`,
       meta: [
@@ -138,7 +138,7 @@ export default {
     return {
       book: {
         id: this.book_id,
-        title: this.title,
+        title: "",
         publicationYear: null,
         booksBookAuthors: {
           totalCount: 0,

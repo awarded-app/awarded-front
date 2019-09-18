@@ -1,6 +1,6 @@
 <template functional>
   <router-link
-    :to="`/books/${encodeURIComponent(props.bookTitle)}/${props.bookId}`"
+    :to="`/books/${$options.methods.cleanTitle(props.bookTitle)}/${props.bookId}`"
     tag="a"
     class="title-link"
     :title="bookTitle"
@@ -23,6 +23,19 @@ export default {
     bookTitle: {
       type: String,
       required: true
+    }
+  },
+  methods: {
+    cleanTitle(title) {
+      //remove everything after a colon
+      if (title.indexOf(":") > 1) {
+        title = title.slice(0, title.indexOf(":"));
+      }
+      //remove spaces and punctuation, making everything lowercase and split by dashes
+      return title
+        .toLowerCase()
+        .replace(/[^\w ]+/g, "")
+        .replace(/ +/g, "-");
     }
   }
 };

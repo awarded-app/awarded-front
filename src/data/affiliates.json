@@ -1,0 +1,31 @@
+{
+  "us": {
+    "url": "amazon.com",
+    "tag": "awrdd-20"
+  },
+  "de": {
+    "url": "amazon.de",
+    "tag": "awrdd-21"
+  },
+  "uk": {
+    "url": "amazon.co.uk",
+    "tag": "awrdd05-21"
+  },
+  "fr": {
+    "url": "amazon.fr",
+    "tag": "awrdd02-21"
+  },
+  "es": {
+    "url": "amazon.es",
+    "tag": "awrdd09-21"
+  },
+  "it": {
+    "url": "amazon.it",
+    "tag": "awrdd0b-21"
+  },
+  "br": {
+    "url": "amazon.br",
+    "tag": "awarded-20"
+  }
+
+}

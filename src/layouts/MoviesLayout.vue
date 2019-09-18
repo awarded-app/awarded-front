@@ -32,6 +32,9 @@ export default {
 </script>
 
 <style>
+:root {
+  --mainColor: var(--moviesAccentColor);
+}
 body,
 html {
   /* @apply bg-gray-900 text-white; */

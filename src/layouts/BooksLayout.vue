@@ -32,6 +32,9 @@ export default {
 </script>
 
 <style>
+:root {
+  --mainColor: var(--booksAccentColor);
+}
 body,
 html {
   /* @apply bg-gray-100 text-gray-800; */

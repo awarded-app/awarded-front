@@ -4,11 +4,19 @@
       <breadcrumbs :prev-screen-params="prevScreenParams" award-type="movies">{{
         movie.title
       }}</breadcrumbs>
-      <div>
+      <spinner v-if="$apollo.loading" />
+      <div v-else>
         <section class="sm:flex">
-          <figure class="mb-2 sm:mr-4 flex-none mt-2">
-            <movie-poster :tmdb-id="movie.tmdbId" w="200" />
-          </figure>
+          <div class="flex flex-col flex-none  sm:mr-4 ">
+            <figure class="mb-2 flex-none mt-2">
+              <movie-poster :tmdb-id="movie.tmdbId" w="200" />
+            </figure>
+            <movie-links-shopping
+              :movie-title="movie.title"
+              :asins="movie.moviesMovieAsins.nodes"
+            />
+            <movie-links :imdb-id="movie.imdbId" :tmdb-id="movie.tmdbId" :title="movie.title" />
+          </div>
           <section>
             <header class="mb-2 flex sm:items-center">
               <h2 class="flex items-center flex-wrap">
@@ -42,22 +50,9 @@
                 >
               </p>
               <p class="text-faded mb-2">{{ movie.runtime }} minutes</p>
-              <movie-links-ratings
-                :imdb-id="movie.imdbId"
-                :tmdb-id="movie.tmdbId"
-                :title="movie.title"
-              />
-              <movie-links-shopping
-                v-if="movie.asin"
-                :imdb-id="movie.imdbId"
-                :movie-title="movie.title"
-                :asin="movie.asin"
-              />
             </main>
 
-            <spinner v-if="$apollo.loading" />
-
-            <section v-else id="movie-nominations" class="pt-8 mt-8 border-t border-gray-700">
+            <section id="movie-nominations" class="pt-8 mt-8 border-t border-gray-700">
               <div v-if="movieStats" class="text-faded mb-4 a-uppercase-info">
                 {{ movieStats.nominations }}
                 {{ movieStats.nominations | pluralize("nomination") }}
@@ -95,7 +90,7 @@ import Spinner from "@/components/Spinner";
 import MovieListItem from "@/components/MovieListItem";
 import NominationListItem from "@/components/NominationListItem";
 import MoviePoster from "@/components/MoviePoster";
-import MovieLinksRatings from "@/components/MovieLinksRatings";
+import MovieLinks from "@/components/MovieLinks";
 import MovieLinksShopping from "@/components/MovieLinksShopping";
 import MoviesMovieNominationsByAward from "../components/MoviesMovieNominationsByAward";
 import ListTransition from "../components/ListTransition";
@@ -121,7 +116,7 @@ export default {
     Spinner,
     MoviePoster,
     MovieLinksShopping,
-    MovieLinksRatings,
+    MovieLinks,
     Layout,
     ListTransition
   },

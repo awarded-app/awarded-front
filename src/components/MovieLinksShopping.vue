@@ -1,5 +1,5 @@
 <template>
-  <a :href="amazonUrl" target="_blank" rel="noopener" class="amazon-link">Buy on Amazon</a>
+  <a :href="amazonUrl" target="_blank" rel="noopener" class="amazon-link">Amazon</a>
 </template>
 
 <script>
@@ -11,8 +11,8 @@ export default {
       type: String,
       required: true
     },
-    asin: {
-      type: Object,
+    asins: {
+      type: Array,
       required: true
     }
   },
@@ -36,21 +36,50 @@ export default {
     } catch (e) {
       console.error(e);
     }
+  },
+  created() {
     this.assembleAmazonUrl();
   },
   methods: {
-    async assembleAmazonUrl() {
-      if (this.affiliates.hasOwnProperty(this.countryCode)) {
-        return (this.amazonUrl = `https://${this.affiliates[this.countryCode].url}/dp/${
-          this.asin
-        }?tag=${this.affiliates[this.countryCode].tag}`);
+    assembleAmazonUrl() {
+      const tag = this.getTag();
+      const asin = this.getAsin();
+      let url = "https://";
+      url += this.getBaseUrl();
+      if (asin) {
+        url += `/dp/${asin}`;
+      } else {
+        url += `/s?k=${this.movieTitle}&i=movies-tv`;
       }
-      return (this.amazonUrl = `https://${this.affiliates.us.url}/dp/${this.asin}?tag=${
-        this.affiliates.us.tag
-      }`);
+      url += `&tag=${tag}`;
+      this.amazonUrl = url;
+    },
+    getBaseUrl() {
+      let url = this.affiliates.us.url;
+      if (this.affiliates.hasOwnProperty(this.countryCode)) {
+        url = this.affiliates[this.countryCode].url;
+      }
+      return url;
+    },
+    getTag() {
+      let tag = this.affiliates.us.tag;
+      if (this.affiliates.hasOwnProperty(this.countryCode)) {
+        tag = this.affiliates[this.countryCode].tag;
+      }
+      return tag;
+    },
+    getAsin() {
+      return this.asins.find(asin => asin.countryCode === this.countryCode);
     }
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+a.amazon-link {
+  @apply p-2 text-center border-yellow-500 border rounded shadow  text-sm font-semibold;
+}
+a.amazon-link:hover {
+  @apply shadow-lg border-yellow-400 bg-gray-800;
+}
+</style>

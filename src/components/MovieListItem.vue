@@ -19,9 +19,14 @@ export default {
         runtime
         tagline
         tmdbId
-        asin {
-          us
-          de
+        backdropPath
+        moviesMovieAsins {
+          nodes {
+            countryCode
+            asin
+            id
+          }
+          totalCount
         }
         moviesMovieCountries {
           totalCount
@@ -33,7 +38,6 @@ export default {
             }
           }
         }
-        backdropPath
         moviesMovieGenres {
           nodes {
             id

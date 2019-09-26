@@ -17,7 +17,7 @@
         <section v-else>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <p class="text-faded">
-              {{ edition.date | formatDate("MMMM Do") }}
+              {{ edition.date | formatDate("MMMM do") }}
             </p>
           </div>
           <section class="pt-4">

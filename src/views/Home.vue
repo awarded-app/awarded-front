@@ -1,11 +1,11 @@
 <template>
   <layout name="HomeLayout">
     <div class="mx-auto">
-
-    <div class="home-cta-cards">
-      <home-cta award-type="movies"/>
-      <home-cta award-type="books"/>
-    </div>
+      <div class="home-cta-cards mb-24">
+        <home-cta award-type="movies" />
+        <home-cta award-type="books" />
+      </div>
+      <news-list />
     </div>
   </layout>
 </template>
@@ -13,6 +13,7 @@
 <script>
 import Layout from "@/layouts/Layout";
 import HomeCta from "@/components/HomeCta";
+import NewsList from "@/components/NewsList";
 
 export default {
   name: "Home",
@@ -22,9 +23,9 @@ export default {
   },
   components: {
     Layout,
-    HomeCta,
-  },
-
+    NewsList,
+    HomeCta
+  }
 };
 </script>
 

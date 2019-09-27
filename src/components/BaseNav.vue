@@ -8,6 +8,9 @@
       <li v-for="(type, index) in otherTypes" :key="index" class="mr-4 mb-2">
         <a :href="`/${type}`" class="title-link font-bold">{{ type.toUpperCase() }}</a>
       </li>
+      <li>
+        <a href="https://news.awarded.to" class="mr-4 title-link">News</a>
+      </li>
       <li class="mr-4 mb-2">
         <router-link :to="awardType ? `/${awardType}/about` : '/about'" class="title-link"
           >About</router-link

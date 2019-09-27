@@ -10,6 +10,9 @@
           <a href="/books" class="title-link home-link font-bold">BOOKS</a>
         </li>
         <li class="mr-4 mb-2">
+          <a href="https://news.awarded.to/" class="title-link home-link">News</a>
+        </li>
+        <li class="mr-4 mb-2">
           <router-link to="/about" class="title-link home-link">About</router-link>
         </li>
         <li>

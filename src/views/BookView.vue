@@ -34,6 +34,7 @@
                   </p>
                 </header>
                 <truncate
+                  v-if="book.description"
                   :text="book.description"
                   type="html"
                   collapsed-text-class="text-faded mr-2"

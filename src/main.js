@@ -6,6 +6,14 @@ import { createProvider } from "./vue-apollo";
 import "./plugins/Filters";
 import "./assets/tailwind.css";
 
+import * as Sentry from '@sentry/browser';
+import * as Integrations from '@sentry/integrations';
+
+Sentry.init({
+  dsn: 'https://0aad01c1342c48ae91cf113839a46fd4@sentry.io/1757469',
+  integrations: [new Integrations.Vue({ Vue, attachProps: true })],
+});
+
 Vue.use(VueMeta);
 
 //GLOBAL COMPONENTS

@@ -16,9 +16,7 @@
           {{ person.biography }}
         </p>
 
-        <p v-if="person.deathday">
-          &#10013; {{ person.deathday | formatDate("Do MMMM YY") }}
-        </p>
+        <p v-if="person.deathday"><span class="text-faded">Deathday</span> {{ person.deathday | formatDate("MMMM do, yyyy") }}</p>
         <p v-else-if="person.birthday">
           {{ person.birthday | age }}<span class="text-faded "> years old</span>
         </p>
@@ -27,22 +25,15 @@
           {{ person.placeOfBirth }}
         </p>
         <p>
-          <person-social-links
-            :tmdb-id="person.tmdbId"
-            :imdb-id="person.imdbId"
-          />
+          <person-social-links :tmdb-id="person.tmdbId" :imdb-id="person.imdbId" />
         </p>
       </section>
     </section>
     <!-- NOMINATIONS -->
     <section id="movie-nominations" class="pt-4">
       <p class="text-faded mb-4 a-uppercase-info">
-        {{
-          stats.nominations | pluralize("nomination", { includeNumber: true })
-        }}
-        <star-separator />{{
-          stats.wins | pluralize("win", { includeNumber: true })
-        }}
+        {{ stats.nominations | pluralize("nomination", { includeNumber: true }) }}
+        <star-separator />{{ stats.wins | pluralize("win", { includeNumber: true }) }}
       </p>
       <div class="lg:flex lg:flex-wrap">
         <div
@@ -52,30 +43,18 @@
         >
           <div class="md:flex">
             <div class="mr-2 flex-none">
-              <movie-link
-                :movie-id="movieGroup.movie.id"
-                :movie-title="movieGroup.movie.title"
-              >
+              <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">
                 <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
               </movie-link>
             </div>
             <div>
               <h3 class="mb-1">
-                <movie-link
-                  :movie-id="movieGroup.movie.id"
-                  :movie-title="movieGroup.movie.title"
-                >
+                <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">
                   {{ movieGroup.movie.title }}
                 </movie-link>
               </h3>
-              <div
-                v-for="({ nominations }, i) in movieGroup.nominations"
-                :key="i"
-              >
-                <movies-movie-nominations-by-award
-                  :nominations="nominations"
-                  award-type="movies"
-                />
+              <div v-for="({ nominations }, i) in movieGroup.nominations" :key="i">
+                <movies-movie-nominations-by-award :nominations="nominations" award-type="movies" />
               </div>
             </div>
           </div>
@@ -106,7 +85,7 @@ export default {
     MoviesMovieNominationsByAward,
     StarSeparator,
     MovieLink,
-    MoviePoster
+    MoviePoster,
   },
   props: {
     personId: {
@@ -164,9 +143,7 @@ export default {
     nominatedPeople: {
       query() {
         return gql`
-          query moviesNominatedPeople(
-            $condition: MoviesNominatedPersonCondition
-          ) {
+          query moviesNominatedPeople($condition: MoviesNominatedPersonCondition) {
             moviesNominatedPeople(condition: $condition) {
               totalCount
               nodes {
@@ -217,23 +194,19 @@ export default {
         };
       },
       update(data) {
-        return (this.nominations = data.moviesNominatedPeople.nodes.map(
-          node => {
-            return {
-              ...node.nomination,
-              prizes: { ...node.moviesNominatedPersonPrizes }
-            };
-          }
-        ));
+        return (this.nominations = data.moviesNominatedPeople.nodes.map(node => {
+          return {
+            ...node.nomination,
+            prizes: { ...node.moviesNominatedPersonPrizes }
+          };
+        }));
       }
     }
   },
   computed: {
     nominationsByMovie() {
       if (!this.nominations) return null;
-      let sortedNominations = Object.values(
-        groupBy(this.nominations, "movie.id")
-      );
+      let sortedNominations = Object.values(groupBy(this.nominations, "movie.id"));
       sortedNominations = sortedNominations.map(nomination => {
         return {
           movie: { ...nomination[0].movie },
@@ -253,11 +226,7 @@ export default {
         movie.nominations = nomByAward;
       }
 
-      sortedNominations = orderBy(
-        sortedNominations,
-        "nominations[0].edition.date",
-        "desc"
-      );
+      sortedNominations = orderBy(sortedNominations, "nominations[0].edition.date", "desc");
       return sortedNominations;
     },
 

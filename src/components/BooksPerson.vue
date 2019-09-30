@@ -26,7 +26,7 @@
               class="mb-4"
             />
 
-            <p v-if="author.died_at">&#10013; {{ author.died_at | formatDate("Do MMMM YY") }}</p>
+            <p v-if="author.died_at"><span class="text-faded">Deathday</span> {{ author.died_at | formatDate("MMMM do, yyyy") }}</p>
             <p v-else-if="author.born_at">
               {{ author.born_at | age }}<span class="text-faded "> years old</span>
             </p>

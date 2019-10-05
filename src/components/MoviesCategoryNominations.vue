@@ -17,7 +17,7 @@
         >
           <movies-category-edition-nominations
             :edition="edition"
-            :name-short="nameShort"
+            :name-short="award.nameShort"
             :is-festival="award.isFestival"
             :display="category.display"
             award-type="movies"

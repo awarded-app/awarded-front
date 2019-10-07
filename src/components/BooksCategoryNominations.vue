@@ -66,6 +66,7 @@ export default {
                 edition {
                   id
                   date
+                  officialYear
                   name
                   award {
                     id

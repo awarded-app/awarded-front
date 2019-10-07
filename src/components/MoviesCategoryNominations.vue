@@ -80,6 +80,7 @@ export default {
                 edition {
                   id
                   date
+                  officialYear
                   name
                   publish
                   moviesNominations(condition: $nCondition) {

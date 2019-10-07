@@ -7,7 +7,7 @@
       /></span>
       <edition-link
         :award-name-short="edition.award.nameShort"
-        :edition-date="edition.date"
+        :edition-official-year="edition.officialYear"
         award-type="books"
         >All Nominations</edition-link
       >
@@ -29,7 +29,7 @@
       >.<br />
       <edition-link
         :award-name-short="edition.award.nameShort"
-        :edition-date="edition.date"
+        :edition-official-year="edition.officialYear"
         award-type="books"
         >Check all competing books.</edition-link
       >

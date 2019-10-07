@@ -9,10 +9,10 @@
     <div>
       <h3 class="text-faded font-mono">
         <edition-link
-          :edition-date="edition.date"
+          :edition-official-year="edition.officialYear"
           :award-name-short="nameShort"
           :award-type="awardType"
-          >{{ edition.date | year }}</edition-link
+          >{{ edition.officialYear }}</edition-link
         >
       </h3>
       <div

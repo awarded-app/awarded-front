@@ -4,10 +4,10 @@
     <movies-nomination-list-festival
       v-if="edition.award.isFestival"
       :nominations="nominations.nodes"
-      :edition-date="edition.date"
+      :edition-official-year="edition.officialYear"
       :award-name-short="edition.award.nameShort"
     />
-    <movies-nomination-list-award v-else :nominations="nominations.nodes" :edition-date="edition.date" :award-name-short="edition.award.nameShort"/>
+    <movies-nomination-list-award v-else :nominations="nominations.nodes" :edition-official-year="edition.officialYear" :award-name-short="edition.award.nameShort"/>
   </div>
   <p v-else class="indented">
     Hmm, something went wrong! Try reloading?

@@ -163,6 +163,7 @@ export default {
                     id
                     name
                     date
+                    officialYear
                     publish
                   }
                   award {

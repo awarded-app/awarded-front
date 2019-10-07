@@ -19,8 +19,7 @@
         <li v-if="prevScreenParams.hasOwnProperty('editionYear')">
           <edition-link
             :award-name-short="prevScreenParams.nameShort"
-            :edition-date="prevScreenParams.editionYear"
-            :edition-year="prevScreenParams.editionYear"
+            :edition-official-year="prevScreenParams.editionOfficialYear"
             :award-type="awardType"
             >{{ prevScreenParams.editionYear }}</edition-link
           >

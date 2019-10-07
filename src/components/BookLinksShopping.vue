@@ -26,10 +26,12 @@ export default {
   async mounted() {
     //console.log(this.affiliates);
     try {
-      const ipUrl = "http://ip-api.com/json/?fields=status,message,countryCode";
-      const { data } = await axios.get(ipUrl);
-      if (data.hasOwnProperty("countryCode")) {
-        this.countryCode = data.countryCode.toLowerCase();
+      const ipUrl = `https://api.ipdata.co/?api-key=${process.env.VUE_APP_IPDATA_API_KEY}`;
+      const {
+        data: { country_code }
+      } = await axios.get(ipUrl);
+      if (country_code) {
+        this.countryCode = country_code.toLowerCase();
         //console.log(this.countryCode);
       }
     } catch (e) {

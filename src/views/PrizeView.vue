@@ -32,10 +32,10 @@
                 <section>
                   <h3 class="font-mono">
                     <edition-link
-                      :edition-date="edition.date"
+                      :edition-official-year="edition.officialYear"
                       :award-name-short="edition.award.nameShort"
                       :award-type="awardType"
-                      >{{ edition.date | year }}</edition-link
+                      >{{ edition.officialYear }}</edition-link
                     >
                   </h3>
                   <ul v-for="{ movie, nominations } in movies" :key="movie.id">
@@ -97,6 +97,7 @@ const FRAGMENTS = {
           edition {
             id
             date
+            officialYear
             name
             award {
               id

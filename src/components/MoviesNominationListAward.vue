@@ -3,7 +3,7 @@
     <h4 class="text-faded mb-4 a-uppercase-info">
       Winners<star-separator class="text-gray-300" /><edition-link
               :award-name-short="awardNameShort"
-              :edition-date="editionDate"
+              :edition-official-year="editionOfficialYear"
               award-type="movies"
               >All Nominations</edition-link></a>
     </h4>
@@ -62,8 +62,8 @@ export default {
       type: Array,
       required: true
     },
-    editionDate: {
-      type: String,
+    editionOfficialYear: {
+      type: [String, Number],
       required: true
     },
     awardNameShort: {

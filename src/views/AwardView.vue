@@ -104,6 +104,7 @@ export default {
                 nodes {
                   id
                   date
+                  officialYear
                   name
                 }
               }

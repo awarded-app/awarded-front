@@ -11,9 +11,9 @@
           <h3 class="mr-2 font-mono">
             <edition-link
               :award-name-short="edition.award.nameShort"
-              :edition-date="edition.date"
+              :edition-official-year="edition.officialYear"
               :award-type="awardType"
-              >{{ edition.date | year }}</edition-link
+              >{{ edition.officialYear }}</edition-link
             >
           </h3>
         </div>

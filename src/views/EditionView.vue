@@ -2,14 +2,14 @@
   <layout :name="`${AwardType}Layout`">
     <div>
       <breadcrumbs :prev-screen-params="{ nameShort }" :award-type="awardType">{{
-        editionYear
+        editionOfficialYear
       }}</breadcrumbs>
       <article>
         <header class="flex sm:items-center mb-2">
           <h2 class="flex items-center flex-wrap leading-tight">
-            <span class="mr-2 font-mono">{{ editionYear }}</span>
+            <span class="mr-2 font-mono">{{ editionOfficialYear }}</span>
             <span class="text-faded">{{
-              edition.name.includes(editionYear) ? nameShort : edition.name
+              edition.name.includes(editionOfficialYear) ? nameShort : edition.name
             }}</span>
           </h2>
         </header>
@@ -17,7 +17,8 @@
         <section v-else>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <p class="text-faded">
-              {{ edition.date | formatDate("MMMM do") }}
+              {{ edition.date | formatDate("MMMM do")
+              }}<span v-if="!isSameYear">, {{ edition.date | formatDate("yyyy") }}</span>
             </p>
           </div>
           <section class="pt-4">
@@ -61,13 +62,13 @@ export default {
   metaInfo() {
     const editionName = this.edition.name;
     return {
-      title: `${this.editionYear} ${this.nameShort} - Winners and nominees in all categories`,
+      title: `${this.editionOfficialYear} ${this.nameShort} - Winners and nominees in all categories`,
       meta: [
         {
           vmid: "description",
           name: "description",
           content: `${this.nameShort} ${
-            this.editionYear
+            this.editionOfficialYear
           } (${editionName}): winners and nominees in all categories`
         }
       ]
@@ -85,8 +86,8 @@ export default {
       type: String,
       required: true
     },
-    editionYear: {
-      type: String,
+    editionOfficialYear: {
+      type: [String, Number],
       required: true
     },
     awardType: {
@@ -198,6 +199,7 @@ export default {
                   id
                   name
                   date
+                  officialYear
                 }
               }
           }
@@ -210,7 +212,7 @@ export default {
               equalTo: this.award.id
             }
           },
-          year: Number(this.editionYear)
+          year: Number(this.editionOfficialYear)
         };
       },
       /* result({ data }) {
@@ -219,8 +221,11 @@ export default {
       }, */
       update(data) {
         this.$apollo.queries.categories.skip = false;
-        this.isFutureEdition = isAfter(new Date(this.edition.date), new Date());
-        return (this.edition = data[`${this.awardType}EditionByYear`].nodes[0]);
+        this.edition = data[`${this.awardType}EditionByYear`].nodes[0];
+        const editionDate = new Date(this.edition.date);
+        this.isFutureEdition = isAfter(editionDate, new Date());
+        this.isSameYear = editionDate.getFullYear() === Number(this.editionOfficialYear);
+        return this.edition;
       },
       skip: true
     },

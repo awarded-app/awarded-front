@@ -70,7 +70,7 @@
                 <edition-link
                   award-type="books"
                   :award-name-short="nomination.award.nameShort"
-                  :edition-date="nomination.edition.date"
+                  :edition-official-year="nomination.edition.officialYear"
                 >
                   {{ nomination.edition.name }}
                 </edition-link>
@@ -158,6 +158,7 @@ export default {
                         id
                         name
                         date
+                        officialYear
                       }
                       booksNominationPrizes {
                         totalCount

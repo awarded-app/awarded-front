@@ -42,7 +42,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "award" */ "./views/AwardView.vue")
     },
     {
-      path: "/:awardType/award/:nameShort/:editionYear(\\d+)",
+      path: "/:awardType/award/:nameShort/:editionOfficialYear(\\d+)",
       name: "edition",
       props: true,
       component: () => import(/* webpackChunkName: "edition" */ "./views/EditionView.vue")

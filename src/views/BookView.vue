@@ -189,6 +189,7 @@ export default {
                 edition {
                   id
                   date
+                  officialYear
                   name
                 }
               }

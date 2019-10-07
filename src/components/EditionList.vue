@@ -53,6 +53,7 @@ export default {
                 id
                 date
                 name
+                officialYear
                 award {
                   id
                   nameShort

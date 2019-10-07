@@ -5,12 +5,12 @@
       <h4>
         <edition-link
           :award-name-short="awardNameShort"
-          :edition-date="editionDate"
+          :edition-official-year="editionOfficialYear"
           award-type="movies"
         >
           {{ awardNameShort
           }}<span class="text-faded font-mono">
-            {{ editionDate | year }}
+            {{ editionOfficialYear }}
           </span>
         </edition-link>
       </h4>
@@ -69,7 +69,7 @@ export default {
     return {
       isOpen: true,
       awardNameShort: this.nominations[0].award.nameShort,
-      editionDate: this.nominations[0].edition.date,
+      editionOfficialYear: this.nominations[0].edition.officialYear,
       isFestival: this.nominations[0].award.isFestival
     };
   },

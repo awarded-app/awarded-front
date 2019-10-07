@@ -5,7 +5,7 @@
       <star-separator />
       <edition-link
         :award-name-short="awardNameShort"
-        :edition-date="editionDate"
+        :edition-official-year="editionOfficialYear"
         award-type="movies"
         >Full Edition</edition-link
       >
@@ -66,8 +66,8 @@ export default {
       type: Array,
       required: true
     },
-    editionDate: {
-      type: String,
+    editionOfficialYear: {
+      type: [String, Number],
       required: true
     },
     awardNameShort: {

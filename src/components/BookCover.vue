@@ -54,11 +54,12 @@ export default {
         const {
           data: { items }
         } = await axios.get(url);
-        const {
+        let {
           volumeInfo: {
             imageLinks: { thumbnail }
           }
         } = items[0];
+        thumbnail = thumbnail.replace("http:", "https:");
         return thumbnail;
       } catch (error) {
         console.error(error);

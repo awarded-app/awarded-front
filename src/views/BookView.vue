@@ -14,6 +14,7 @@
                   :image-url="book.imageUrl"
                   w="150"
                   :isbn="book.isbn10 || book.isbn13"
+                  :title="book.title"
                   class="mb-4"
                 />
                 <book-links-shopping

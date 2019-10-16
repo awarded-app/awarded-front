@@ -6,6 +6,8 @@
           ><book-cover
             :image-url="nomination.book.imageUrl"
             :isbn="nomination.book.isbn13 || nomination.book.isbn10"
+            :title="nomination.book.title"
+            :authors="nomination.book.booksBookAuthors.nodes"
         /></book-link>
       </figure>
       <main v-if="showDetails">

@@ -81,6 +81,8 @@ export default {
                         id
                         title
                         imageUrl
+                        isbn10
+                        isbn13
                         booksBookAuthors {
                           totalCount
                           nodes {

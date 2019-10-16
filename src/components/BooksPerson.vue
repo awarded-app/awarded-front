@@ -9,11 +9,11 @@
             <person-headshot :image-url="author.image_url" w="200" />
           </figure>
           <div class="md:w-2/3 lg:w-1/2">
-          <header class="mb-2 flex sm:items-center">
-          <h2 class="flex items-center flex-wrap leading-tight">
-            <span class="mr-2">{{ personName }}</span>
-          </h2>
-        </header>
+            <header class="mb-2 flex sm:items-center">
+              <h2 class="flex items-center flex-wrap leading-tight">
+                <span class="mr-2">{{ personName }}</span>
+              </h2>
+            </header>
             <truncate
               v-if="author.about"
               :text="author.about"
@@ -26,7 +26,10 @@
               class="mb-4"
             />
 
-            <p v-if="author.died_at"><span class="text-faded">Deathday</span> {{ author.died_at | formatDate("MMMM do, yyyy") }}</p>
+            <p v-if="author.died_at">
+              <span class="text-faded">Deathday</span>
+              {{ author.died_at | formatDate("MMMM do, yyyy") }}
+            </p>
             <p v-else-if="author.born_at">
               {{ author.born_at | age }}<span class="text-faded "> years old</span>
             </p>
@@ -45,7 +48,12 @@
         }}
       </p>
       <div v-for="{ book } in books" :key="book.id" class="flex mb-4">
-        <book-cover :image-url="book.imageUrl" :isbn="book.isbn10 || book.isbn13" class="mr-2" />
+        <book-cover
+          :image-url="book.imageUrl"
+          :isbn="book.isbn10 || book.isbn13"
+          :title="book.title"
+          class="mr-2"
+        />
         <div>
           <h4>
             <book-link :book-id="book.id" :book-title="book.title">{{ book.title }}</book-link>
@@ -140,6 +148,8 @@ export default {
                   id
                   title
                   imageUrl
+                  isbn10
+                  isbn13
                   booksNominations {
                     totalCount
                     nodes {

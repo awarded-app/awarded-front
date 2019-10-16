@@ -1,13 +1,18 @@
 <template>
   <div class="flex">
-    <figure class="mr-2 mt-1 flex-none">
+    <figure class="mr-2 mt-1 flex-none flex">
       <template v-if="winners.length > 0">
         <book-link
           v-for="{ book } in winners"
           :key="book.id"
           :book-id="book.id"
           :book-title="book.title"
-          ><book-cover :image-url="book.imageUrl" :isbn="book.isbn10 || book.isbn13"
+          class="mr-2"
+          ><book-cover
+            :image-url="book.imageUrl"
+            :isbn="book.isbn10 || book.isbn13"
+            :title="book.title"
+            :authors="book.booksBookAuthors.nodes"
         /></book-link>
       </template>
       <template v-else>
@@ -24,8 +29,8 @@
           >{{ edition.officialYear }}</edition-link
         >
       </h3>
-      <div v-if="winners.length > 0" class="mb-2 flex">
-        <div v-for="{ book } in winners" :key="book.id" class="text-lg">
+      <div v-if="winners.length > 0" class="mb-2">
+        <div v-for="{ book } in winners" :key="book.id" class="text-lg mb-2">
           <p class="font-semibold">
             <star />
             <book-link :book-id="book.id" :book-title="book.title">{{ book.title }}</book-link>
@@ -40,7 +45,6 @@
         <p class="font-semibold text-lg mb-2"><star :is-winner="false" />No winners</p>
       </div>
       <template v-if="shortlist.length || longlist.length">
-
         <div class=" flex items-center mb-2" @click="showNominations = !showNominations">
           <plus-sign :is-open="showNominations" />
           <p>
@@ -56,9 +60,10 @@
             <ul>
               <li v-for="{ book } in shortlist" :key="book.id" class="flex flex-wrap">
                 <p class="-mr-6">
-                  <star :is-winner="false" /><book-link :book-id="book.id" :book-title="book.title">{{
-                    book.title
-                  }}</book-link
+                  <star :is-winner="false" /><book-link
+                    :book-id="book.id"
+                    :book-title="book.title"
+                    >{{ book.title }}</book-link
                   >&nbsp;
                 </p>
                 <book-authors :authors="book.booksBookAuthors.nodes" class="text-faded ml-6" />
@@ -70,9 +75,10 @@
             <ul>
               <li v-for="{ book } in longlist" :key="book.id" class="flex flex-wrap">
                 <p class="-mr-6">
-                  <star :is-winner="false" /><book-link :book-id="book.id" :book-title="book.title">{{
-                    book.title
-                  }}</book-link
+                  <star :is-winner="false" /><book-link
+                    :book-id="book.id"
+                    :book-title="book.title"
+                    >{{ book.title }}</book-link
                   >&nbsp;
                 </p>
                 <book-authors :authors="book.booksBookAuthors.nodes" class="text-faded ml-6" />

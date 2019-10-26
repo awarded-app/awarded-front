@@ -45,6 +45,7 @@
                 :image-url="item.imageUrl"
                 :isbn="item.isbn10 || item.isbn13"
                 w="100"
+                 :title="item.title"
                 class="object-cover image"
               />
             </book-link>

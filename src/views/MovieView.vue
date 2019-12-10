@@ -7,28 +7,28 @@
       <spinner v-if="$apollo.loading" />
       <div v-else>
         <section class="sm:flex">
-          <div class="flex flex-col flex-none  sm:mr-4 ">
-            <figure class="mb-2 flex-none mt-2">
+          <div class="flex flex-col flex-none sm:mr-4 ">
+            <figure class="flex-none mt-2 mb-2">
               <movie-poster :tmdb-id="movie.tmdbId" w="200" />
             </figure>
             <movie-links-shopping
               :movie-title="movie.title"
-              :asins="movie.moviesMovieAsins.nodes"
+              :asins="movie.moviesMovieAsins ? movie.moviesMovieAsins.nodes : null"
             />
             <movie-links :imdb-id="movie.imdbId" :tmdb-id="movie.tmdbId" :title="movie.title" />
           </div>
           <section>
-            <header class="mb-2 flex sm:items-center">
-              <h2 class="flex items-center flex-wrap">
+            <header class="flex mb-2 sm:items-center">
+              <h2 class="flex flex-wrap items-center">
                 <span class="mr-2">{{ movie.title }}</span>
-                <span class="text-faded leading-none mr-2 font-mono">{{
+                <span class="mr-2 font-mono leading-none text-faded">{{
                   movie.releaseDate | year
                 }}</span>
                 <template v-if="movie.moviesMovieCountries.totalCount > 0">
                   <sup
                     v-for="{ country } in movie.moviesMovieCountries.nodes"
                     :key="country.id"
-                    class="text-faded mr-1 a-uppercase-info"
+                    class="mr-1 text-faded a-uppercase-info"
                     >{{ country.code }}</sup
                   >
                 </template>
@@ -36,7 +36,7 @@
             </header>
             <spinner v-if="$apollo.loading" />
             <main v-else id="movie-details">
-              <p class="text-faded mb-2">
+              <p class="mb-2 text-faded">
                 {{ movie.overview }}
               </p>
               <p v-if="movie.originalTitle !== movie.title">
@@ -49,15 +49,15 @@
                   }}<span v-if="index < movie.moviesMovieGenres.totalCount - 1">, </span></span
                 >
               </p>
-              <p class="text-faded mb-2">{{ movie.runtime }} minutes</p>
+              <p class="mb-2 text-faded">{{ movie.runtime }} minutes</p>
             </main>
 
             <section id="movie-nominations" class="pt-8 mt-8 border-t border-gray-700">
-              <div v-if="movieStats" class="text-faded mb-4 a-uppercase-info">
+              <div v-if="movieStats" class="mb-4 text-faded a-uppercase-info">
                 {{ movieStats.nominations }}
                 {{ movieStats.nominations | pluralize("nomination") }}
                 <span v-if="movieStats.wins">
-                  <span class="text-xs mx-1 text-gray-700">★</span>
+                  <span class="mx-1 text-xs text-gray-700">★</span>
                   {{ movieStats.wins }}
                   {{ movieStats.wins | pluralize("win") }}
                 </span>

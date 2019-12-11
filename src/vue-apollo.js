@@ -1,9 +1,6 @@
 import Vue from "vue";
 import VueApollo from "vue-apollo";
-import {
-  createApolloClient,
-  restartWebsockets
-} from "vue-cli-plugin-apollo/graphql-client";
+import { createApolloClient, restartWebsockets } from "vue-cli-plugin-apollo/graphql-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 // Install the vue plugin
@@ -45,12 +42,10 @@ const defaultOptions = {
 };
 
 const apiOptions = {
-  httpEndpoint:
-    process.env.VUE_APP_GRAPHQL_HTTP || "http://localhost:8080/graphql"
+  httpEndpoint: process.env.VUE_APP_GRAPHQL_HTTP || "http://localhost:8080/graphql"
 };
 const strapiOptions = {
-  httpEndpoint:
-    process.env.VUE_APP_STRAPI_GRAPHQL_HTTP || "http://localhost:8080/strapi"
+  httpEndpoint: process.env.VUE_APP_STRAPI_GRAPHQL_HTTP || "http://localhost:8080/strapi"
 };
 
 // Call this in the Vue app file

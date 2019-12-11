@@ -22,10 +22,7 @@
           </p>
         </div>
       </div>
-      <ul v-if="showPeople"
-        class="flex flex-wrap"
-        v-bind="$attrs"
-      >
+      <ul v-if="showPeople" class="flex flex-wrap" v-bind="$attrs">
         <li v-for="(credit, index) in prizeGroup.people" :key="credit.id">
           <p :class="display === 'movie' ? 'text-faded' : 'text-white'">
             <person-link
@@ -42,9 +39,23 @@
   </ul>
   <ul v-else>
     <ul class="flex flex-wrap" :class="hasStar && showPrize ? 'pl-6 md:pl-0' : ''" v-bind="$attrs">
+      <star v-if="hasStar" :is-winner="false" />
       <template v-if="nominatedPeople.length && showPeople">
-        <li v-for="(credit, index) in nominatedPeople" :key="credit.id">
-          <p :class="display === 'movie' ? 'text-faded' : 'text-white'">
+        <span v-if="showPrize" class="mr-2">
+          <category-link
+            v-if="showPrize"
+            :category-name="nominatedPeople[0].nomination.category.name"
+            :award-name-short="nominatedPeople[0].nomination.award.nameShort"
+            award-type="movies"
+            >{{ nominatedPeople[0].nomination.category.name }}</category-link
+          ></span
+        >
+        <li
+          v-for="(credit, index) in nominatedPeople"
+          :key="credit.id"
+          class="flex flex-wrap items-center"
+        >
+          <span :class="display === 'movie' ? 'text-faded' : 'text-white'">
             <person-link
               :person-name="credit.person.name"
               :person-id="credit.person.id"
@@ -53,13 +64,24 @@
             ><span v-if="credit.character"> (as {{ credit.character }})</span
             ><span v-else-if="credit.job && showJob"> ({{ credit.job.name }})</span
             ><span v-if="index < nominatedPeople.length - 1">,&nbsp;</span>
-          </p>
+          </span>
         </li>
       </template>
-      <template v-else>
+      <template v-else-if="prizes.length">
         <li v-for="{ prize } in prizes" :key="prize.id">
           {{ prize.name }}
         </li>
+      </template>
+      <template v-else>
+        <span v-if="showPrize" class="mr-2">
+          <category-link
+            v-if="showPrize"
+            :category-name="category.name"
+            :award-name-short="awardNameShort"
+            award-type="movies"
+            >{{ category.name }}</category-link
+          ></span
+        >
       </template>
     </ul>
   </ul>
@@ -71,7 +93,7 @@ import PrizeLink from "./PrizeLink";
 import CategoryLink from "./CategoryLink";
 
 export default {
-  name: 'MoviesNominationCredits',
+  name: "MoviesNominationCredits",
   components: {
     PersonLink,
     CategoryLink,
@@ -110,13 +132,21 @@ export default {
       type: Boolean,
       default: false
     },
+    category: {
+      type: Object,
+      default: null
+    },
+    awardNameShort: {
+      type: String,
+      default: ""
+    }
   },
   computed: {
     allPrizes() {
       if (!this.nominatedPeople.length) return this.prizes;
       const prizes = [];
       for (const nominatedPerson of this.nominatedPeople) {
-        if (!nominatedPerson.hasOwnProperty('moviesNominatedPersonPrizes')) break;
+        if (!nominatedPerson.hasOwnProperty("moviesNominatedPersonPrizes")) break;
         for (const { prize } of nominatedPerson.moviesNominatedPersonPrizes.nodes) {
           if (prizes.findIndex(p => p.id === prize.id) < 0) {
             prizes.push(prize);

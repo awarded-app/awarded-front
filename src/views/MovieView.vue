@@ -9,7 +9,7 @@
         <section class="sm:flex">
           <div class="flex flex-col flex-none sm:mr-4 ">
             <figure class="flex-none mt-2 mb-2">
-              <movie-poster :tmdb-id="movie.tmdbId" w="200" />
+              <movie-poster :poster-path="movie.posterPath" :tmdb-id="movie.tmdbId" w="185" />
             </figure>
             <movie-links-shopping
               :movie-title="movie.title"

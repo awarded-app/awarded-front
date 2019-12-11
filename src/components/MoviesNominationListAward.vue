@@ -21,7 +21,10 @@
             <movie-link
               :movie-id="nominationGroup[0].movie.id"
               :movie-title="nominationGroup[0].movie.title"
-              ><movie-poster :tmdb-id="nominationGroup[0].movie.tmdbId" w="100"
+              ><movie-poster
+                :poster-path="nominationGroup[0].movie.posterPath"
+                :tmdb-id="nominationGroup[0].movie.tmdbId"
+                w="154"
             /></movie-link>
           </figure>
           <article>

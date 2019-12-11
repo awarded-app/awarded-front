@@ -20,6 +20,7 @@ export default {
         tagline
         tmdbId
         backdropPath
+        posterPath
         moviesMovieAsins {
           nodes {
             countryCode

@@ -6,7 +6,13 @@
     v-on="listeners"
   >
     <img
-      class="shadow flex-none"
+      v-if="props.posterPath"
+      class="flex-none shadow"
+      :src="`https://image.tmdb.org/t/p/w${props.w}${props.posterPath}`"
+    />
+    <img
+      v-else-if="props.tmdbId"
+      class="flex-none shadow"
       :src="
         `https://awarded.imgix.net/movies/posters/${props.tmdbId}_poster.jpg?w=${
           props.w
@@ -21,7 +27,11 @@ export default {
   props: {
     tmdbId: {
       type: Number,
-      required: true
+      default: null
+    },
+    posterPath: {
+      type: String,
+      default: null
     },
     w: {
       type: String,

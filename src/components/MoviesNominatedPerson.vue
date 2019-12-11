@@ -44,6 +44,16 @@ export default {
           order
           display
         }
+        nomination {
+          category {
+            id
+            name
+          }
+          award {
+            id
+            nameShort
+          }
+        }
         moviesNominatedPersonPrizes {
           totalCount
           nodes {

@@ -1,6 +1,13 @@
 {
   "posts" : [
     {
+      "date": "12/10/2019",
+      "title": "2020 Golden Globes movie nominations: Netflix in the lead with four nominations for best picture",
+      "excerpt": "Noah Baumbach's Marriage Story leads with five nominations, followed by Scorsese's The Irishman, and Fernando Meirelles's The Two Popes. ",
+      "tags": ["movies", "golden globes", "nominations"],
+      "slug": "2020-golden-globes-nominations"
+    },
+    {
       "date": "10/15/2019",
       "title": "Margaret Atwood and Bernardine Evaristo are the winners of The Booker Prize 2019",
       "excerpt": "Judges break the rules with a double win by two authors in this year's announcement.",

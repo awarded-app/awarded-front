@@ -2,21 +2,24 @@
   <spinner v-if="$apollo.loading" class="mt-4" />
   <div v-else>
     <section id="person" class="sm:flex">
-      <figure class="mb-2 mt-2 sm:mr-4 flex-none">
+      <figure class="flex-none mt-2 mb-2 sm:mr-4">
         <person-headshot :profile-path="person.profilePath" w="200" />
       </figure>
       <section class="lg:w-2/3">
-        <header class="mb-2 flex sm:items-center">
-          <h2 class="flex items-center flex-wrap leading-tight">
+        <header class="flex mb-2 sm:items-center">
+          <h2 class="flex flex-wrap items-center leading-tight">
             <span class="mr-2">{{ personName }}</span>
           </h2>
         </header>
 
-        <p v-if="person.biography" class="text-faded mb-2">
+        <p v-if="person.biography" class="mb-2 text-faded">
           {{ person.biography }}
         </p>
 
-        <p v-if="person.deathday"><span class="text-faded">Deathday</span> {{ person.deathday | formatDate("MMMM do, yyyy") }}</p>
+        <p v-if="person.deathday">
+          <span class="text-faded">Deathday</span>
+          {{ person.deathday | formatDate("MMMM do, yyyy") }}
+        </p>
         <p v-else-if="person.birthday">
           {{ person.birthday | age }}<span class="text-faded "> years old</span>
         </p>
@@ -31,7 +34,7 @@
     </section>
     <!-- NOMINATIONS -->
     <section id="movie-nominations" class="pt-4">
-      <p class="text-faded mb-4 a-uppercase-info">
+      <p class="mb-4 text-faded a-uppercase-info">
         {{ stats.nominations | pluralize("nomination", { includeNumber: true }) }}
         <star-separator />{{ stats.wins | pluralize("win", { includeNumber: true }) }}
       </p>
@@ -42,7 +45,7 @@
           class="w-50% lg:mr-4 mb-4"
         >
           <div class="md:flex">
-            <div class="mr-2 flex-none">
+            <div class="flex-none mr-2">
               <movie-link :movie-id="movieGroup.movie.id" :movie-title="movieGroup.movie.title">
                 <movie-poster :tmdb-id="movieGroup.movie.tmdbId" w="100" />
               </movie-link>
@@ -85,7 +88,7 @@ export default {
     MoviesMovieNominationsByAward,
     StarSeparator,
     MovieLink,
-    MoviePoster,
+    MoviePoster
   },
   props: {
     personId: {
@@ -101,7 +104,8 @@ export default {
     return {
       person: {
         id: Number(this.personId),
-        name: this.personName
+        name: this.personName,
+        profilePath: ""
       },
       prevScreen: "",
       prevScreenParams: null,

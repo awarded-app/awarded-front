@@ -1,6 +1,13 @@
 {
   "posts" : [
     {
+      "date": "1/6/2020",
+      "title": "2020 Golden Globes movie winners: 1917 and Once Upon a Time in Hollywood win best motion picture",
+      "excerpt": "Netflix is the biggest disappointment of the night with the most nominations and zero wins",
+      "tags": ["movies", "golden globes", "winners"],
+      "slug": "2020-golden-globes-movie-winners"
+    },
+    {
       "date": "12/10/2019",
       "title": "2020 Golden Globes movie nominations: Netflix in the lead with four nominations for best picture",
       "excerpt": "Noah Baumbach's Marriage Story leads with five nominations, followed by Scorsese's The Irishman, and Fernando Meirelles's The Two Popes. ",

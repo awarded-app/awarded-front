@@ -36,7 +36,8 @@
               >
             </h4>
             <p v-if="!isPast" class="mb-1 text-sm font-normal text-faded">
-              {{ nominationGroup.length }} nominations
+              {{ nominationGroup.length }}
+              {{ nominationGroup.length === 1 ? "nomination" : "nominations" }}
             </p>
             <movies-nomination-credits
               v-for="nomination in nominationGroup"

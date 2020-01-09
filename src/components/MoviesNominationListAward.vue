@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4 class="mb-4 text-faded a-uppercase-info">
-      <span v-if="!isPast">Award ceremony on {{ editionDate | formatDate("Do LLL") }}</span
+      <span v-if="!isPast">Award ceremony on {{ editionDate | formatDate("do LLL") }}</span
       ><span v-else>Winners</span><star-separator class="text-gray-300" /><edition-link
         :award-name-short="awardNameShort"
         :edition-official-year="editionOfficialYear"

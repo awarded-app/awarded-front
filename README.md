@@ -5,9 +5,9 @@
 <p align="center">
   <img src="https://img.shields.io/website?url=https%3A%2F%2Fawarded.to"/> 
   <img src="https://img.shields.io/netlify/a2fe0821-0d27-46ca-80cf-21ea8e3ab223"/> 
-  <img src="https://img.shields.io/github/last-commit/awarded-app/awarded-frontend"/> 
-  <img src="https://img.shields.io/github/languages/count/awarded-app/awarded-frontend"/> 
-  <img src="https://img.shields.io/github/languages/top/awarded-app/awarded-frontend"/> 
+  <img src="https://img.shields.io/github/last-commit/awarded-app/awarded-front"/> 
+  <img src="https://img.shields.io/github/languages/count/awarded-app/awarded-front"/> 
+  <img src="https://img.shields.io/github/languages/top/awarded-app/awarded-front"/> 
 </p>
 
 ## Built With
